@@ -1,0 +1,15 @@
+{
+  "name": "homebridge-hue",
+  "dependencies": {
+    "request": "^2.65.0"
+  },
+  "description": "Philips hue bridge",
+  "engines": {
+    "homebridge": ">=0.2.0",
+    "node": ">=0.12.0"
+  },
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "version": "0.0.1"
+}
