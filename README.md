@@ -60,7 +60,7 @@ Once homebridge is up and running with the homebridge-hue plug-in, you might wan
 
 ## Configuration
 In homebridge's `config.json` you need to specify a platform for homebridge-hue:
-``
+```
   "platforms": [
     {
       "platform": "Hue",
