@@ -75,7 +75,7 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
       "schedules": true
     }
   ]
-``
+```
 The following parameters modify homebridge-hue's behaviour:
 
 - `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover the bridge by querying the Meethue portal;
