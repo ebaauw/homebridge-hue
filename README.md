@@ -45,9 +45,22 @@ A Hue bridge schedule is exposed as a Homekit `Switch`.
 
 By default, homebridge-hue does not expose schedules.  You might want to change this in `config.json`, to enable or disable schedules from Homekit.
 
+## Installation
+The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node.js.  I've followed the following steps to set it up on my macOS server:
+
+- Install the Node.js JavaScript runtime `node`, from `https://nodejs.org`.  I'm using v4.6.1 LTS for macOS (x64), which includes the `npm` package manager.
+- Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there.
+- You might want to update `npm` through `sudo npm install npm@3.10.7 -g`.  The latest version, 3.10.8, causes issues, so I use 3.10.7.
+- Install homebridge following the instructions on `https://github.com/nfarina/homebridge`.  For me, this installs homebridge version 0.4.6 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
+- Install the homebridge-hue plug-in through `npm install homebridge-hue -g`.
+- If you don't already have one, create a Hue bridge username using the CLIP API Debugger, as described on `http://www.developers.meethue.com/documentation/getting-started`.
+- Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.  Be sure to set the `host` and `user` parameters.
+
+Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically.  For macOS, I've provided an example `launchd` configuration in `org.nodejs.homebridge.plist`.  Make sure to edit this file and change `ebaauw` to match your username and `$HOME` directory.  Load the agent through `launchctl load org.nodejs.homebridge.plist` and check that homebridge is started and logging to the right logfile.  Once you're happy, copy the edited `org.nodejs.homebridge.plist` to `~/Library/LaunchAgents`, to start homebridge automatically on login, or to `/Library/LaunchDeamons` to start it automatically on system boot.
+
 ## Configuration
 In homebridge's `config.json` you need to specify a platform for homebridge-hue:
-```
+``
   "platforms": [
     {
       "platform": "Hue",
@@ -62,7 +75,7 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
       "schedules": true
     }
   ]
-```
+``
 The following parameters modify homebridge-hue's behaviour:
 
 - `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover the bridge by querying the Meethue portal;
