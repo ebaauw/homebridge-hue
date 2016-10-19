@@ -3,27 +3,27 @@
 <plist version="1.0">
 <dict>
 	<key>Disabled</key>
-		<false/>
+	<false/>
 	<key>KeepAlive</key>
-		<true/>
+	<true/>
 	<key>EnvironmentVariables</key>
-		<dict>
-			<key>PATH</key>
-				<string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin</string>
-		</dict>
-        <key>Label</key>
-                <string>org.nodejs.homebridge</string>
-        <key>ProgramArguments</key>
-                <array>
-                        <string>/usr/local/bin/homebridge</string>
-                </array>
-        <key>RunAtLoad</key>
-                <true/>
+	<dict>
+		<key>PATH</key>
+		<string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin</string>
+	</dict>
+	<key>Label</key>
+	<string>org.nodejs.homebridge</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/local/bin/homebridge</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
 	<key>UserName</key>
-		<string>ebaauw</string>
+	<string>_homebridge</string>
 	<key>StandardErrorPath</key>
-		<string>/Users/ebaauw/.homebridge/homebridge.log</string>
+	<string>/Users/_homebridge/.homebridge/homebridge.log</string>
 	<key>StandardOutPath</key>
-		<string>/Users/ebaauw/.homebridge/homebridge.log</string>
+	<string>/Users/_homebridge/.homebridge/homebridge.log</string>
 </dict>
 </plist>

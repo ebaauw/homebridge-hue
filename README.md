@@ -54,9 +54,9 @@ The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node
 - Install homebridge following the instructions on `https://github.com/nfarina/homebridge`.  For me, this installs homebridge version 0.4.6 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
 - Install the homebridge-hue plug-in through `npm install homebridge-hue -g`.
 - If you don't already have one, create a Hue bridge username using the CLIP API Debugger, as described on `http://www.developers.meethue.com/documentation/getting-started`.
-- Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.  Be sure to set the `host` and `user` parameters.
+- Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.  Be sure to change the `user` parameter to the username you created.
 
-Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically.  For macOS, I've provided an example `launchd` configuration in `org.nodejs.homebridge.plist`.  Make sure to edit this file and change `ebaauw` to match your username and `$HOME` directory.  Load the agent through `launchctl load org.nodejs.homebridge.plist` and check that homebridge is started and logging to the right logfile.  Once you're happy, copy the edited `org.nodejs.homebridge.plist` to `~/Library/LaunchAgents`, to start homebridge automatically on login, or to `/Library/LaunchDaemons` to start it automatically on system boot.
+Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically.  For macOS, I've provided an example `launchd` configuration in `org.nodejs.homebridge.plist`.  I run homebridge from a dedicated, non-login account, `_homebridge`.  Make sure to edit the file and change `_homebridge` to match the username and `$HOME` directory you'll be using.  Load the daemon through `sudo launchctl load org.nodejs.homebridge.plist` and check that homebridge starts and uses the correct logfile.  Once you're happy, copy the edited file through `sudo cp org.nodejs.homebridge.plist /Library/LaunchDaemons` to start homebridge automatically on system boot.
 
 ## Configuration
 In homebridge's `config.json` you need to specify a platform for homebridge-hue:
@@ -65,8 +65,8 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
     {
       "platform": "Hue",
       "name": "Hue",
-      "host": "...",
-      "user": "...",
+      "host": "",
+      "user": "S1QXtWWVemUMAy30Yz6iCDaucPvr84z8ztV0ru70",
       "heartrate": 5,
       "timeout": 5,
       "lights": true,
