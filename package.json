@@ -3,7 +3,7 @@
   "dependencies": {
     "request": "^2.65.0"
   },
-  "description": "Philips hue bridge",
+  "description": "Homebridge plug-in for Philips Hue",
   "engines": {
     "homebridge": ">=0.2.0",
     "node": ">=0.12.0"
@@ -11,5 +11,19 @@
   "keywords": [
     "homebridge-plugin"
   ],
-  "version": "0.0.1"
+  "version": "0.0.2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebaauw/homebridge-hue.git"
+  },
+  "author": "Erik Baauw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebaauw/homebridge-hue/issues"
+  },
+  "homepage": "https://github.com/ebaauw/homebridge-hue#readme"
 }
