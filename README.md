@@ -50,9 +50,9 @@ The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node
 
 - Install the Node.js JavaScript runtime `node`, from `https://nodejs.org`.  I'm using v4.6.1 LTS for macOS (x64), which includes the `npm` package manager.
 - Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there.
-- You might want to update `npm` through `sudo npm install npm@3.10.7 -g`.  The latest version, 3.10.8, causes issues, so I use 3.10.7.
+- You might want to update `npm` through `sudo npm update -g npm`.  For me, this installs version, 3.10.9.
 - Install homebridge following the instructions on `https://github.com/nfarina/homebridge`.  For me, this installs homebridge version 0.4.6 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
-- Install the homebridge-hue plug-in through `npm install homebridge-hue -g`.
+- Install the homebridge-hue plug-in through `sudo npm install -g homebridge-hue`.
 - If you don't already have one, create a Hue bridge username using the CLIP API Debugger, as described on `http://www.developers.meethue.com/documentation/getting-started`.
 - Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.  Be sure to change the `user` parameter to the username you created.
 
