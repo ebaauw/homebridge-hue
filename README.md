@@ -73,7 +73,7 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
       "host": "",
       "users": {
         "bridgeid": "username"
-      }
+      },
       "heartrate": 5,
       "timeout": 5,
       "lights": false,
