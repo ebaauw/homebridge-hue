@@ -10,9 +10,9 @@ As the Philips Hue API does not support notifications for changes to the Hue bri
 The homebridge-hue plug-in outputs an info message for each Homekit characteristic value it sets and for each Homekit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.
 
 ## Bridges
-The homebridge-hue plug-in tries to discover any Hue bridge on your network by querying the Meethue portal.  It creates a Homekit accessory for each bridge, with only an accessory information service.  Alternatively, the bridge's hostname or IP address can be specified in `config.json`.
+The homebridge-hue plug-in tries to discover any Hue bridge on your network by querying the Meethue portal.  It creates a Homekit accessory for each bridge, with only an accessory information service.  Alternatively, a single bridge's hostname or IP address can be specified in `config.json`.
 
-Note that homebridge-hue does not yet support creating a Hue bridge user.  For now, the user must be created manually and the username must be specified in `config.json`.  While homebridge-hue supports multiple bridges, it does not yet support a username per bridge.  In other words: the same username is used for each bridge.  Unfortunately, the latest version of the Philips Hue API no longer supports specifying the username when creating a new user.
+`config.json` contains a key/value-pair for the username per bridge.  When homebridge-hue finds a new bridge, it prompts to press the link button on the bridge.  It then creates a bridge username, and prompts to edit `config.json`, provding the key/value-pair.
 
 ## Lights
 A Hue bridge light is exposed as a Homekit accessory with a `Lightbulb` service, with characteristics for `On`, `Brightness`, `Hue`, `Saturation`, and `Color Temperature`, depending on the light's features.  Note that `Color Temperature` is a custom characteristic, which might not be supported by all Homekit apps.  It holds the light's colour temperature in Kelvin, from `2000` to `6540`.
@@ -23,7 +23,7 @@ By default homebridge-hue exposes only non-Philips lights, which are not exposed
 A Hue bridge group is exposed as a Homekit accessory with `Lightbulb` service and appropriate characteristics, just as a light.
 By default, homebridge-hue does not expose groups.  You might want to change this in `config.json` if you want to use Hue group commands from Homekit scenes.
 
-Note that `group 0` is not yet supported, due to technical reasons.  Also groups of type `Room` are ignored for now - there should probably be a setting to change this.
+Note that groups of type `Room` are ignored for now - there should probably be a setting to change this.
 
 ## Sensors
 A Hue bridge sensor is exposed as a Homekit accessory with the appropriate service and corresponding characteristic:
@@ -53,8 +53,8 @@ The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node
 - You might want to update `npm` through `sudo npm update -g npm`.  For me, this installs version, 3.10.9.
 - Install homebridge following the instructions on `https://github.com/nfarina/homebridge`.  For me, this installs homebridge version 0.4.6 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
 - Install the homebridge-hue plug-in through `sudo npm install -g homebridge-hue`.
-- If you don't already have one, create a Hue bridge username using the CLIP API Debugger, as described on `http://www.developers.meethue.com/documentation/getting-started`.
-- Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.  Be sure to change the `user` parameter to the username you created.
+- Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.
+- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `condig.json` to include these, see below.
 
 Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically.  For macOS, I've provided an example `launchd` configuration in `org.nodejs.homebridge.plist`.  I run homebridge from a dedicated, non-login account, `_homebridge`.  Make sure to edit the file and change `_homebridge` to match the username and `$HOME` directory you'll be using.  Load the daemon through `sudo launchctl load org.nodejs.homebridge.plist` and check that homebridge starts and uses the correct logfile.  Once you're happy, copy the edited file through `sudo cp org.nodejs.homebridge.plist /Library/LaunchDaemons` to start homebridge automatically on system boot.
 
@@ -66,7 +66,9 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
       "platform": "Hue",
       "name": "Hue",
       "host": "",
-      "user": "S1QXtWWVemUMAy30Yz6iCDaucPvr84z8ztV0ru70",
+      "users": {
+        "bridgeid": "username"
+      }
       "heartrate": 5,
       "timeout": 5,
       "lights": true,
@@ -79,7 +81,7 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
 The following parameters modify homebridge-hue's behaviour:
 
 - `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover the bridge by querying the Meethue portal;
-- `user`: The Hue bridge username, effectively a security token to access the Hue bridge.  For now, this must be created manually and specified in `config.json`;
+- `users`: An object containing a key/value-pair per Hue bridge, where the key holds the bridge ID and the value holds the bridge username, effectively a security token to access the bridge.  When connecting to a new bridge, homebridge-hue will create the username, but for now, `config.json` must be edited by hand;
 - `heartrate`: The interval in seconds to poll the Hue bridge.  Default: `5`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge;
 - `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`;
 - `lights`: Flag whether to expose Hue bridge lights to Homekit.  Default: `false`, only expose non-Philips lights;
