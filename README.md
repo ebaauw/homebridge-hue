@@ -34,7 +34,7 @@ A Hue bridge sensor is exposed as a Homekit accessory with the appropriate servi
 - The built-in Daylight sensor is exposed a as a `Stateful Programmable Switch` service.  I tried exposing this sensor as a regular `Switch` using a read-only `On` characteristic, but the iOS 10 `Home` app ignores the read-only setting.  The `Output State` holds `0` (`false`) or `1` (`true`).  Exposing this sensor was particularly cool under iOS 9, when Homekit didn't yet support rules on sunrise and sunset.  Under iOS 10 it does, but only from the iOS 10 `Home` app.
 - A `CLIPGenericFlag` sensor is exposed as a `Switch` service, with an `On` characteristic.
 - A `CLIPGenericStatus` sensor is exposed as a `Stateful Programmable Switch` service.  The `Output State` holds the `status`, limited to values from `0` to `255`, as it's next to impossible to set a precise value using a slider in the full `int32` range.
-- I haven't tested any Other CLIP sensors, but they are be exposed as well.
+- I haven't tested any other CLIP sensors, but they are be exposed as well.
 
 Additionally for each sensor, a custom `Last Updated` characteristic is provided, and, where appropriate, `Battery Level` and `Status Active` characteristics for the sensor's `config` attributes `battery` and `on`.  Note that enabling or disabling the sensor from Homekit is not supported, as `Status Active` is read-only.
 
