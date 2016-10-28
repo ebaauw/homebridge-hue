@@ -48,7 +48,7 @@ By default, homebridge-hue does not expose schedules.  You might want to change 
 ## Rules
 A Hue bridge rule is exposed as a Homekit `Switch`.
 
-By default, homebridge-hue does not expose rules.  You might want to change this in `config.json`, to enable or disable rules from Homekit or to monitor when rules are triggered.
+By default, homebridge-hue does not expose rules.  You probably don't want to, but you can change this in `config.json`.  I only use this feature occationally, when debugging the Hue bridge configuration.  It allows monitoring when bridge rules are triggerd and enabling or disabling bridge rules from Homekit.  Note the 99 bridge accessory limit below.
 
 ## Installation
 The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node.js.  I've followed the following steps to set it up on my macOS server:
