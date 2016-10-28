@@ -54,7 +54,7 @@ The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node
 - Install homebridge following the instructions on `https://github.com/nfarina/homebridge`.  For me, this installs homebridge version 0.4.6 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
 - Install the homebridge-hue plug-in through `sudo npm install -g homebridge-hue`.
 - Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.
-- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `condig.json` to include these, see below.
+- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see below.
 
 Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically on system boot.  For macOS, I've provided an example `launchd` configuration in `org.nodejs.homebridge.plist`.  I run homebridge from a dedicated, non-login account, `_homebridge`.  Make sure to edit the file and change `_homebridge` to match the username and `$HOME` directory you'll be using.  Load the daemon through `sudo launchctl load org.nodejs.homebridge.plist` and check that homebridge starts and uses the correct logfile.  Once you're happy, copy the edited file through `sudo cp org.nodejs.homebridge.plist /Library/LaunchDaemons` to start homebridge automatically on system boot.
 
@@ -80,7 +80,7 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
 ```
 The following parameters modify homebridge-hue's behaviour:
 
-- `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover the bridge by querying the Meethue portal;
+- `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover your bridge(s) by querying the Meethue portal;
 - `users`: An object containing a key/value-pair per Hue bridge, where the key holds the bridge ID and the value holds the bridge username, effectively a security token to access the bridge.  When connecting to a new bridge, homebridge-hue will create the username, but for now, `config.json` must be edited by hand;
 - `heartrate`: The interval in seconds to poll the Hue bridge.  Default: `5`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge;
 - `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`;
