@@ -17,7 +17,7 @@ The homebridge-hue plug-in tries to discover any Hue bridge on your network by q
 ## Lights
 A Hue bridge light is exposed as a Homekit accessory with a `Lightbulb` service, with characteristics for `On`, `Brightness`, `Hue`, `Saturation`, and `Color Temperature`, depending on the light's features.  Note that `Color Temperature` is a custom characteristic, which might not be supported by all Homekit apps.  It holds the light's colour temperature in Kelvin, from `2000` to `6540`.
 
-By default homebridge-hue exposes only non-Philips lights, which are not exposed to Homekit by the v2 (square) Hue Bridge.  You might want to change this in `config.json` if you have a v1 (round) bridge, or if you want to use the `Color Temperature` charateristic.
+By default homebridge-hue does not expose any lights.  You might want to change this in `config.json` to expose only non-Philips lights, if you have those connected to a v2 (square) Hue Bridge.  You might want to change this to expose all lights, if you have a v1 (round) bridge, or if you want to use the `Color Temperature` charateristic.
 
 ## Groups
 A Hue bridge group is exposed as a Homekit accessory with `Lightbulb` service and appropriate characteristics, just as a light.
@@ -45,6 +45,11 @@ A Hue bridge schedule is exposed as a Homekit `Switch`.
 
 By default, homebridge-hue does not expose schedules.  You might want to change this in `config.json`, to enable or disable schedules from Homekit.
 
+## Rules
+A Hue bridge rule is exposed as a Homekit `Switch`.
+
+By default, homebridge-hue does not expose rules.  You might want to change this in `config.json`, to enable or disable rules from Homekit or to monitor when rules are triggered.
+
 ## Installation
 The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node.js.  I've followed the following steps to set it up on my macOS server:
 
@@ -71,10 +76,12 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
       }
       "heartrate": 5,
       "timeout": 5,
-      "lights": true,
-      "groups": true,
-      "sensors": true,
-      "schedules": true
+      "lights": false,
+      "alllights": false,
+      "groups": false,
+      "sensors": false,
+      "schedules": false,
+      "rules": false
     }
   ]
 ```
@@ -84,10 +91,12 @@ The following parameters modify homebridge-hue's behaviour:
 - `users`: An object containing a key/value-pair per Hue bridge, where the key holds the bridge ID and the value holds the bridge username, effectively a security token to access the bridge.  When connecting to a new bridge, homebridge-hue will create the username, but for now, `config.json` must be edited by hand;
 - `heartrate`: The interval in seconds to poll the Hue bridge.  Default: `5`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge;
 - `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`;
-- `lights`: Flag whether to expose Hue bridge lights to Homekit.  Default: `false`, only expose non-Philips lights;
+- `lights`: Flag whether to expose Hue bridge lights to Homekit.  Default: `false`;
+- `alllights`: Flag whether to expose all Hue bridge lights to Homekit.  Default: `false`, only expose non-Philips lights;
 - `groups`: Flag whether to expose Hue bridge groups to Homekit.  Default: `false`;
 - `sensors`: Flag whether to expose Hue bridge sensors to Homekit.  Default: `false`;
-- `schedules`: Flag whether to expose Hue bridge schedules to Homekit.  Default: `false`.
+- `schedules`: Flag whether to expose Hue bridge schedules to Homekit.  Default: `false`;
+- `rules`: Flag whether to expose Hue bridge rules to Homekit.  Default: `false`.
 
 ## Caveats
 - The homebridge-hue plug-in is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for months, but your mileage might vary.  Please report any issues on GitHub.
