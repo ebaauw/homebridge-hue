@@ -16,6 +16,8 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>/usr/local/bin/homebridge</string>
+		<string>-U</string>
+		<string>/Users/_homebridge/.homebridge</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
