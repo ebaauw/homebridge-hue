@@ -81,7 +81,8 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
       "groups": false,
       "sensors": false,
       "schedules": false,
-      "rules": false
+      "rules": false,
+      "maxopenrequests": 5
     }
   ]
 ```
@@ -97,6 +98,7 @@ The following parameters modify homebridge-hue's behaviour:
 - `sensors`: Flag whether to expose Hue bridge sensors to Homekit.  Default: `false`;
 - `schedules`: Flag whether to expose Hue bridge schedules to Homekit.  Default: `false`;
 - `rules`: Flag whether to expose Hue bridge rules to Homekit.  Default: `false`.
+- `maxopenrequests`: Number of concurrent network requests that Homebridge will make to the Hue bridge. 1st Gen Hue bridges will experience errors (such as ```ECONNRESET```) if more than 5 requests are open at a time. Default: `5` 
 
 ## Caveats
 - The homebridge-hue plug-in is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for months, but your mileage might vary.  Please report any issues on GitHub.
