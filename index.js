@@ -5,10 +5,10 @@
 
 "use strict";
 
-let dynamic = false;
+const dynamic = false;
 
-let HuePlatformModule = require("./lib/HuePlatform");
-let HuePlatform = HuePlatformModule.HuePlatform;
+const HuePlatformModule = require("./lib/HuePlatform");
+const HuePlatform = HuePlatformModule.HuePlatform;
 
 module.exports = function(homebridge) {
   HuePlatformModule.setHomebridge(homebridge);
