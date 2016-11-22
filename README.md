@@ -7,8 +7,6 @@ This plug-in exposes Philips Hue bridge lights, groups, sensors, and schedules t
 
 As the Philips Hue API does not support notifications for changes to the Hue bridge state, homebridge-hue polls the Hue bridge state at a regular interval, specified as `heartrate` in `config.json`.  For each Hue bridge field changed, homebridge-hue updates the corresponding Homekit characteristic.  Homekit (through homebridge) does notify homebridge-hue of any changes to Homekit characteristic values.  For each change, homebridge-hue updates the corresponding field in the Hue bridge.
 
-The homebridge-hue plug-in outputs an info message for each Homekit characteristic value it sets and for each Homekit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.
-
 ## Bridges
 The homebridge-hue plug-in tries to discover any Hue bridge on your network by querying the Meethue portal.  It creates a Homekit accessory for each bridge, with only an accessory information service.  Alternatively, a single bridge's hostname or IP address can be specified in `config.json`.
 
@@ -97,6 +95,12 @@ The following parameters modify homebridge-hue's behaviour:
 - `sensors`: Flag whether to expose Hue bridge sensors to Homekit.  Default: `false`;
 - `schedules`: Flag whether to expose Hue bridge schedules to Homekit.  Default: `false`;
 - `rules`: Flag whether to expose Hue bridge rules to Homekit.  Default: `false`.
+
+## Troubleshooting
+
+The homebridge-hue plug-in outputs an info message for each Homekit characteristic value it sets and for each Homekit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.
+
+To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when Identify is selected on the bridge accessory.  Bridge ID, mac address, ip address and usernames are masked.  The file is created in the current directory where homebridge is running, and is named after the bridge.
 
 ## Caveats
 - The homebridge-hue plug-in is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for months, but your mileage might vary.  Please report any issues on GitHub.
