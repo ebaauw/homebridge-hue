@@ -58,7 +58,7 @@ The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node
 - You might want to update `npm` through `sudo npm update -g npm`.  For me, this installs version, 3.10.9.
 - Install homebridge following the instructions on `https://github.com/nfarina/homebridge`.  For me, this installs homebridge version 0.4.6 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
 - Install the homebridge-hue plug-in through `sudo npm install -g homebridge-hue`.
-- Edit `~/homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.
+- Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see below.
 
 Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically on system boot.  For macOS, I've provided an example `launchd` configuration in `org.nodejs.homebridge.plist`.  I run homebridge from a dedicated, non-login account, `_homebridge`.  Make sure to edit the file and change `_homebridge` to match the username and `$HOME` directory you'll be using.  Load the daemon through `sudo launchctl load org.nodejs.homebridge.plist` and check that homebridge starts and uses the correct logfile.  Once you're happy, copy the edited file through `sudo cp org.nodejs.homebridge.plist /Library/LaunchDaemons` to start homebridge automatically on system boot.
