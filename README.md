@@ -1,9 +1,8 @@
 # homebridge-hue
+[![npm](https://img.shields.io/npm/dt/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue) [![npm](https://img.shields.io/npm/v/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue)
+
+## Homebridge plug-in for Philips Hue.
 (C) 2016, Erik Baauw
-
-Homebridge plug-in for Philips Hue.
-
-[![npm](https://img.shields.io/npm/dt/homebridge-hue.svg)]() [![npm](https://img.shields.io/npm/v/homebridge-hue.svg)]()
 
 This plug-in exposes Philips Hue bridge lights, groups, sensors, and schedules to Apple's Homekit.  Each supported Hue bridge resource is mapped to a corresponding Homekit accessory, with an appropriate service to match the resource type, and an accessory information service.  Each supported Hue bridge resource field is then mapped to a corresponding Homekit characteristic.
 
