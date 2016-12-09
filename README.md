@@ -14,7 +14,7 @@ The homebridge-hue plug-in tries to discover any Hue bridge on your network by q
 `config.json` contains a key/value-pair for the username per bridge.  When homebridge-hue finds a new bridge, it prompts to press the link button on the bridge.  It then creates a bridge username, and prompts to edit `config.json`, providing the key/value-pair.
 
 ## Lights
-A Hue bridge light is exposed as a Homekit accessory with a `Lightbulb` service, with characteristics for `On`, `Brightness`, `Hue`, `Saturation`, and `Color Temperature`, depending on the light's features.  Note that `Color Temperature` is a custom characteristic, which might not be supported by all Homekit apps.  It holds the light's colour temperature in Kelvin, from `2000` to `6540`.  Both Philips as well as non-Philips lights are supported.
+A Hue bridge light is exposed as a Homekit accessory with a `Lightbulb` service, with characteristics for `On`, `Brightness`, `Hue`, `Saturation`, `Color Temperature`, and `Status Fault`, depending on the light's features.  Note that `Color Temperature` is a custom characteristic, which might not be supported by all Homekit apps.  It holds the light's colour temperature in Kelvin, from `2000` to `6540`.  `Status Fault` is set when the Hue bridge reports the light as unreachable.  Both Philips as well as non-Philips lights are supported.
 
 By default homebridge-hue does not expose any lights.  You might want to change this in `config.json` to expose only non-Philips lights, if you have those connected to a v2 (square) Hue Bridge.  You might want to change this to expose all lights, if you have a v1 (round) bridge, or if you want to use the `Color Temperature` charateristic.
 
@@ -33,9 +33,12 @@ A Hue bridge sensor is exposed as a Homekit accessory with the appropriate servi
 - The built-in Daylight sensor is exposed a as a `Stateful Programmable Switch` service.  I tried exposing this sensor as a regular `Switch` using a read-only `On` characteristic, but the iOS 10 `Home` app ignores the read-only setting.  The `Output State` holds `0` (`false`) or `1` (`true`).  Exposing this sensor was particularly cool under iOS 9, when Homekit didn't yet support rules on sunrise and sunset.  Under iOS 10 it does, but only from the iOS 10 `Home` app.
 - A `CLIPGenericFlag` sensor is exposed as a `Switch` service, with an `On` characteristic.
 - A `CLIPGenericStatus` sensor is exposed as a `Stateful Programmable Switch` service.  The `Output State` holds the `status`, limited to values from `0` to `255`, as it's next to impossible to set a precise value using a slider in the full `int32` range.
-- Other CLIP sensors are exposed as well, but I've only used `CLIPTemperature` and `CLIPHumidity` myself.
+- A `CLIPPresence` sensor is exposed as an `OccupancySensor` service.  So is a `Geofence` sensor.
+- A `CLIPTemperature` sensor is exposed as a `Temperature Sensor`.
+- A `CLIPHumidity` sensor is exposed as a `Humidity Sensor`.
+- I haven't tested the other CLIP sensors, but they should work: `ClipOpenClose` is exposed as `Contact Sensor`, `CLIPLightLevel` as a `Light Sensor`, and `CLIPSwitch` as `Stateful Programmable Switch` sensors are exposed as 
 
-Additionally for each sensor, a custom `Last Updated` characteristic is provided, and, where appropriate, `Battery Level` and `Status Active` characteristics for the sensor's `config` attributes `battery` and `on`.  Note that enabling or disabling the sensor from Homekit is not supported, as `Status Active` is read-only.
+Additionally for each sensor, a custom `Last Updated` characteristic is provided, and, where appropriate, `Battery Level`, `Status Active`, and `Status Fault` characteristics for the sensor's `config` attributes `battery`, `on`, and `reachable`.  Note that enabling or disabling the sensor from Homekit is not supported, as `Status Active` is read-only.
 
 By default homebridge-hue does not expose sensors.  You want to change this in `config.json`, so the sensors can be used as triggers and/or conditions in Homekit rules.
 
@@ -60,7 +63,7 @@ The homebridge-hue plug-in obviously needs homebridge, which, in turn needs Node
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see below.
 
-Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically on system boot.  For macOS, I've provided an example `launchd` configuration in `org.nodejs.homebridge.plist`.  I run homebridge from a dedicated, non-login account, `_homebridge`.  Make sure to edit the file and change `_homebridge` to match the username and `$HOME` directory you'll be using.  Load the daemon through `sudo launchctl load org.nodejs.homebridge.plist` and check that homebridge starts and uses the correct logfile.  Once you're happy, copy the edited file through `sudo cp org.nodejs.homebridge.plist /Library/LaunchDaemons` to start homebridge automatically on system boot.
+Once homebridge is up and running with the homebridge-hue plug-in, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or Raspberri Pi.
 
 ## Configuration
 In homebridge's `config.json` you need to specify a platform for homebridge-hue:
@@ -98,13 +101,14 @@ The following parameters modify homebridge-hue's behaviour:
 - `rules`: Flag whether to expose Hue bridge rules to Homekit.  Default: `false`.
 
 ## Troubleshooting
+The homebridge-hue plug-in outputs an info message for each Homekit characteristic value it sets and for each Homekit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.  To capture these messages into a logfile, start homebridge as `homebridge -D > logfile`.
 
-The homebridge-hue plug-in outputs an info message for each Homekit characteristic value it sets and for each Homekit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.
+To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in the current directory where homebridge is running, and is named after the bridge.  Note that the iOS 10 Home app does not support `Identify`, so you need another homekit app for that (e.g. Elgato's `Eve`).
 
-To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when Identify is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in the current directory where homebridge is running, and is named after the bridge.
+If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please include your `config.json`, the debug logfile, and the dump of the bridge state.
 
 ## Caveats
-- The homebridge-hue plug-in is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for months, but your mileage might vary.  Please report any issues on GitHub.
+- The homebridge-hue plug-in is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for months, but your mileage might vary.  Please report any issues on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).
 - Homebridge is a great platform, but not really intended for consumers.
 - Homekit is still relatively new, and the iOS 10 built-in `Home` app provides only limited support.  You might want to check some other Homekit apps, like Elgato's `Eve` (free), Matthias Hochgatterer's `Home`, or, if you use `XCode`, Apple's `HMCatalog` example app.
 - The Homekit terminology needs some getting used to.  An _accessory_ more or less corresponds to a physical device, accessible from your iOS device over WiFi or Bluetooth.  A _bridge_ (like homebridge) provides access to multiple bridged accessories.  An accessory might provide multiple _services_.  Each service corresponds to a virtual device (like a `Lightbulb`, `Switch`, `Motion Sensor`, ...).  There is also an accessory information service.  Siri interacts with services, not with accessories.  A service contains one or more _characteristics_.  A characteristic is like a service attribute, which might be read or written by Homekit apps.  You might want to checkout Apple's `Homekit Accessory Simulator`, which is distributed a an additional tool for `XCode`.
