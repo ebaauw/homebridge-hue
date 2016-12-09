@@ -37,6 +37,7 @@ A Hue bridge sensor is exposed as a Homekit accessory with the appropriate servi
 - A `CLIPTemperature` sensor is exposed as a `Temperature Sensor`.
 - A `CLIPHumidity` sensor is exposed as a `Humidity Sensor`.
 - I haven't tested the other CLIP sensors, but they should work: `ClipOpenClose` is exposed as a `Contact Sensor`, `CLIPLightLevel` as a `Light Sensor`, and `CLIPSwitch` as a `Stateful Programmable Switch`.
+
 Additionally for each sensor, a custom `Last Updated` characteristic is provided, and, where appropriate, `Battery Level`, `Status Active`, and `Status Fault` characteristics for the sensor's `config` attributes `battery`, `on`, and `reachable`.  Note that enabling or disabling the sensor from Homekit is not supported, as `Status Active` is read-only.
 
 By default homebridge-hue does not expose sensors.  You want to change this in `config.json`, so the sensors can be used as triggers and/or conditions in Homekit rules.
