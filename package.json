@@ -11,7 +11,7 @@
   "keywords": [
     "homebridge-plugin"
   ],
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
