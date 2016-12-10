@@ -4,7 +4,7 @@
 ## Homebridge plug-in for Philips Hue
 (C) 2016, Erik Baauw
 
-This [homebridge](https://github.com/nfarina/homebridge) plug-in exposes [Philips Hue](http://www2.meethue.com/) bridge lights, groups, sensors, and schedules to Apple's HomeKit.  Each supported Hue bridge resource is mapped to a corresponding HomeKit accessory, with an appropriate service to match the resource type, and an accessory information service.  Each supported Hue bridge resource field is then mapped to a corresponding HomeKit characteristic.
+This [homebridge](https://github.com/nfarina/homebridge) plug-in exposes [Philips Hue](http://www2.meethue.com/) bridge lights, groups, sensors, and schedules to Apple's [HomeKit](http://www.apple.com/ios/home/).  Each supported Hue bridge resource is mapped to a corresponding HomeKit accessory, with an appropriate service to match the resource type, and an accessory information service.  Each supported Hue bridge resource field is then mapped to a corresponding HomeKit characteristic.
 
 As the Philips Hue API does not support notifications for changes to the Hue bridge state, homebridge-hue polls the Hue bridge state at a regular interval, specified as `heartrate` in `config.json`.  For each Hue bridge field changed, homebridge-hue updates the corresponding HomeKit characteristic.  HomeKit (through homebridge) does notify homebridge-hue of any changes to HomeKit characteristic values.  For each change, homebridge-hue updates the corresponding field in the Hue bridge.
 
