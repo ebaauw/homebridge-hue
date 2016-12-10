@@ -10,7 +10,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips
 - HomeKit support for colour temperature on White Ambiance lights.
 - HomeKit support for Hue bridge groups.
 - HomeKit support for enabling/disabling Hue bridge schedules and rules.
-- Monitoring Hue bridges, so bridge resources (lights, groups, sensors, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.
+- Monitoring Hue bridges resources (lights, groups, sensors, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.
 - Support for both v2 (square) and v1 (round) Hue bridges.
 - Support for multiple Hue bridges.
 - Automatic discovery of Hue bridges.
@@ -60,7 +60,7 @@ By default, homebridge-hue does not expose schedules.  You might want to change 
 ## Rules
 A Hue bridge rule is exposed as a HomeKit `Switch`.
 
-By default, homebridge-hue does not expose rules.  You probably don't want to, but you can change this in `config.json`.  I only use this feature occasionally, when debugging the Hue bridge configuration.  It allows monitoring when bridge rules are triggered and enabling or disabling bridge rules from HomeKit.  Note the 99 bridge accessory limit under *Caveats* below.
+By default, homebridge-hue does not expose rules.  You probably don't want to, but you can change this in `config.json`.  I only use this feature occasionally, when debugging the Hue bridge configuration.  It allows monitoring when bridge rules are triggered and enabling or disabling bridge rules from HomeKit.  Note the 99 bridge accessory limit under **Caveats** below.
 
 ## Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
@@ -70,8 +70,8 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
 - You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.0.3.
 - Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge).  For me, this installs homebridge version 0.4.11 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue`.
-- Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see below.
-- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see below.
+- Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below.
+- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see **Configuration** below.
 
 Once homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or on a Raspberri Pi.
 
@@ -117,14 +117,14 @@ If you run into issues, please run homebridge with only the homebridge-hue plugi
 
 The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.  To capture these messages into a logfile, start homebridge as `homebridge -D > logfile`.
 
-To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in the current directory where homebridge is running, and is named after the bridge.  Note that the iOS 10 [Home](http://www.apple.com/ios/home/) app does not support `Identify`, so you need another HomeKit app for that (see *Caveats* below).
+To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in the current directory where homebridge is running, and is named after the bridge.  Note that the iOS 10 [Home](http://www.apple.com/ios/home/) app does not support `Identify`, so you need another HomeKit app for that (see **Caveats** below).
 
 If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of your full `config.json` (masking any sensitive info), the debug logfile, and the dump of the bridge state.
 
 ## Caveats
 - The homebridge-hue plugin is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for months, but your mileage might vary.  Please report any issues on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).
 - Homebridge is a great platform, but not really intended for consumers, as it requires command-line interaction.
-- HomeKit is still relatively new, and the iOS 10 [Home](http://www.apple.com/ios/home/) app provides only limited support.  You might want to check some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) (free), Matthias Hochgatterer's [Home](http://selfcoded.com/home/) (paid), or, if you use `XCode`, [Apple's HMCatalog](https://developer.apple.com/library/content/samplecode/HomeKitCatalog/Introduction/Intro.html#//apple_ref/doc/uid/TP40015048-Intro-DontLinkElementID_2) example app.
+- HomeKit is still relatively new, and the iOS 10 [Home](http://www.apple.com/ios/home/) app provides only limited support.  You might want to check some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) (free), Matthias Hochgatterer's [Home](http://selfcoded.com/home/) (paid), or, if you use `XCode`, Apple's [HMCatalog](https://developer.apple.com/library/content/samplecode/HomeKitCatalog/Introduction/Intro.html#//apple_ref/doc/uid/TP40015048-Intro-DontLinkElementID_2) example app.
 - The HomeKit terminology needs some getting used to.  An _accessory_ more or less corresponds to a physical device, accessible from your iOS device over WiFi or Bluetooth.  A _bridge_ (like homebridge) provides access to multiple bridged accessories.  An accessory might provide multiple _services_.  Each service corresponds to a virtual device (like a `Lightbulb`, `Switch`, `Motion Sensor`, ...).  There is also an accessory information service.  Siri interacts with services, not with accessories.  A service contains one or more _characteristics_.  A characteristic is like a service attribute, which might be read or written by HomeKit apps.  You might want to checkout Apple's [HomeKit Accessory Simulator](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/TestingYourHomeKitApp/TestingYourHomeKitApp.html), which is distributed a an additional tool for `XCode`.
 - HomeKit only supports 99 bridged accessories per HomeKit bridge (i.e. homebridge, not the Philips Hue bridge).  When homebridge exposes more accessories, HomeKit refuses to pair with homebridge or blocks homebridge if it was paired already.  While homebridge-hue checks that it doesn't expose more than 99 accessories itself, it is unaware of any accessories exposed by other homebridge plugins.  As a workaround to overcome this limit, you can run multiple instances of homebridge with different plugins and/or different homebridge-hue settings, using the `-U` flag to specify a different directory with a different `config.json` for each instance.  Make sure to use a different homebridge `name`, `username`, and `port` for each instance.
 - Internally, HomeKit identifies services by UUID.  For Zigbee resources (lights, Hue Tap and Dimmer switches, Hue Motion sensors), homebridge-hue bases this UUID on the unique Zigbee ID.  For non-Zigbee resources, the UUID is based on the Hue bridge ID and resource URI (e.g. `/sensors/1`), not on the resource name (e.g. `Daylight`).  This way, homebridge-hue can deal with duplicate names.  In addition, HomeKit will still recognise the service after the resource name has changed on the Hue bridge, remembering which HomeKit room, scenes, schedules, and rules it belonged to.  However, when a non-Zigbee Hue bridge resource is deleted and then re-created under a different ID, resulting in a different URI, HomeKit will not recognise the new service, and you need to re-add the new service to any HomeKit rooms, scenes, schedules, and rules.
