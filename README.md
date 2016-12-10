@@ -20,7 +20,7 @@ By default homebridge-hue does not expose any lights.  You might want to change 
 
 ## Groups
 A Hue bridge group is exposed as a Homekit accessory with `Lightbulb` service and appropriate characteristics, just as a light.
-By default, homebridge-hue does not expose groups.  You might want to change this in `config.json` if you want to use Hue group commands from Homekit scenes.
+By default, homebridge-hue does not expose groups.  You might want to change this in `config.json` if you want to use Hue group commands from Homekit scenes.  As polling the state for group 0 (all lights) requires an additional bridge request, this group can be disabled in `config.json`.
 
 Note that groups of type `Room` are ignored for now - there should probably be a setting to change this.
 
@@ -81,6 +81,7 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
       "lights": false,
       "alllights": false,
       "groups": false,
+      "group0": false,
       "sensors": false,
       "schedules": false,
       "rules": false
@@ -96,6 +97,7 @@ The following parameters modify homebridge-hue's behaviour:
 - `lights`: Flag whether to expose non-Philips Hue bridge lights to Homekit.  Default: `false`;
 - `alllights`: Flag whether to expose all Hue bridge lights to Homekit.  Default: `false`, only expose non-Philips lights;
 - `groups`: Flag whether to expose Hue bridge groups to Homekit.  Default: `false`;
+- `group0`: Flag whether to include group 0 (all lights) when groups are exposed.  Default `true`;
 - `sensors`: Flag whether to expose Hue bridge sensors to Homekit.  Default: `false`;
 - `schedules`: Flag whether to expose Hue bridge schedules to Homekit.  Default: `false`;
 - `rules`: Flag whether to expose Hue bridge rules to Homekit.  Default: `false`.
