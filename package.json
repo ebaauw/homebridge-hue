@@ -9,7 +9,9 @@
     "node": "^6.9.1"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "philips",
+    "hue"
   ],
   "version": "0.0.19",
   "main": "index.js",
