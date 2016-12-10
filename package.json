@@ -3,7 +3,7 @@
   "dependencies": {
     "request": "^2.79.0"
   },
-  "description": "Homebridge plug-in for Philips Hue",
+  "description": "Homebridge plugin for Philips Hue",
   "engines": {
     "homebridge": "^0.4.11",
     "node": "^6.9.1"
