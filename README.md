@@ -50,7 +50,7 @@ A Hue bridge sensor is exposed as a HomeKit accessory with the appropriate servi
 
 Additionally for each sensor, a custom `Last Updated` characteristic is provided, and, where appropriate, `Battery Level`, `Status Active`, and `Status Fault` characteristics for the sensor's `config` attributes `battery`, `on`, and `reachable`.  Note that enabling or disabling the sensor from HomeKit is not supported, as `Status Active` is read-only.  Also note that the iOS 10 [Home](http://www.apple.com/ios/home/) app doesn't support any `Stateful Programmable Switch` service, nor any custom characteristic.
 
-By default homebridge-hue does not expose sensors.  You want to change this in `config.json`, so the sensors can be used as triggers and/or conditions in HomeKit rules.  When you disable CLIP sensors in `config.json`, homebridge-hue exposes only Hue Motions sensors, Hue Dimmer switches, Hue Tap switches, and the built-in Daylight sensor. 
+By default homebridge-hue does not expose sensors.  You want to change this in `config.json`, so the sensors can be used as triggers and/or conditions in HomeKit rules.  When you disable CLIP sensors in `config.json`, homebridge-hue exposes only Hue Motions sensors, Hue Dimmer switches, Hue Tap switches, and the built-in Daylight sensor.
 
 ## Schedules
 A Hue bridge schedule is exposed as a HomeKit `Switch`.
@@ -90,7 +90,7 @@ The following optional parameters can be added to modify homebridge-hue's behavi
 - `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover your bridge(s) by querying the Meethue portal;
 - `users`: An object containing a key/value-pair per Hue bridge, where the key holds the bridge ID and the value holds the bridge username, effectively a security token to access the bridge.  Default: empty, when connecting to a new bridge, homebridge-hue will create the username, and prompt you to edit `config.json`;
 - `heartrate`: The interval in seconds to poll the Hue bridge.  Default: `5`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge;
-- `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`;
+- `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`.  You might want to increase this if homebridge-hue reports ESOCKETTIMEDOUT errors;
 - `lights`: Flag whether to expose Hue bridge lights to HomeKit.  Default: `false`;
 - `philipslights`: Flag whether to include Philips lights when lights are exposed.  Default: `false`, only expose non-Philips lights;
 - `alllights`: Deprecated, please use `philipslights` instead.
@@ -131,7 +131,7 @@ For reference, below is an example `config.json` that includes all parameters an
 ## Troubleshooting
 If you run into issues, please run homebridge with only the homebridge-hue plugin enabled in `config.sys`.  This way, you can determine whether the issue is related to the homebridge-hue plugin itself, or to the interaction of multiple homebridge plugins in your setup.  Note that disabling the other plugins from your existing homebridge setup will remove their accessories from HomeKit.  You will need to re-assign these accessories to any HomeKit rooms, groups, scenes, and rules after re-enabling their plugins.  Alternatively, you can start a different instance of homebridge just for homebridge-hue, on a different system, or from a different directory (specified by the `-U` flag).  Make sure to use a different homebridge `name`, `username`, and (if running on the same system) `port` in the `config.sys` for each instance.
 
-The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.  To capture these messages into a logfile, start homebridge as `homebridge -D > logfile`.
+The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.  To capture these messages into a logfile, start homebridge as `homebridge -D > logfile 2>&1`.
 
 To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in the current directory where homebridge is running, and is named after the bridge.  Note that the iOS 10 [Home](http://www.apple.com/ios/home/) app does not support `Identify`, so you need another HomeKit app for that (see **Caveats** below).
 
