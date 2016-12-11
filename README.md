@@ -5,14 +5,14 @@
 (C) 2016, Erik Baauw
 
 This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips Hue](http://www2.meethue.com/) bridge lights, groups, sensors, and schedules to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
-- HomeKit support for Hue Motion sensors, Hue Dimmer switches, Hue Tap switches, the built-in Daylight sensor, and CLIP sensors.
-- HomeKit support for non-Philips lights.
-- HomeKit support for colour temperature on White Ambiance lights.
-- HomeKit support for Hue bridge groups.
-- HomeKit support for enabling/disabling Hue bridge schedules and rules.
-- Monitoring Hue bridges resources (lights, groups, sensors, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.
-- Support for both v2 (square) and v1 (round) Hue bridges.
-- Support for multiple Hue bridges.
+- HomeKit support for Hue Motion sensors, Hue Dimmer switches, Hue Tap switches, the built-in Daylight sensor, and CLIP sensors;
+- HomeKit support for non-Philips lights;
+- HomeKit support for colour temperature on White Ambiance lights;
+- HomeKit support for Hue bridge groups;
+- HomeKit support for enabling/disabling Hue bridge schedules and rules;
+- Monitoring Hue bridges resources (lights, groups, sensors, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app;
+- Support for both v2 (square) and v1 (round) Hue bridges;
+- Support for multiple Hue bridges;
 - Automatic discovery of Hue bridges.
 
 ## Bridges
@@ -32,25 +32,25 @@ By default homebridge-hue does not expose any lights.  You might want to change 
 ## Groups
 A Hue bridge group is exposed as a HomeKit accessory with `Lightbulb` service and appropriate characteristics, just as a light.
 
-By default, homebridge-hue does not expose groups.  You might want to change this in `config.json` if you want to use Hue group commands from HomeKit scenes.  As polling the state for group 0 (all lights) requires an additional bridge request, this group can be disabled in `config.json`.  Note that groups of type `Room` are ignored for now - there should probably be a setting to change this.
+By default, homebridge-hue does not expose groups.  You might want to change this in `config.json` if you want to use Hue group commands from HomeKit scenes.  As polling the state for group 0 (all lights) requires an additional bridge request, this group can be disabled in `config.json`.  Note that groups of type `Room` are ignored by default.  You can change this by in `config.json`.
 
 ## Sensors
 A Hue bridge sensor is exposed as a HomeKit accessory with the appropriate service and corresponding characteristic:
 
-- A Hue Tap switch (`ZGPSwitch` sensor) is exposed as a `Stateful Programmable Switch`.  The `Output State` holds the number of the button pressed, `1`, `2`, `3`, or `4`.
-- A Hue Dimmer switch (`ZLLSwitch` sensor) is exposed as a `Stateful Programmable Switch`.  The `Output State` holds the number of the button pressed, `1` (On), `2` (Dim Up), `3` (Dim Down), or `4` (Off).  Note that as homebridge-hue cannot reliably detect all dimmer button events as it polls the Hue bridge.  Consequently, homebridge-hue only supports the release button events.
-- The Hue bridge actually creates three sensors per Hue Motion Sensor, each of which is exposed as a separate HomeKit accessory with the appropriate service: a `Motion Sensor` for the `ZLLPresence` sensor, a `Light Sensor` for the `ZLLLightLevel` sensor and a `Temperature Sensor` for the `ZLLTemperature` sensor.  This probably should have been one accessory with three services.  Note that the `dark` and `daylight` attributes in the `ZLLLightLevel` sensor `state` are not supported.
-- The built-in Daylight sensor is exposed a as a `Stateful Programmable Switch`.  I tried exposing this sensor as a regular `Switch` using a read-only `On` characteristic, but the iOS 10 `Home` app ignores the read-only setting.  The `Output State` holds `0` (`false`) or `1` (`true`).  Exposing this sensor was particularly cool under iOS 9, when HomeKit didn't yet support rules on sunrise and sunset.  Under iOS 10 it does, but only from the iOS 10 `Home` app.
-- A `CLIPGenericFlag` sensor is exposed as a `Switch`, with an `On` characteristic.
-- A `CLIPGenericStatus` sensor is exposed as a `Stateful Programmable Switch`.  The `Output State` holds the `status`, limited to values from `0` to `255`, as it's next to impossible to set a precise value using a slider in the full `int32` range.
-- A `CLIPPresence` sensor is exposed as an `Occupancy Sensor`.  So is a `Geofence` sensor.
-- A `CLIPTemperature` sensor is exposed as a `Temperature Sensor`.
-- A `CLIPHumidity` sensor is exposed as a `Humidity Sensor`.
+- A Hue Tap switch (`ZGPSwitch` sensor) is exposed as a `Stateful Programmable Switch`.  The `Output State` holds the number of the button pressed, `1`, `2`, `3`, or `4`;
+- A Hue Dimmer switch (`ZLLSwitch` sensor) is exposed as a `Stateful Programmable Switch`.  The `Output State` holds the number of the button pressed, `1` (On), `2` (Dim Up), `3` (Dim Down), or `4` (Off).  Note that as homebridge-hue cannot reliably detect all dimmer button events as it polls the Hue bridge.  Consequently, homebridge-hue only supports the release button events;
+- The Hue bridge actually creates three sensors per Hue Motion Sensor, each of which is exposed as a separate HomeKit accessory with the appropriate service: a `Motion Sensor` for the `ZLLPresence` sensor, a `Light Sensor` for the `ZLLLightLevel` sensor and a `Temperature Sensor` for the `ZLLTemperature` sensor.  This probably should have been one accessory with three services.  Note that the `dark` and `daylight` attributes in the `ZLLLightLevel` sensor `state` are not supported;
+- The built-in Daylight sensor is exposed a as a `Stateful Programmable Switch`.  I tried exposing this sensor as a regular `Switch` using a read-only `On` characteristic, but the iOS 10 `Home` app ignores the read-only setting.  The `Output State` holds `0` (`false`) or `1` (`true`).  Exposing this sensor was particularly cool under iOS 9, when HomeKit didn't yet support rules on sunrise and sunset.  Under iOS 10 it does, but only from the iOS 10 `Home` app;
+- A `CLIPGenericFlag` sensor is exposed as a `Switch`, with an `On` characteristic;
+- A `CLIPGenericStatus` sensor is exposed as a `Stateful Programmable Switch`.  The `Output State` holds the `status`, limited to values from `0` to `255`, as it's next to impossible to set a precise value using a slider in the full `int32` range;
+- A `CLIPPresence` sensor is exposed as an `Occupancy Sensor`.  So is a `Geofence` sensor;
+- A `CLIPTemperature` sensor is exposed as a `Temperature Sensor`;
+- A `CLIPHumidity` sensor is exposed as a `Humidity Sensor`;
 - I haven't tested the other CLIP sensors, but they should work: `ClipOpenClose` is exposed as a `Contact Sensor`, `CLIPLightLevel` as a `Light Sensor`, and `CLIPSwitch` as a `Stateful Programmable Switch`.
 
 Additionally for each sensor, a custom `Last Updated` characteristic is provided, and, where appropriate, `Battery Level`, `Status Active`, and `Status Fault` characteristics for the sensor's `config` attributes `battery`, `on`, and `reachable`.  Note that enabling or disabling the sensor from HomeKit is not supported, as `Status Active` is read-only.  Also note that the iOS 10 [Home](http://www.apple.com/ios/home/) app doesn't support any `Stateful Programmable Switch` service, nor any custom characteristic.
 
-By default homebridge-hue does not expose sensors.  You want to change this in `config.json`, so the sensors can be used as triggers and/or conditions in HomeKit rules.
+By default homebridge-hue does not expose sensors.  You want to change this in `config.json`, so the sensors can be used as triggers and/or conditions in HomeKit rules.  When you disable CLIP sensors in `config.json`, homebridge-hue exposes only Hue Motions sensors, Hue Dimmer switches, Hue Tap switches, and the built-in Daylight sensor. 
 
 ## Schedules
 A Hue bridge schedule is exposed as a HomeKit `Switch`.
@@ -65,12 +65,12 @@ By default, homebridge-hue does not expose rules.  You probably don't want to, b
 ## Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
-- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.9.2 LTS for macOS (x64), which includes the `npm` package manager.
-- Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there.
-- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.0.3.
-- Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge).  For me, this installs homebridge version 0.4.11 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described.
-- Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue`.
-- Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below.
+- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.9.2 LTS for macOS (x64), which includes the `npm` package manager;
+- Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there;
+- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.0.3;
+- Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge).  For me, this installs homebridge version 0.4.12 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described;
+- Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue`;
+- Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below;
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see **Configuration** below.
 
 Once homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or on a Raspberri Pi.
@@ -81,36 +81,52 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
   "platforms": [
     {
       "platform": "Hue",
+      "name": "Hue"
+    }
+  ]
+```
+The following optional parameters can be added to modify homebridge-hue's behaviour:
+
+- `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover your bridge(s) by querying the Meethue portal;
+- `users`: An object containing a key/value-pair per Hue bridge, where the key holds the bridge ID and the value holds the bridge username, effectively a security token to access the bridge.  Default: empty, when connecting to a new bridge, homebridge-hue will create the username, and prompt you to edit `config.json`;
+- `heartrate`: The interval in seconds to poll the Hue bridge.  Default: `5`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge;
+- `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`;
+- `lights`: Flag whether to expose Hue bridge lights to HomeKit.  Default: `false`;
+- `philipslights`: Flag whether to include Philips lights when lights are exposed.  Default: `false`, only expose non-Philips lights;
+- `alllights`: Deprecated, please use `philipslights` instead.
+- `groups`: Flag whether to expose Hue bridge groups to HomeKit.  Default: `false`;
+- `group0`: Flag whether to include group 0 (all lights) when groups are exposed.  Default: `true`;
+- `rooms`: Flag whether to include Rooms when groups are exposed.  Default: `false`;
+- `sensors`: Flag whether to expose Hue bridge sensors to HomeKit.  Default: `false`;
+- `clipsensors`: Flag whether to include CLIP sensors when sensors are exposed.  Default: `true`.  If set to `false`, only Zigbee sensors and the built-in Daylight sensor are included.
+- `schedules`: Flag whether to expose Hue bridge schedules to HomeKit.  Default: `false`;
+- `rules`: Flag whether to expose Hue bridge rules to HomeKit.  Default: `false`.
+
+For reference, below is an example `config.json` that includes all parameters and their default values:
+```
+  "platforms": [
+    {
+      "platform": "Hue",
       "name": "Hue",
       "host": "",
       "users": {
-        "bridgeid": "username"
+        "001788FFFExxxxxx": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "001788FFFEyyyyyy": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
       },
       "heartrate": 5,
       "timeout": 5,
       "lights": false,
-      "alllights": false,
+      "philipslights": false,
       "groups": false,
-      "group0": false,
+      "group0": true,
+      "rooms": false,
       "sensors": false,
+      "clipsensors": true,
       "schedules": false,
       "rules": false
     }
   ]
 ```
-The following parameters modify homebridge-hue's behaviour:
-
-- `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover your bridge(s) by querying the Meethue portal;
-- `users`: An object containing a key/value-pair per Hue bridge, where the key holds the bridge ID and the value holds the bridge username, effectively a security token to access the bridge.  When connecting to a new bridge, homebridge-hue will create the username, but for now, `config.json` must be edited by hand;
-- `heartrate`: The interval in seconds to poll the Hue bridge.  Default: `5`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge;
-- `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`;
-- `lights`: Flag whether to expose Hue bridge lights to HomeKit.  Default: `false`;
-- `alllights`: Flag whether to include Philips lights when lights are exposed.  Default: `false`, only expose non-Philips lights;
-- `groups`: Flag whether to expose Hue bridge groups to HomeKit.  Default: `false`;
-- `group0`: Flag whether to include group 0 (all lights) when groups are exposed.  Default `true`;
-- `sensors`: Flag whether to expose Hue bridge sensors to HomeKit.  Default: `false`;
-- `schedules`: Flag whether to expose Hue bridge schedules to HomeKit.  Default: `false`;
-- `rules`: Flag whether to expose Hue bridge rules to HomeKit.  Default: `false`.
 
 ## Troubleshooting
 If you run into issues, please run homebridge with only the homebridge-hue plugin enabled in `config.sys`.  This way, you can determine whether the issue is related to the homebridge-hue plugin itself, or to the interaction of multiple homebridge plugins in your setup.  Note that disabling the other plugins from your existing homebridge setup will remove their accessories from HomeKit.  You will need to re-assign these accessories to any HomeKit rooms, groups, scenes, and rules after re-enabling their plugins.  Alternatively, you can start a different instance of homebridge just for homebridge-hue, on a different system, or from a different directory (specified by the `-U` flag).  Make sure to use a different homebridge `name`, `username`, and (if running on the same system) `port` in the `config.sys` for each instance.
