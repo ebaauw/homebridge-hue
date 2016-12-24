@@ -5,7 +5,7 @@
   },
   "description": "Homebridge plugin for Philips Hue",
   "engines": {
-    "homebridge": "^0.4.11",
+    "homebridge": "^0.4.16",
     "node": "^6.9.1"
   },
   "keywords": [
