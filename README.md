@@ -2,7 +2,7 @@
 [![npm](https://img.shields.io/npm/dt/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue) [![npm](https://img.shields.io/npm/v/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue)
 
 ## Homebridge plugin for Philips Hue
-(C) 2016, Erik Baauw
+(C) 2016-2017, Erik Baauw
 
 This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips Hue](http://www2.meethue.com/) bridge lights, groups, sensors, and schedules to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
 - HomeKit support for Hue Motion sensors, Hue Dimmer switches, Hue Tap switches, the built-in Daylight sensor, and CLIP sensors;
