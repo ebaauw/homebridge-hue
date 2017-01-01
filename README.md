@@ -94,7 +94,7 @@ The following optional parameters can be added to modify homebridge-hue's behavi
 - `lights`: Flag whether to expose Hue bridge lights to HomeKit.  Default: `false`;
 - `philipslights`: Flag whether to include Philips lights when lights are exposed.  Default: `false`, only expose non-Philips lights;
 - `alllights`: Deprecated, please use `philipslights` instead.
-- `ct`: Flag to expose color temperature similar to the way the v2 (square) Hue bridge does, see issue #35.
+- `ct`: Flag to expose color temperature similar to the way the v2 (square) Hue bridge does, see [issue #35](https://github.com/ebaauw/homebridge-hue/issues/35).
 - `groups`: Flag whether to expose Hue bridge groups to HomeKit.  Default: `false`;
 - `group0`: Flag whether to include group 0 (all lights) when groups are exposed.  Default: `true`;
 - `rooms`: Flag whether to include Rooms when groups are exposed.  Default: `false`;
