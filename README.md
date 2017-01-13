@@ -7,7 +7,7 @@
 This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips Hue](http://www2.meethue.com/) bridge lights, groups, sensors, and schedules to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
 - HomeKit support for Hue Motion sensors, Hue Dimmer switches, Hue Tap switches, the built-in Daylight sensor, and CLIP sensors;
 - HomeKit support for non-Philips lights;
-- HomeKit support for colour temperature on White Ambiance lights;
+- HomeKit support for colour temperature on Philips and non-Philips Color Temperature Lights and Extended Color Lights;
 - HomeKit support for Hue bridge groups;
 - HomeKit support for enabling/disabling Hue bridge schedules and rules;
 - Monitoring Hue bridges resources (lights, groups, sensors, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app;
@@ -18,9 +18,11 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips
 ## Bridges
 The homebridge-hue plugin tries to discover any Hue bridge on your network by querying the Meethue portal.  Alternatively, the hostname or IP address of a single bridge can be specified in `config.json`.  Both v2 (square) as well as v1 (round) Hue bridges are supported.
 
-For each bridge, homebridge-hue creates a HomeKit accessory, with only an accessory information service.  Each supported and enabled Hue bridge resource (light, group, sensor, schedule, or rule) is mapped to a corresponding HomeKit accessory, with an appropriate service to match the resource type, and an accessory information service.  Each supported Hue bridge resource field is then mapped to a corresponding HomeKit characteristic.
+For each bridge, homebridge-hue creates a HomeKit accessory, with a `Stateful Programmable Switch` service and an accessory information service.  Each supported and enabled Hue bridge resource (light, group, sensor, schedule, or rule) is mapped to a corresponding HomeKit accessory, with an appropriate service to match the resource type, and an accessory information service.  Each supported Hue bridge resource field is then mapped to a corresponding HomeKit characteristic.
 
-As the [Philips Hue API](https://developers.meethue.com/philips-hue-api) does not support notifications for changes to the Hue bridge state, homebridge-hue polls each Hue bridge's state at a regular interval, specified as `heartrate` in `config.json`.  For each Hue bridge field changed, homebridge-hue updates the corresponding HomeKit characteristic.  HomeKit (through homebridge) does notify homebridge-hue of any changes to HomeKit characteristic values.  For each change, homebridge-hue updates the corresponding Hue bridge field.
+As the [Philips Hue API](https://developers.meethue.com/philips-hue-api) does not support notifications for changes to the Hue bridge state, homebridge-hue polls each Hue bridge's state at a regular interval.  For each Hue bridge field changed, homebridge-hue updates the corresponding HomeKit characteristic.  HomeKit (through homebridge) does notify homebridge-hue of any changes to HomeKit characteristic values.  For each change, homebridge-hue updates the corresponding Hue bridge field.
+
+The polling interval can be set through `heartrate` in `config.json`.  It can also be changed dynamically through the `Output State` characteristic of the bridge `Stateful Programmable Switch` service.  The `Last Updated` characteristic shows the last time homebridge-hue refreshed the bridge state.  Note that the iOS 10 [Home](http://www.apple.com/ios/home/) app doesn't support the `Stateful Programmable Switch` service, nor any custom characteristic, so you need to use another HomeKit app for that, see **Caveats** below.
 
 `config.json` contains a key/value-pair for the username per bridge.  When homebridge-hue finds a new bridge, it prompts to press the link button on the bridge.  It then creates a bridge username, and prompts to edit `config.json`, providing the key/value-pair.
 
