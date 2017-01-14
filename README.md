@@ -16,7 +16,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips
 - Automatic discovery of Hue bridges.
 
 ## Bridges
-The homebridge-hue plugin tries to discover any Hue bridge on your network by querying the Meethue portal.  Alternatively, the hostname or IP address of a single bridge can be specified in `config.json`.  Both v2 (square) as well as v1 (round) Hue bridges are supported.
+The homebridge-hue plugin tries to discover any Hue bridge on your network by querying the Meethue portal.  Alternatively, the hostname(s) and/or IP address(es) of the Hue bridge(s) can be specified in `config.json`.  Both v2 (square) as well as v1 (round) Hue bridges are supported.
 
 For each bridge, homebridge-hue creates a HomeKit accessory, with a `Stateful Programmable Switch` service and an accessory information service.  Each supported and enabled Hue bridge resource (light, group, sensor, schedule, or rule) is mapped to a corresponding HomeKit accessory, with an appropriate service to match the resource type, and an accessory information service.  Each supported Hue bridge resource field is then mapped to a corresponding HomeKit characteristic.
 
@@ -89,7 +89,7 @@ In homebridge's `config.json` you need to specify a platform for homebridge-hue:
 ```
 The following optional parameters can be added to modify homebridge-hue's behaviour:
 
-- `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover your bridge(s) by querying the Meethue portal;
+- `host`: The hostname or IP address of the Hue bridge.  Default: empty, discover your bridge(s) by querying the Meethue portal.  To specify multiple hostnames and/or IP addresses use an array as value, e.g. `"host": ["192.168.1.10", "192.168.1.11"]`;
 - `users`: An object containing a key/value-pair per Hue bridge, where the key holds the bridge ID and the value holds the bridge username, effectively a security token to access the bridge.  Default: empty, when connecting to a new bridge, homebridge-hue will create the username, and prompt you to edit `config.json`;
 - `heartrate`: The interval in seconds to poll the Hue bridge.  Default: `5`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge;
 - `timeout`: The timeout in seconds to wait for a response from the Hue bridge (or Meethue portal).  Default: `5`.  You might want to increase this if homebridge-hue reports ESOCKETTIMEDOUT errors;
