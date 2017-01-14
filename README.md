@@ -101,7 +101,8 @@ The following optional parameters can be added to modify homebridge-hue's behavi
 - `group0`: Flag whether to include group 0 (all lights) when groups are exposed.  Default: `true`;
 - `rooms`: Flag whether to include Rooms when groups are exposed.  Default: `false`;
 - `sensors`: Flag whether to expose Hue bridge sensors to HomeKit.  Default: `false`;
-- `clipsensors`: Flag whether to include CLIP sensors when sensors are exposed.  Default: `true`.  If set to `false`, only Zigbee sensors and the built-in Daylight sensor are included.
+- `excludeSensorTypes`: A list of sensor types to ignore.  Default: empty, expose all sensor types.  The sensor type is the (case sensitive) `type` attribute of the bridge sensor object, see **Sensors** above, or "CLIP" as a shortcut for all CLIP sensors.  For example, to expose only the Hue Motion `Motion Sensor` and `Light Level` sensors, specify: `"excludeSensorTypes": [ "CLIP", "Geofence", "Daylight", "ZLLTemperature", "ZLLSwitch", "ZGPSwitch"]`;
+- `clipsensors`: Deprecated, please use `"excludeSensorTypes": ["CLIP", "Geofence"]` instead;
 - `schedules`: Flag whether to expose Hue bridge schedules to HomeKit.  Default: `false`;
 - `rules`: Flag whether to expose Hue bridge rules to HomeKit.  Default: `false`.
 
@@ -125,7 +126,7 @@ For reference, below is an example `config.json` that includes all parameters an
       "group0": true,
       "rooms": false,
       "sensors": false,
-      "clipsensors": true,
+      "excludeSensorTypes": [],
       "schedules": false,
       "rules": false
     }
