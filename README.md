@@ -67,9 +67,9 @@ By default, homebridge-hue does not expose rules.  You probably don't want to, b
 ## Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
-- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.9.2 LTS for macOS (x64), which includes the `npm` package manager;
+- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.9.4 LTS for macOS (x64), which includes the `npm` package manager;
 - Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there;
-- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.0.5;
+- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.1.1;
 - Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge).  For me, this installs homebridge version 0.4.16 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue`;
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below;
