@@ -108,7 +108,7 @@ Note that the v2 (square) Hue bridge also exposes a custom characteristic for co
 - It only exposes colour temperature for _Color Temperature Lights_, not for _Extended Color Lights_;
 - This `Color Temperature` characteristic holds the value in [Mired](https://en.wikipedia.org/wiki/Mired) (from `153` to `500`) instead of in Kelvin.  Note that Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app actually converts this value into Kelvin.
 
-By setting `ct` in `config.json`, homebridge-hue also exposes colour temperature using the same characteristic type as the Hue bridge.
+By setting `ct` in `config.json`, homebridge-hue exposes colour temperature using the same characteristic type as the Hue bridge.
 
 ## 3.2 Light Configuration
 By default homebridge-hue does not expose any lights.  You might want to change this in `config.json` to expose only non-Philips lights, if you already expose the Philips lights from your v2 (square) Hue Bridge.  You might want to change this to expose all lights, if you have a v1 (round) bridge, or if you want to use the `Color Temperature` characteristic for Philips _Extended color lights_.
@@ -186,8 +186,8 @@ key | default | description
 `schedules` | `false` |lag whether to expose Hue bridge schedules to HomeKit.
 `rules` | `false` | Flag whether to expose Hue bridge rules to HomeKit.
 `heartrate`| `5` | The interval in seconds to poll the Hue bridge.  Must be between `1` and `30`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge.  Note that this can be changed dynamically per bridge, through the _Heartbeat_ service.
-`waitTimeUpdate` | `20` | _(not yet implemented)_ The time in milliseconds to wait for a change from HomeKit to another characteristic for the same light or group, before updating the Hue bridge.  Must be between `20` and `500`.  You might want to increase this when homebridge-hue reports `hue bridge error 201: parameter, xy, is not modifiable. Device is set to off.` on activating a HomeKit scene that turns a light on at a specific colour, colour  temperature, and/or brightness.
-`timeout` | `5` | The timeout in seconds to wait for a response from a Hue bridge (or the Meethue portal).  Must be between `5` and `30`.  You might want to increase this if homebridge-hue reports `ESOCKETTIMEDOUT` errors.
+`waitTimeUpdate` | `50` | The time in milliseconds to wait for a change from HomeKit to another characteristic for the same light or group, before updating the Hue bridge.  Must be between `20` and `500`.  You might want to increase this when homebridge-hue reports `hue bridge error 201: parameter, xy, is not modifiable. Device is set to off.` on activating a HomeKit scene that turns a light on at a specific colour, colour temperature, and/or brightness.
+`timeout` | `5` | The timeout in seconds to wait for a response from a Hue bridge (or the Meethue portal or _(not yet implemented)_ UPnP discovery).  Must be between `5` and `30`.  You might want to increase this if homebridge-hue reports `ESOCKETTIMEDOUT` errors.
 `parallelRequests` | `10`<br>`3` | _(not yet implemented)_ The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Must be between `1` and `30`.  You might want to decrease this if homebridge-hue reports `ECONNRESET` errors.  The default is `10` for a v2 bridge and `3` for a v1 bridge.
 `waitTimeResend` | `300` | The time in milliseconds to wait before resending a request after an `ECONNRESET` error.  Must be between `100` and `1000`.
 
