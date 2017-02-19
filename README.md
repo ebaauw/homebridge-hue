@@ -37,7 +37,7 @@ The Hue bridge actually uses three sensors per Hue Motion Sensor.  For each of t
 - For the `ZLLLightLevel` bridge sensor, a `Light Sensor` service is created, with characteristics `Light Level`, `Dark`, and `Daylight`.  Note that `Dark` and `Daylight` are custom characteristic types, which might not be supported by all HomeKit apps;
 - The `ZLLTemperature` bridge sensor is exposed as a `Temperature Sensor` service, with a `Current Temperature` characteristic.
 
-For now, homebridge-hue creates a separate accessory for each of these three services.  In future, homebridge-hue might create a single accessory containing the three services.
+As of v0.3, homebridge-hue creates a single accessory combining these three services.
 
 Note that homebridge-hue does not support setting the thresholds for `Dark` and `Daylight`; the `tolddark` and `tholdoffset` attributes in the `ZLLLightLevel` bridge sensor `config` are not exposed.  Also homebridge-hue does not yet support setting the sensitivity of the `ZLLPresence` sensor.
 
