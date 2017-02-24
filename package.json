@@ -1,6 +1,7 @@
 {
   "name": "homebridge-hue",
   "dependencies": {
+    "deferred": "^0.7.5",
     "request": "^2.79.0"
   },
   "description": "Homebridge plugin for Philips Hue",
