@@ -14,7 +14,7 @@
     "philips",
     "hue"
   ],
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
