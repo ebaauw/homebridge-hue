@@ -148,7 +148,7 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
 - Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there;
 - You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.1.1;
 - Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge).  For me, this installs homebridge version 0.4.16 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described;
-- Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue`;
+- Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue@latest`;
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **8. Configuration** below;
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see **8. Configuration** below.
 
@@ -156,7 +156,7 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
 Once homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or on a Raspberri Pi.
 
 ### 7.3 Updating
-Somehow `sudo npm -g update` doesn't always seem to work.  To update homebridge-hue, simply issue another `sudo npm install -g homebridge-hue`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating homebridge-hue.  Note that a change to the minor version typically indicates that you need to review/redo you HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as a new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing homebridge-hue, as in: `sudo npm install -g homebridge-hue@0.1.14`.
+Somehow `sudo npm -g update` doesn't always seem to work.  To update homebridge-hue, simply issue another `sudo npm install -g homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating homebridge-hue.  Note that a change to the minor version typically indicates that you need to review/redo you HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as a new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing homebridge-hue, as in: `sudo npm install -g homebridge-hue@0.1.14`.
 
 ## 8. Configuration
 In homebridge's `config.json` you need to specify a platform for homebridge-hue:
@@ -187,8 +187,8 @@ key | default | description
 `rules` | `false` | Flag whether to expose Hue bridge rules to HomeKit.
 `heartrate`| `5` | The interval in seconds to poll the Hue bridge.  Must be between `1` and `30`.  I've been using a 2-second heartrate with no issues on my v2 (square) bridge.  Note that this can be changed dynamically per bridge, through the _Heartbeat_ service.
 `waitTimeUpdate` | `50` | The time in milliseconds to wait for a change from HomeKit to another characteristic for the same light or group, before updating the Hue bridge.  Must be between `20` and `500`.  You might want to increase this when homebridge-hue reports `hue bridge error 201: parameter, xy, is not modifiable. Device is set to off.` on activating a HomeKit scene that turns a light on at a specific colour, colour temperature, and/or brightness.
-`timeout` | `5` | The timeout in seconds to wait for a response from a Hue bridge (or the Meethue portal or _(not yet implemented)_ UPnP discovery).  Must be between `5` and `30`.  You might want to increase this if homebridge-hue reports `ESOCKETTIMEDOUT` errors.
-`parallelRequests` | `10`<br>`3` | _(not yet implemented)_ The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Must be between `1` and `30`.  You might want to decrease this if homebridge-hue reports `ECONNRESET` errors.  The default is `10` for a v2 bridge and `3` for a v1 bridge.
+`timeout` | `5` | The timeout in seconds to wait for a response from a Hue bridge (or the Meethue portal or UPnP discovery).  Must be between `5` and `30`.  You might want to increase this if homebridge-hue reports `ESOCKETTIMEDOUT` errors.
+`parallelRequests` | `10`<br>`3` | The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Must be between `1` and `30`.  You might want to decrease this if homebridge-hue reports `ECONNRESET` errors.  The default is `10` for a v2 bridge and `3` for a v1 bridge.
 `waitTimeResend` | `300` | The time in milliseconds to wait before resending a request after an `ECONNRESET` error.  Must be between `100` and `1000`.
 
 ### 8.1 Example
