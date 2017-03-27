@@ -190,7 +190,7 @@ key | default | description
 `timeout` | `5` | The timeout in seconds to wait for a response from a Hue bridge (or the Meethue portal or UPnP discovery).  Must be between `5` and `30`.  You might want to increase this if homebridge-hue reports `ESOCKETTIMEDOUT` errors.
 `parallelRequests` | `10`<br>`3` | The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Must be between `1` and `30`.  You might want to decrease this if homebridge-hue reports `ECONNRESET` errors.  The default is `10` for a v2 bridge and `3` for a v1 bridge.
 `waitTimeResend` | `300` | The time in milliseconds to wait before resending a request after an `ECONNRESET` error.  Must be between `100` and `1000`.
-`waitTimeSwitch` | `20` | The time in milliseconds to wait to set a switch's `Output State` to the value of the button pressed, after resetting it to to `0`.  Must be between `20` and `1000`.
+`waitTimeSwitch` | `100` | The time in milliseconds to wait to set a switch's `Output State` to the value of the button pressed, after resetting it to to `0`.  Must be between `20` and `1000`.
 
 ### 8.1 Example
 For reference, below is an example `config.json` that includes all parameters and their default values:
@@ -220,7 +220,7 @@ For reference, below is an example `config.json` that includes all parameters an
       "timeout": 5,
       "parallelRequests": 10,
       "waitTimeResend": 300,
-      "waitTimeSwitch": 20
+      "waitTimeSwitch": 100
     }
   ]
 ```
