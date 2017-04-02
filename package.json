@@ -9,7 +9,7 @@
     "homekit",
     "philips",
     "hue",
-    "philipshue"
+    "philipshue",
     "philips-hue"
   ],
   "main": "index.js",
