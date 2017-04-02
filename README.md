@@ -2,7 +2,7 @@
 [![npm](https://img.shields.io/npm/dt/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue) [![npm](https://img.shields.io/npm/v/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue)
 
 ## Homebridge plugin for Philips Hue
-(C) 2016-2017, Erik Baauw
+Copyright © 2016, 2017 Erik Baauw. All rights reserved.
 
 This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips Hue](http://www2.meethue.com/) lights, groups, sensors, and schedules to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
 - HomeKit support for sensors connected to a Hue bridge: Hue motion sensors, Hue dimmer switches, Hue tap switches, the built-in Daylight sensor, and CLIP sensors;
@@ -15,10 +15,9 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips
 Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detailed description of homebridge-hue.
 
 ### Prerequisites
-
-To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Watch, iPad, iPod Touch, or 4th-generation AppleTV.  I recommend to use the latest OS versions: iOS 10.3, watchOS 3.2, and tvOS 10.2.  
+To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Watch, iPad, iPod Touch, or Apple TV (4th generation).  I recommend to use the latest OS versions: iOS 10.3, watchOS 3.2, and tvOS 10.2.  
 Please note that Siri and even the iOS built-in [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.  To use the full features of homebridge-hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid).  
-For HomeKit automation, you need to setup a 4th-generation AppleTV or iPad as [Home Hub](https://support.apple.com/en-us/HT207057).
+For HomeKit automation, you need to setup an Apple TV (4th generation) or iPad as [Home Hub](https://support.apple.com/en-us/HT207057).
 
 You need a Philips Hue bridge to connect homebridge-hue to your lights, switches, and sensors.  I recommend use the latest bridge firmware, with API v1.16.0 or v1.17.0.  
 You need a server to run homebridge.  This can be anything running [Node.js](https://nodejs.org): from a Raspberri Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for details.  I use a Mac mini server, and, occasionally, a Raspberri Pi 3 model B.  
@@ -30,7 +29,7 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
 - Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.10.1 LTS for macOS (x64), which includes the `npm` package manager;
 - Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there;
 - You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.4.4;
-- Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge).  For me, this installs homebridge version 0.4.16 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described;
+- Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  For me, this installs homebridge version 0.4.16 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue@latest`;
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **8. Configuration** below;
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see **8. Configuration** below.
@@ -93,7 +92,7 @@ The homebridge-hue plugin is a hobby project of mine, provided as-is, with no wa
 
 Homebridge is a great platform, but not really intended for consumers, as it requires command-line interaction.
 
-HomeKit is still relatively new, and Apple's [Home](http://www.apple.com/ios/home/) app provides only limited support.  You might want to check some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free), Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid), or, if you use `XCode`, Apple's [HMCatalog](https://developer.apple.com/library/content/samplecode/HomeKitCatalog/Introduction/Intro.html#//apple_ref/doc/uid/TP40015048-Intro-DontLinkElementID_2) example app.
+HomeKit is still relatively new, and Apple's [Home](https://support.apple.com/en-us/HT204893) app provides only limited support.  You might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free), Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid), or, if you use `XCode`, Apple's [HMCatalog](https://developer.apple.com/library/content/samplecode/HomeKitCatalog/Introduction/Intro.html#//apple_ref/doc/uid/TP40015048-Intro-DontLinkElementID_2) example app.
 
 The HomeKit terminology needs some getting used to.  An _accessory_ more or less corresponds to a physical device, accessible from your iOS device over WiFi or Bluetooth.  A _bridge_ (like homebridge) is an accesory that provides access to other, bridged, accessories.  An accessory might provide multiple _services_.  Each service corresponds to a virtual device (like a lightbulb, switch, motion sensor, ..., but also: a programmable switch button, accessory information, battery status).  Siri interacts with services, not with accessories.  A service contains one or more _characteristics_.  A characteristic is like a service attribute, which might be read or written by HomeKit apps.  You might want to checkout Apple's [HomeKit Accessory Simulator](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/TestingYourHomeKitApp/TestingYourHomeKitApp.html), which is distributed a an additional tool for `XCode`.
 
