@@ -14,12 +14,12 @@
   ],
   "main": "index.js",
   "engines": {
-    "homebridge": "^0.4.16",
-    "node": "^6.9.1"
+    "homebridge": "^0.4.19",
+    "node": "^6.10.2"
   },
   "dependencies": {
-    "deferred": "^0.7.5",
-    "request": "^2.79.0"
+    "deferred": "^0.7.6",
+    "request": "^2.81.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
