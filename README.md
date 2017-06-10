@@ -20,16 +20,16 @@ To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Wat
 Please note that Siri and even the iOS built-in [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.  To use the full features of homebridge-hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid).  
 For HomeKit automation, you need to setup an Apple TV (4th generation) or iPad as [Home Hub](https://support.apple.com/en-us/HT207057).
 
-You need a Philips Hue bridge to connect homebridge-hue to your lights, switches, and sensors.  I recommend use the latest bridge firmware, with API v1.16.0 or v1.17.0.  
+You need a Philips Hue bridge to connect homebridge-hue to your lights, switches, and sensors.  I recommend use the latest bridge firmware, with API v1.16.0 or higher.  
 You need a server to run homebridge.  This can be anything running [Node.js](https://nodejs.org): from a Raspberri Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for details.  I use a Mac mini server, and, occasionally, a Raspberri Pi 3 model B.  
 I recommend to use wired Ethernet to connect the server running homebridge, the Hue bridge, and, if applicable, the AppleTV.
 
 ### Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
-- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.10.3 LTS for macOS (x64), which includes the `npm` package manager;
+- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.11.0 LTS for macOS (x64), which includes the `npm` package manager;
 - Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there;
-- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 4.6.1;
+- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 5.0.3;
 - Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  For me, this installs homebridge version 0.4.20 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue@latest`;
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below;
@@ -42,7 +42,7 @@ Somehow `sudo npm -g update` doesn't always seem to work.  To update homebridge-
 ### Configuration
 In homebridge's `config.json` you need to specify homebridge-hue as a platform plugin.  Furthermore you need to specify what you want to expose to HomeKit, see the examples below.  See the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by homebridge-hue.
 
-The example below is a typical configuration for a v2 (square) bridge, which already exposes the Philips lights to HomeKit.  With this configuration, homebridge-hue exposes Hue motion sensors, Hue dimmer switches, Hue taps, and non-Philips lights, using the same Mired `ColorTemperature` characteristic type as the Hue bridge.
+The example below is a typical configuration for a v2 (square) bridge, which already exposes the Philips lights to HomeKit.  With this configuration, homebridge-hue exposes Hue motion sensors, Hue dimmer switches, Hue taps, and non-Philips lights.
 ```json
   "platforms": [
     {
@@ -54,8 +54,7 @@ The example below is a typical configuration for a v2 (square) bridge, which alr
       },
       "sensors": true,
       "excludeSensorTypes": ["Daylight", "CLIP", "Geofence"],
-      "lights": true,
-      "ct": true
+      "lights": true
     }
   ]
 ```
@@ -84,7 +83,7 @@ If you run into homebridge startup issues, please run homebridge with only the h
 
 The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the Hue bridge and for each Hue bridge state change it detects.  Additionally, it issues a debug message for each bridge resource it detects.  To capture these messages into a logfile, start homebridge as `homebridge -D > logfile 2>&1`.
 
-To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in the current directory where homebridge is running, and is named after the bridge.  Note that the Apple's [Home](http://www.apple.com/ios/home/) app does not support `Identify`, so you need another HomeKit app for that (see **Caveats** below).
+To aid troubleshooting, homebridge-hue dumps the full bridge state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in `~/.homebridge`, and is named after the bridge.  Note that the Apple's [Home](http://www.apple.com/ios/home/) app does not support `Identify`, so you need another HomeKit app for that (see **Caveats** below).
 
 If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of your full `config.json` (masking any sensitive info), the debug logfile, and the dump of the bridge state.
 
