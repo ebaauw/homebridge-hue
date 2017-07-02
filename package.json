@@ -14,11 +14,11 @@
   ],
   "main": "index.js",
   "engines": {
-    "homebridge": "^0.4.20",
-    "node": "^6.10.3"
+    "homebridge": "^0.4.21",
+    "node": "^6.11.0||^7.10.0"
   },
   "dependencies": {
-    "deferred": "^0.7.6",
+    "deferred": "^0.7.8",
     "request": "^2.81.0"
   },
   "scripts": {
