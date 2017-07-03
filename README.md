@@ -27,10 +27,10 @@ I recommend to use wired Ethernet to connect the server running homebridge, the 
 ### Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
-- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.11.0 LTS for macOS (x64), which includes the `npm` package manager.  v7.x also works, but v8.x is known to cause issues;
+- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.11.0 LTS for macOS (x64), which includes the `npm` package manager;
 - Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there;
 - You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 5.0.4;
-- Install homebridge following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  For me, this installs homebridge version 0.4.21 to `/usr/local/lib/node_modules`.  Make sure to create a `config.json` in `~/.homebridge`, as described;
+- Install homebridge v0.4.22 (or later) following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  Make sure to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue@latest`;
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below;
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see **Configuration** below.
