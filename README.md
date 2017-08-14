@@ -10,8 +10,9 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes [Philips
 - HomeKit support for Hue bridge groups;
 - HomeKit support for enabling/disabling Hue bridge sensors, schedules, and rules;
 - HomeKit support for the bridge link button;
-- Monitoring Hue bridges resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app;
-- Automatic discovery of Hue bridges; support for multiple Hue bridges; support for both v2 (square) and v1 (round) Hue bridges; works in combination with the HomeKit functionality of the v2 Hue bridge.
+- Monitoring Hue bridge resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app;
+- Automatic discovery of Hue bridges; support for multiple Hue bridges; support for both v2 (square) and v1 (round) Hue bridges; works in combination with the HomeKit functionality of the v2 Hue bridge;
+- Support for [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateways and connected devices.
 
 Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detailed description of homebridge-hue.
 
@@ -27,9 +28,9 @@ I recommend to use wired Ethernet to connect the server running homebridge, the 
 ### Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
-- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.11.0 LTS for macOS (x64), which includes the `npm` package manager;
+- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.11.2 LTS for macOS (x64), which includes the `npm` package manager;
 - Make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there;
-- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 5.0.4;
+- You might want to update `npm` through `sudo npm update -g npm@latest`.  For me, this installs npm version 5.3.0;
 - Install homebridge v0.4.22 (or later) following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  Make sure to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue@latest`;
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below;
@@ -59,7 +60,7 @@ The example below is a typical configuration for a v2 (square) bridge, which alr
   ]
 ```
 
-The example below is a typical configuration for exposing a v1 (round) bridge, or a v2 (square) bridge where the native HomeKit feature isn't used.  With this configuration, homebridge-hue exposes all sensor resources, except those created by the Hue app for _Home & Away_ routines, and all lights, using the Kelvin `ColorTemperature` characteristic type.
+The example below is a typical configuration for exposing a v1 (round) bridge, or a v2 (square) bridge where the native HomeKit feature isn't used.  With this configuration, homebridge-hue exposes all sensor resources, except those created by the Hue app for _Home & Away_ routines, and all lights.
 ```json
   "platforms": [
     {
@@ -72,8 +73,7 @@ The example below is a typical configuration for exposing a v1 (round) bridge, o
       "sensors": true,
       "excludeSensorTypes": ["CLIPPresence", "Geofence"],
       "lights": true,
-      "philipsLights": true,
-      "wallSwitch": true
+      "philipsLights": true
     }
   ]
 ```

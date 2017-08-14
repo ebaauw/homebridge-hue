@@ -10,7 +10,10 @@
     "philips",
     "hue",
     "philipshue",
-    "philips-hue"
+    "philips-hue",
+    "deconz",
+    "raspbee",
+    "conbee"
   ],
   "main": "index.js",
   "engines": {
