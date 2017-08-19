@@ -8,8 +8,10 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
 - HomeKit support for the following sensors:
   - Hue motion sensor (1,2),
   - IKEA Trådfri motion sensor (2),
-  - Xiaomi Aqara temperature/humidity sensor (2),
+  - Xiaomi Aqara weather sensor (2),
   - Xiaomi Aqara door/window sensor (2),
+  - Xiaomi Mi temperature/humidity sensor (2),
+  - Xiaomi Mi door/window sensor (2),
   - Built-in Daylight sensor (1),
   - CLIP sensors: Presence, LightLevel, Temperature, Humidity, Pressure (2), OpenClose,
   - Writeable CLIP sensors: GenericFlag, GenericStatus;
@@ -18,6 +20,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Hue tap (1,2),
   - IKEA Trådfri remote (2),
   - Xiaomi Aqara smart wireless switch (2),
+  - Xiaomi Mi wireless switch (2),
   - Hue bridge link button (1);
 - HomeKit support for the following lights:
   - Philips Hue lights (1,2),
@@ -37,8 +40,8 @@ To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Wat
 Please note that Siri and even the iOS built-in [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.  To use the full features of homebridge-hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid).  
 For HomeKit automation, you need to setup an Apple TV (4th generation) or iPad as [Home Hub](https://support.apple.com/en-us/HT207057).
 
-You need a Philips Hue bridge or deCONZ gateway to connect homebridge-hue to your lights, switches, and sensors.  I recommend to use the latest Hue bridge firmware, with API v1.16.0 or higher, and the latest deCONZ beta, v2.04.65 or higher.  
-You need a server to run homebridge.  This can be anything running [Node.js](https://nodejs.org): from a Raspberri Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for details.  I use a Raspberri Pi 3 model B, which runs deCONZ and homebridge-hue at the same time.  
+You need a Philips Hue bridge or deCONZ gateway to connect homebridge-hue to your ZigBee lights, switches, and sensors.  I recommend to use the latest Hue bridge firmware, with API v1.16.0 or higher, and the latest deCONZ beta, v2.04.65 or higher.  
+You need a server to run homebridge.  This can be anything running [Node.js](https://nodejs.org): from a Raspberri Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for details.  I run deCONZ and homebridge-hue together on a Raspberri Pi 3 model B, with a [RaspBee](https://www.dresden-elektronik.de/funktechnik/solutions/wireless-light-control/raspbee/?L=1) add-on board.  
 I recommend to use wired Ethernet to connect the server running homebridge, the Hue bridge, and the AppleTV.
 
 ### Installation
@@ -50,7 +53,7 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
 - Install homebridge v0.4.26 (or later) following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  Make sure to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue@latest`;
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below;
-- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), and note the bridgeid/username pair for each bridge in the log output.  Edit `config.json` to include these, see **Configuration** below.
+- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see **Configuration** below.
 
 Once homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or on a Raspberri Pi.
 
