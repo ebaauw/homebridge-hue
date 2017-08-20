@@ -30,7 +30,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
-- Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app;
+- Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, homebridge-hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
 - Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the HomeKit functionality of the v2 Hue bridge;
 
 Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detailed description of homebridge-hue.
