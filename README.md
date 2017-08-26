@@ -10,6 +10,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - IKEA Trådfri motion sensor (2),
   - Xiaomi Aqara weather sensor (2),
   - Xiaomi Aqara door/window sensor (2),
+  - Xiaomi Aqara motion sensor (2),
   - Xiaomi Mi temperature/humidity sensor (2),
   - Xiaomi Mi door/window sensor (2),
   - Built-in Daylight sensor (1),
