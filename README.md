@@ -21,6 +21,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - IKEA Trådfri remote (2),
   - Xiaomi Aqara smart wireless switch (2),
   - Xiaomi Mi wireless switch (2),
+  - Xiaomi Mi smart cube (2),
   - Hue bridge link button (1);
 - HomeKit support for the following lights:
   - Philips Hue lights (1,2),
