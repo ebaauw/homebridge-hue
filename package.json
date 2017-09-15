@@ -17,14 +17,14 @@
   ],
   "main": "index.js",
   "engines": {
-    "deconz": "2.04.75",
-    "homebridge": "0.4.27",
-    "node": "6.11.2"
+    "deconz": "2.04.77",
+    "homebridge": "0.4.28",
+    "node": "6.11.3"
   },
   "dependencies": {
     "deferred": "^0.7.8",
     "request": "^2.81.0",
-    "ws": "^3.1.0"
+    "ws": "^3.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
