@@ -6,7 +6,7 @@ Copyright © 2016, 2017 Erik Baauw. All rights reserved.
 
 This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee lights, sensors, and switches connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
 - HomeKit support for the following sensors:
-  - Hue motion sensor (1,2),
+  - Hue motion sensor,
   - IKEA Trådfri motion sensor (2),
   - Xiaomi Aqara weather sensor (2),
   - Xiaomi Aqara door/window sensor (2),
@@ -17,16 +17,16 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - CLIP sensors: Presence, LightLevel, Temperature, Humidity, Pressure (2), OpenClose,
   - Writeable CLIP sensors: GenericFlag, GenericStatus;
 - HomeKit support for the following switches:
-  - Hue dimmer switch (1,2),
-  - Hue tap (1,2),
+  - Hue dimmer switch,
+  - Hue tap,
   - IKEA Trådfri remote (2),
   - Xiaomi Aqara smart wireless switch (2),
   - Xiaomi Mi wireless switch (2),
   - Xiaomi Mi smart cube (2),
   - Hue bridge link button (1);
 - HomeKit support for the following lights:
-  - Philips Hue lights (1,2),
-  - ZigBee Light Link (ZLL) lights from other manufacturers (1,2).
+  - Philips Hue lights,
+  - ZigBee Light Link (ZLL) lights from other manufacturers,
   - ZigBee Home Automation (ZHA) lights (2),
   - ZigBee 3.0 lights (2);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
@@ -64,7 +64,7 @@ Somehow `sudo npm -g update` doesn't always seem to work.  To update homebridge-
 ### Configuration
 In homebridge's `config.json` you need to specify homebridge-hue as a platform plugin.  Furthermore you need to specify what you want to expose to HomeKit, see the examples below.  See the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by homebridge-hue.
 
-The example below is a typical configuration for a v2 (square) bridge, which already exposes the Philips lights to HomeKit.  With this configuration, homebridge-hue exposes Hue motion sensors, Hue dimmer switches, Hue taps, and non-Philips lights.
+The example below is a typical configuration for a v2 (square) bridge, which already exposes the Philips Hue lights, Hue motion sensors, Hue dimmer switches, and Hue taps to HomeKit.  With this configuration, homebridge-hue exposes the non-Philips lights.
 ```json
   "platforms": [
     {
@@ -74,14 +74,12 @@ The example below is a typical configuration for a v2 (square) bridge, which alr
         "001788FFFExxxxxx": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "001788FFFEyyyyyy": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
       },
-      "sensors": true,
-      "excludeSensorTypes": ["Daylight", "CLIP", "Geofence"],
       "lights": true
     }
   ]
 ```
 
-The example below is a typical configuration for exposing a v1 (round) bridge, or a v2 (square) bridge where the native HomeKit feature isn't used.  With this configuration, homebridge-hue exposes all sensor resources, except those created by the Hue app for _Home & Away_ routines, and all lights.
+The example below is a typical configuration for exposing a v1 (round) bridge, or a v2 (square) bridge where the native HomeKit feature isn't used.  With this configuration, homebridge-hue exposes all lights and all sensor resources, except those created by the Hue app for _Home & Away_ routines, and all lights.
 ```json
   "platforms": [
     {
