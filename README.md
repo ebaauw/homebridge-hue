@@ -8,7 +8,6 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
 - HomeKit support for the following sensors:
   - Hue motion sensor,
   - IKEA Trådfri motion sensor (2),
-  - IKEA Trådfri wireless dimmer (2),
   - Xiaomi Aqara weather sensor (2),
   - Xiaomi Aqara door/window sensor (2),
   - Xiaomi Aqara motion sensor (2),
@@ -21,6 +20,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Hue dimmer switch,
   - Hue tap,
   - IKEA Trådfri remote (2),
+  - IKEA Trådfri wireless dimmer (2),
   - Xiaomi Aqara smart wireless switch (2),
   - Xiaomi Mi wireless switch (2),
   - Xiaomi Mi smart cube (2),
