@@ -19,7 +19,7 @@
   "engines": {
     "deconz": "2.04.80",
     "homebridge": "0.4.28",
-    "node": "6.11.3"
+    "node": ">=6.11.3"
   },
   "dependencies": {
     "deferred": "^0.7.8",
