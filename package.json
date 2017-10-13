@@ -17,11 +17,11 @@
   ],
   "main": "index.js",
   "engines": {
-    "bsb001": "~1.15.0",
+    "bsb001": "~1.16.0",
     "bsb002": "~1.21.0",
     "deconz": "~2.4.81",
     "homebridge": "0.4.28",
-    "node": "^6.11.2"
+    "nodejs": "^6.11.4"
   },
   "dependencies": {
     "deferred": "^0.7.8",
