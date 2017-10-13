@@ -17,13 +17,16 @@
   ],
   "main": "index.js",
   "engines": {
-    "deconz": "2.04.80",
+    "bsb001": "~1.15.0",
+    "bsb002": "~1.21.0",
+    "deconz": "~2.4.81",
     "homebridge": "0.4.28",
-    "node": "6.11.3"
+    "node": "^6.11.2"
   },
   "dependencies": {
     "deferred": "^0.7.8",
     "request": "^2.81.0",
+    "semver": "^5.4.1",
     "ws": "^3.2.0"
   },
   "scripts": {
