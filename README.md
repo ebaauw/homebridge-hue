@@ -51,7 +51,7 @@ I recommend using wired Ethernet to connect the server running homebridge, the H
 ### Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
-- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.11.4 LTS for macOS (x64) and the 6.x [Debian package](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) for Rapsberry Pi.  Both include the `npm` package manager;
+- Install the Node.js JavaScript runtime `node`, from its [website](https://nodejs.org).  I'm using v6.11.4 LTS for macOS (x64) and the 6.x [Debian package](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) for Raspberry Pi.  Both include the `npm` package manager;
 - For macOS, make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there.  On a Raspberry Pi, these install to `/usr/bin`;
 - You might want to update `npm` through `sudo npm update -g npm@latest`;
 - Install homebridge v0.4.29 following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  Make sure to create a `config.json` in `~/.homebridge`, as described;
