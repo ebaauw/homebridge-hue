@@ -93,7 +93,7 @@ The example below is a typical configuration for exposing a v1 (round) bridge, o
       "sensors": true,
       "excludeSensorTypes": ["CLIPPresence", "Geofence"],
       "lights": true,
-      "philipsLights": true
+      "nativeHomeKit": false
     }
   ]
 ```
