@@ -45,7 +45,7 @@ To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Wat
 Please note that Siri and even the iOS built-in [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.  To use the full features of homebridge-hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid).  
 For HomeKit automation, you need to setup an Apple TV (4th generation later) or iPad as [Home Hub](https://support.apple.com/en-us/HT207057).
 
-You need a Philips Hue bridge or deCONZ gateway to connect homebridge-hue to your ZigBee lights, switches, and sensors.  I recommend using the latest Hue bridge firmware, with API v1.16.0 or higher, and the latest deCONZ beta, v2.4.85 or higher.  
+You need a Philips Hue bridge or deCONZ gateway to connect homebridge-hue to your ZigBee lights, switches, and sensors.  I recommend using the latest Hue bridge firmware, with API v1.16.0 or higher, and the latest deCONZ beta, v2.4.86 or higher.  
 You need a server to run homebridge.  This can be anything running [Node.js](https://nodejs.org): from a Raspberry Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for details.  I run deCONZ and homebridge-hue together on a Raspberry Pi 3 model B, with a [RaspBee](https://www.dresden-elektronik.de/funktechnik/solutions/wireless-light-control/raspbee/?L=1) add-on board.  
 I recommend using wired Ethernet to connect the server running homebridge, the Hue bridge, and the AppleTV.
 
@@ -105,7 +105,8 @@ The homebridge-hue plugin outputs an info message for each HomeKit characteristi
 
 To aid troubleshooting, homebridge-hue dumps the full bridge / gateway state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in `~/.homebridge`, and is named after the bridge / gateway.  Note that the Apple's [Home](http://www.apple.com/ios/home/) app does not support `Identify`, so you need another HomeKit app for that (see **Caveats** below).
 
-If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of your full `config.json` (masking any sensitive info), the debug logfile, and the dump of the bridge state.
+If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of your full `config.json` (masking any sensitive info), the debug logfile, and the dump of the bridge state.  
+For questions, you can also post a message to the **#homebridge-hue** channel of the homebridge workspace on [Slack](https://slackin-adpxqdnhge.now.sh/).
 
 ### Caveats
 The homebridge-hue plugin is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for years, but your mileage might vary.  Please report any issues on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).
