@@ -19,7 +19,7 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.21.0",
-    "deCONZ": "2.4.93",
+    "deCONZ": "2.4.94",
     "homebridge": "^0.4.33",
     "node": "^8.9.1"
   },
@@ -27,7 +27,7 @@
     "deferred": "^0.7.8",
     "request": "^2.83.0",
     "semver": "^5.4.1",
-    "ws": "^3.2.0"
+    "ws": "^3.3.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
