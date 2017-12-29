@@ -98,7 +98,7 @@ The example below is a typical configuration for exposing a v1 (round) bridge, o
   ]
 ```
 
-For finer-grained control of what resources homebridge-hue exposes to HomeKit, you can create whitelists or blacklists on the bridge / gateway using resourcelinks.  The `name` of the resourcelink needs to be `"homebridge-hue"`, the `description` indicates the type of list: `"whitelist"` or `"blacklist"`.  Whitelists take precedence over blacklists.  Both whitelists and blacklists take precedence over the settings in `config.json`.  
+For finer-grained control of what resources homebridge-hue exposes to HomeKit, create resourcelinks on the bridge / gateway for whitelists or blacklists.  The `name` of the resourcelink needs to be `"homebridge-hue"`, the `description` indicates the type of list: `"whitelist"` or `"blacklist"`.  Whitelists take precedence over blacklists.  Both whitelists and blacklists take precedence over the settings in `config.json`.  
 For example, if you have a chandelier with three bulbs, you might want to expose this as a group instead of as three individual lights, by creating the following resourcelinks:
 ```json
 {
