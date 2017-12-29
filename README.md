@@ -81,7 +81,7 @@ The example below is a typical configuration for a v2 (square) bridge, which alr
   ]
 ```
 
-The example below is a typical configuration for exposing a v1 (round) bridge, or a v2 (square) bridge where the native HomeKit feature isn't used.  With this configuration, homebridge-hue exposes all lights and all sensor resources, except those created by the Hue app for _Home & Away_ routines, and all lights.
+The example below is a typical configuration for exposing a v1 (round) bridge, or a v2 (square) bridge where the native HomeKit feature isn't used.  With this configuration, homebridge-hue exposes all lights and all sensor resources, except those created by the Hue app for _Home & Away_ routines.
 ```json
   "platforms": [
     {
@@ -96,6 +96,31 @@ The example below is a typical configuration for exposing a v1 (round) bridge, o
       "nativeHomeKit": false
     }
   ]
+```
+
+For finer-grained control of what resources homebridge-hue exposes to HomeKit, you can create whitelists or blacklists on the bridge / gateway using resourcelinks.  The `name` of the resourcelink needs to be `"homebridge-hue"`, the `description` indicates the type of list: `"whitelist"` or `"blacklist"`.  Whitelists take precedence over blacklists.  Both whitelists and blacklists take precedence over the settings in `config.json`.  
+For example, if you have a chandelier with three bulbs, you might want to expose this as a group instead of as three individual lights, by creating the following resourcelinks:
+```json
+{
+  "name": "homebridge-hue",
+  "classid": 1,
+  "description": "whitelist",
+  "links": [
+    "/groups/1"
+  ]
+}
+```
+```json
+{
+  "name": "homebridge-hue",
+  "classid": 1,
+  "description": "blacklist",
+  "links": [
+    "/lights/1",
+    "/lights/2",
+    "/lights/3"
+  ]
+}
 ```
 
 ### Troubleshooting
