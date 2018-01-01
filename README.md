@@ -57,8 +57,8 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
 - You might want to update `npm` through `sudo npm update -g npm@latest`;
 - Install homebridge v0.4.31 following the instructions on [GitHub](https://github.com/nfarina/homebridge#installation).  Make sure to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through `sudo npm install -g homebridge-hue@latest`;
-- Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see **Configuration** below;
-- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see **Configuration** below.
+- Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see [**Configuration**](#configuration);
+- Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).
 
 Once homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or on a Raspberry Pi.
 
@@ -124,13 +124,38 @@ For example, if you have a chandelier with three bulbs, you might want to expose
 ```
 
 ### Troubleshooting
-If you run into homebridge startup issues, please run homebridge with only the homebridge-hue plugin enabled in `config.json`.  This way, you can determine whether the issue is related to the homebridge-hue plugin itself, or to the interaction of multiple homebridge plugins in your setup.  Note that disabling the other plugins from your existing homebridge setup will remove their accessories from HomeKit.  You will need to re-assign these accessories to any HomeKit room, groups, scenes, actions, and triggers after re-enabling their plugins.  Alternatively, you can start a different instance of homebridge just for homebridge-hue, on a different system, as a different user, or from a different directory (specified by the `-U` flag).  Make sure to use a different homebridge `name`, `username`, and (if running on the same system) `port` in the `config.json` for each instance.
 
-The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the bridge / gateway, for each state change it detects while polling the bridge / gateway, and for each push notification it receives from the deCONZ gateway.  Additionally, it issues a debug message for each bridge / gateway resource it detects.  To capture these messages into a logfile, start homebridge as `homebridge -D > logfile 2>&1`.
+#### Run homebridge-hue Solo
+If you run into homebridge startup issues, please run a separate instance of homebridge with only the homebridge-hue plugin enabled in `config.json`.  This way, you can determine whether the issue is related to the homebridge-hue plugin itself, or to the interaction of multiple homebridge plugins in your setup.  You can start this separate instance of homebridge on a different system, as a different user, or from a different user directory (specified by the `-U` flag).  Make sure to use a different homebridge `name`, `username`, and (if running on the same system) `port` in the `config.json` for each instance.
 
-To aid troubleshooting, homebridge-hue dumps the full bridge / gateway state into a json file, when `Identify` is selected on the bridge accessory.  Bridge ID, mac address, ip address, and usernames are masked.  The file is created in `~/.homebridge`, and is named after the bridge / gateway.  Note that the Apple's [Home](http://www.apple.com/ios/home/) app does not support `Identify`, so you need another HomeKit app for that (see **Caveats** below).
+#### Debug Log File
+The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the bridge / gateway, for each state change it detects while polling the bridge / gateway, and for each push notification it receives from the deCONZ gateway.  Additionally, it issues a debug message for each bridge / gateway resource it detects.
 
-If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of your full `config.json` (masking any sensitive info), the debug logfile, and the dump of the bridge state.  
+To capture these messages into a log file do the following:
+
+- When running homebridge manually, start homebridge by issuing:
+```
+homebridge -D 2>&1 | tee homebridge.log
+```
+Hit interrupt (ctrl-C) to stop homebridge.
+
+- When running homebridge as a service, add `-D` to the `ExecStart` line of the service definition file, typically `/etc/systemd/system/homebridge.service`.  Then reload by
+```
+sudo systemctl daemon-reload
+sudo systemctl restart homebridge
+```
+To capture the log file, issue:
+```
+sudo journalctl -au homebridge > homebridge.log
+```  
+
+Compress the log file by issuing `gzip homebridge.log`.
+
+#### Debug Dump File
+To aid troubleshooting, on startup, homebridge-hue dumps its environment, including its `config.json` settings and the full state of all bridges / gateways into a gzipped json file, `homebridge-hue.json.gz`.  IP addresses, and bridge / gateway usernames are masked.  This file is created in the user directory, `~/.homebridge` by default.
+
+#### Raising Issues
+If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of `homebridge.log.gz` (see [**Debug Log File**](#debug-log-file)) and of `homebridge-hue.json.gz`  (see [**Debug Dump File**](#debug-dump-file)).  Please do not copy/paste large amounts of logging.  
 For questions, you can also post a message to the **#homebridge-hue** channel of the homebridge workspace on [Slack](https://slackin-adpxqdnhge.now.sh/).
 
 ### Caveats
