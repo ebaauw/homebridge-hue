@@ -16,6 +16,10 @@
     "conbee"
   ],
   "main": "index.js",
+  "bin": {
+    "dc_eventlog": "node_modules/homebridge-hue-utils/lib/dc_eventlog.js",
+    "json": "node_modules/homebridge-hue-utils/lib/json.js"
+  },
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.22.0",
@@ -24,11 +28,11 @@
     "node": "^8.9.4"
   },
   "dependencies": {
-    "deferred": "^0.7.8",
-    "homebridge-hue-utils": "latest",
+    "deferred": "^0.7.9",
+    "homebridge-hue-utils": "^0.1.0",
     "request": "^2.83.0",
     "semver": "^5.4.1",
-    "ws": "^3.3.2"
+    "ws": "^3.3.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
