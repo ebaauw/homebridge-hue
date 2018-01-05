@@ -17,8 +17,8 @@
   ],
   "main": "index.js",
   "bin": {
-    "dc_eventlog": "node_modules/homebridge-hue-utils/lib/dc_eventlog",
-    "json": "node_modules/homebridge-hue-utils/lib/json"
+    "dc_eventlog": "node_modules/homebridge-hue-utils/lib/dc_eventlog.js",
+    "json": "node_modules/homebridge-hue-utils/lib/json.js"
   },
   "engines": {
     "BSB001": "1.16.0",
