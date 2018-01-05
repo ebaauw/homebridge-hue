@@ -2,7 +2,7 @@
   "name": "homebridge-hue",
   "description": "Homebridge plugin for Philips Hue",
   "author": "Erik Baauw",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "version": "0.5.58",
   "keywords": [
     "homebridge-plugin",
@@ -21,10 +21,11 @@
     "BSB002": "1.22.0",
     "deCONZ": "2.4.99",
     "homebridge": "^0.4.33",
-    "node": "^8.9.3"
+    "node": "^8.9.4"
   },
   "dependencies": {
     "deferred": "^0.7.8",
+    "homebridge-hue-utils": "latest",
     "request": "^2.83.0",
     "semver": "^5.4.1",
     "ws": "^3.3.2"
