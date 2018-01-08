@@ -157,7 +157,7 @@ To aid troubleshooting, on startup, homebridge-hue dumps its environment, includ
 
 #### Raising Issues
 If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of `homebridge.log.gz` (see [**Debug Log File**](#debug-log-file)) and of `homebridge-hue.json.gz`  (see [**Debug Dump File**](#debug-dump-file)).  Please do not copy/paste large amounts of logging.  
-For questions, you can also post a message to the **#homebridge-hue** channel of the homebridge workspace on [Slack](https://slackin-adpxqdnhge.now.sh/).
+For questions, you can also post a message to the **#homebridge-hue** channel of the [homebridge workspace on Slack](https://github.com/nfarina/homebridge#community).
 
 ### Caveats
 The homebridge-hue plugin is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for years, but your mileage might vary.  Please report any issues on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).
