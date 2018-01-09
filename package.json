@@ -17,8 +17,9 @@
   ],
   "main": "index.js",
   "bin": {
-    "dc_eventlog": "node_modules/homebridge-hue-utils/lib/dc_eventlog.js",
-    "json": "node_modules/homebridge-hue-utils/lib/json.js"
+    "dc_eventlog": "node_modules/homebridge-hue-utils/cli/dc_eventlog.js",
+    "json": "node_modules/homebridge-hue-utils/cli/json.js",
+    "upnp": "node_modules/homebridge-hue-utils/cli/upnp.js"
   },
   "engines": {
     "BSB001": "1.16.0",
@@ -29,7 +30,7 @@
   },
   "dependencies": {
     "deferred": "^0.7.9",
-    "homebridge-hue-utils": "^0.1.2",
+    "homebridge-hue-utils": "^0.1.3",
     "request": "^2.83.0",
     "semver": "^5.4.1",
     "ws": "^3.3.3"
