@@ -25,12 +25,12 @@
     "BSB001": "1.16.0",
     "BSB002": "1.22.0",
     "deCONZ": "2.4.99",
-    "homebridge": "^0.4.35",
+    "homebridge": "^0.4.33",
     "node": "^8.9.4"
   },
   "dependencies": {
     "deferred": "^0.7.9",
-    "homebridge-hue-utils": "^0.1.3",
+    "homebridge-hue-utils": "^0.2.0",
     "request": "^2.83.0",
     "semver": "^5.4.1",
     "ws": "^3.3.3"
