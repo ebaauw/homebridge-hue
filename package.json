@@ -3,7 +3,7 @@
   "description": "Homebridge plugin for Philips Hue",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
-  "version": "0.5.62",
+  "version": "0.5.63",
   "keywords": [
     "homebridge-plugin",
     "homekit",
