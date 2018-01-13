@@ -84,7 +84,7 @@ The example below is a typical configuration for a v2 (square) bridge, which alr
   ]
 ```
 
-The example below is a typical configuration for exposing a v1 (round) bridge, or a v2 (square) bridge where the native HomeKit feature isn't used.  With this configuration, homebridge-hue exposes all lights and all sensor resources, except those created by the Hue app for _Home & Away_ routines.
+The example below is a typical configuration for a v2 (square) bridge where the native HomeKit feature for sensors isn't used.  With this configuration, homebridge-hue exposes the non-Philips lights and all sensor resources, except those created by the Hue app for _Home & Away_ routines.
 ```json
   "platforms": [
     {
@@ -94,9 +94,9 @@ The example below is a typical configuration for exposing a v1 (round) bridge, o
         "001788FFFEyyyyyy": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
       },
       "sensors": true,
+      "nativeHomeKitSensors": false,
       "excludeSensorTypes": ["CLIPPresence", "Geofence"],
-      "lights": true,
-      "nativeHomeKit": false
+      "lights": true
     }
   ]
 ```
