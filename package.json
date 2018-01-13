@@ -25,7 +25,7 @@
     "BSB001": "1.16.0",
     "BSB002": "1.22.0",
     "deCONZ": "2.4.99",
-    "homebridge": "^0.4.33",
+    "homebridge": "^0.4.36",
     "node": "^8.9.4"
   },
   "dependencies": {
