@@ -1,6 +1,6 @@
 {
   "name": "homebridge-hue",
-  "description": "Homebridge plugin for Philips Hue",
+  "description": "Homebridge plugin for Philips Hue and deCONZ",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
   "version": "0.5.63",
@@ -35,8 +35,11 @@
     "semver": "^5.4.1",
     "ws": "^3.3.3"
   },
+  "devDependencies": {
+    "standard": "*"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard && echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

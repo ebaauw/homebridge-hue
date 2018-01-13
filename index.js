@@ -3,14 +3,14 @@
 //
 // Homebridge plug-in for Philips Hue and/or deCONZ.
 
-'use strict';
+'use strict'
 
-const dynamic = false;
+const dynamic = false
 
-const HuePlatformModule = require('./lib/HuePlatform');
-const HuePlatform = HuePlatformModule.HuePlatform;
+const HuePlatformModule = require('./lib/HuePlatform')
+const HuePlatform = HuePlatformModule.HuePlatform
 
-module.exports = function(homebridge) {
-  HuePlatformModule.setHomebridge(homebridge);
-  homebridge.registerPlatform('homebridge-hue', 'Hue', HuePlatform, dynamic);
-};
+module.exports = function (homebridge) {
+  HuePlatformModule.setHomebridge(homebridge)
+  homebridge.registerPlatform('homebridge-hue', 'Hue', HuePlatform, dynamic)
+}
