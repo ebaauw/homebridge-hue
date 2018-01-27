@@ -19,6 +19,7 @@
   "bin": {
     "dc_eventlog": "node_modules/homebridge-hue-utils/cli/dc_eventlog.js",
     "json": "node_modules/homebridge-hue-utils/cli/json.js",
+    "ph": "node_modules/homebridge-hue-utils/cli/ph.js",
     "upnp": "node_modules/homebridge-hue-utils/cli/upnp.js"
   },
   "engines": {
@@ -30,7 +31,7 @@
   },
   "dependencies": {
     "deferred": "^0.7.9",
-    "homebridge-hue-utils": "^0.2.2",
+    "homebridge-hue-utils": "^0.3.0",
     "request": "^2.83.0",
     "semver": "^5.4.1",
     "ws": "^3.3.3"
