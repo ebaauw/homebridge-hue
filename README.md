@@ -6,6 +6,7 @@
 Copyright © 2016-2018 Erik Baauw. All rights reserved.
 
 This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee lights, plugs, sensors, and switches connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
+
 - HomeKit support for the following sensors:
   - Hue motion sensor,
   - IKEA Trådfri motion sensor (2),
@@ -17,7 +18,9 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Xiaomi Mi motion sensor (2),
   - Built-in Daylight sensor (1),
   - CLIP sensors: Presence, LightLevel, Temperature, Humidity, Pressure (2), OpenClose,
-  - Writeable CLIP sensors: GenericFlag, GenericStatus;
+  - Writeable CLIP sensors: GenericFlag, GenericStatus,
+  - Multi-CLIP: Combine multiple CLIP sensors into one accessory;
+- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for motion sensors, door/window sensors, weather sensors, and temperature/humidity sensors, including (multi-)CLIP versions of these;
 - HomeKit support for the following switches:
   - Hue dimmer switch,
   - Hue tap,
@@ -38,8 +41,11 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
 - HomeKit support for groups on a Hue bridge or deCONZ gateway;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
 - Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, homebridge-hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
-- Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the HomeKit functionality of the v2 Hue bridge;
-- Includes the command line utilities from [homebridge-hue-utils](https://github.com/ebaauw/homebridge-hue-utils).
+- Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the native HomeKit functionality of the v2 Hue bridge;
+- Includes the command line utilities `dc_eventlog`, `json`, `ph`, and `upnp` from [homebridge-hue-utils](https://github.com/ebaauw/homebridge-hue-utils).
+
+1) Hue bridge only  
+2) deCONZ only
 
 Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detailed description of homebridge-hue.
 
