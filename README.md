@@ -7,36 +7,59 @@ Copyright © 2016-2018 Erik Baauw. All rights reserved.
 
 This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee lights, plugs, sensors, and switches connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
 
-- HomeKit support for the following sensors:
-  - Hue motion sensor,
-  - IKEA Trådfri motion sensor (2),
-  - Xiaomi Aqara weather sensor (2),
+- HomeKit support for **contact sensors**, including:
+  - Heiman door/window sensor (2),
   - Xiaomi Aqara door/window sensor (2),
+  - Xiaomi Mi door/window sensor (2);
+- HomeKit support for **motion sensors**, including:
+  - Heiman motion sensor (2),
+  - IKEA Trådfri motion sensor (2),
+  - Philips hue motion sensor,
   - Xiaomi Aqara motion sensor (2),
-  - Xiaomi Mi temperature/humidity sensor (2),
-  - Xiaomi Mi door/window sensor (2),
-  - Xiaomi Mi motion sensor (2),
-  - Built-in Daylight sensor (1),
-  - CLIP sensors: Presence, LightLevel, Temperature, Humidity, Pressure (2), OpenClose,
+  - Xiaomi Mi motion sensor (2);
+- Homekit support for **ambient light sensors**, including:
+  - Philiph hue motion sensor;
+- HomeKit support for **weather** and **temperature/humidity sensors**, including:
+  - Heiman temperature/humidity sensor (2),
+  - Philips hue motion sensor,
+  - Xiaomi Aqara weather sensor (2),
+  - Xiaomi Mi temperature/humidity sensor (2);
+- HomeKit support for **carbon-monoxide (CO) sensors**, including:
+  - Heiman carbon-monoxide sensor (2),
+- HomeKit support for **fire sensors**, including:
+  - Heiman combustable gas sensor (2),
+  - Heiman smoke sensor (2);
+- HomeKit support for **water sensors**, including:
+  - Heiman water sensor (2),
+  - Xiaomi Aqara leak sensor (2);
+- HomeKit support for **built-in sensors**:
+  - Daylight sensor (1),
+  - CLIP sensors: OpenClose, Presence, LightLevel, Temperature, Humidity, Pressure (2), CarbonMonoxide (2), Fire (2), Water (2)
   - Writeable CLIP sensors: GenericFlag, GenericStatus,
-  - Multi-CLIP: Combine multiple CLIP sensors into one accessory;
-- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for motion sensors, door/window sensors, weather sensors, and temperature/humidity sensors, including (multi-)CLIP versions of these;
-- HomeKit support for the following switches:
-  - Hue dimmer switch,
-  - Hue tap,
+  - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
+- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather and temperature/humidity sensors (cf. Eve Degree), including (multi-)CLIP versions of these;
+- HomeKit support for **switches**, including:
   - IKEA Trådfri remote (2),
   - IKEA Trådfri wireless dimmer (2),
+  - Philips hue bridge link button (1),
+  - Philips hue dimmer switch,
+  - Philips hue tap,
+  - ubisys C4 control unit (2),
+  - ubisys D1 dimmer and (2),
   - Xiaomi Aqara smart wireless switch (2),
   - Xiaomi Mi wireless switch (2),
-  - Xiaomi wall switch (2),
   - Xiaomi Mi smart cube (2),
-  - ubisys D1 and C4 (2),
-  - Hue bridge link button (1);
-- HomeKit support for the following lights:
-  - Philips Hue lights,
+  - Xiaomi wall switch (2);
+- HomeKit support for **lights** and **plugs**:
+  - Philips hue lights,
   - ZigBee Light Link (ZLL) lights and plugs from other manufacturers,
   - ZigBee Home Automation (ZHA) lights and plugs (2),
   - ZigBee 3.0 lights and plugs (2);
+- HomeKit support for **power consumption** as reported by smart plugs, including:
+  - Heiman SmartPlug (2),
+  - OSRAM Lightify plug,
+  - OSRAM Smart+ plug;
+- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
