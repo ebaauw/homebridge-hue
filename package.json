@@ -25,14 +25,14 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.23.0",
-    "deCONZ": "2.5.4",
+    "deCONZ": "2.5.5",
     "homebridge": "^0.4.38",
     "node": "^8.9.4"
   },
   "dependencies": {
     "deferred": "^0.7.9",
     "fakegato-history": "^0.4.0",
-    "homebridge-hue-utils": "^0.4.1",
+    "homebridge-hue-utils": "^0.4.3",
     "moment": "^2.20.1",
     "request": "^2.83.0",
     "semver": "^5.4.1",
