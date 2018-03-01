@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "deferred": "^0.7.9",
-    "fakegato-history": "^0.4.1",
+    "fakegato-history": "^0.4.2",
     "homebridge-hue-utils": "^0.4.3",
     "moment": "^2.20.1",
     "request": "^2.83.0",
