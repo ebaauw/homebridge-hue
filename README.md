@@ -41,7 +41,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Writeable CLIP sensors: GenericFlag, GenericStatus,
   - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather and temperature/humidity sensors (cf. Eve Degree), including (multi-)CLIP versions of these;
-- HomeKit support for **switches**, including:
+- HomeKit support for **switches**, including the list below.  Note that you need a home hub to use these switches in HomeKit, see [Prerequisites](#prerequisites):
   - IKEA Trådfri remote (2),
   - IKEA Trådfri wireless dimmer (2),
   - Philips hue bridge link button (1),
@@ -78,7 +78,7 @@ Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detai
 ### Prerequisites
 To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Watch, iPad, iPod Touch, or Apple TV (4th generation or later).  I recommend to use the latest released versions of iOS, watchOS, and tvOS.  
 Please note that Siri and even Apple's [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.  To use the full features of homebridge-hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid).  
-For HomeKit automation, you need to setup an Apple TV (4th generation or later) or iPad as [Home Hub](https://support.apple.com/en-us/HT207057).
+For HomeKit automation, you need to setup an Apple TV (4th generation or later), HomePod, or iPad as [home hub](https://support.apple.com/en-us/HT207057).
 
 You need a Philips Hue bridge or deCONZ gateway to connect homebridge-hue to your ZigBee lights, switches, and sensors.  I recommend using the latest Hue bridge firmware, with API v1.22.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, and the latest deCONZ beta, v2.05.00 or higher.
 
