@@ -40,7 +40,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - CLIP sensors: OpenClose, Presence, LightLevel, Temperature, Humidity, Pressure (2), CarbonMonoxide (2), Fire (2), Water (2)
   - Writeable CLIP sensors: GenericFlag, GenericStatus,
   - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
-- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather and temperature/humidity sensors (cf. Eve Degree), including (multi-)CLIP versions of these;
+- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather, temperature/humidity, and temperature sensors (cf. Eve Weather and Eve Degree), including (multi-)CLIP versions of these;
 - HomeKit support for **switches**, including the list below.  Note that you need a home hub to use these switches in HomeKit, see [Prerequisites](#prerequisites):
   - IKEA Trådfri remote (2),
   - IKEA Trådfri wireless dimmer (2),
@@ -58,10 +58,11 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - ZigBee Light Link (ZLL) lights and plugs from other manufacturers,
   - ZigBee Home Automation (ZHA) lights and plugs (2),
   - ZigBee 3.0 lights and plugs (2);
-- HomeKit support for **power consumption** as reported by smart plugs, including:
-  - Heiman SmartPlug (2),
-  - OSRAM Lightify plug,
-  - OSRAM Smart+ plug;
+- HomeKit support for **power consumption** (2) as reported by smart plugs, including:
+  - Heiman SmartPlug,
+  - OSRAM Lightify plug [does _not_ report power correctly],
+  - OSRAM Smart+ plug [does _not_ report power correctly];
+  - Xiaomi Smart plug;
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway;
