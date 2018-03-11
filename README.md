@@ -36,7 +36,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Heiman water sensor (2),
   - Xiaomi Aqara leak sensor (2);
 - HomeKit support for **built-in sensors**:
-  - Daylight sensor (1),
+  - Daylight sensor,
   - CLIP sensors: OpenClose, Presence, LightLevel, Temperature, Humidity, Pressure (2), CarbonMonoxide (2), Fire (2), Water (2)
   - Writeable CLIP sensors: GenericFlag, GenericStatus,
   - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
@@ -56,12 +56,14 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
 - HomeKit support for **lights** and **plugs**:
   - Philips hue lights,
   - ZigBee Light Link (ZLL) lights and plugs from other manufacturers,
+  - ZigBee 3.0 lights and plugs,
   - ZigBee Home Automation (ZHA) lights and plugs (2),
-  - ZigBee 3.0 lights and plugs (2);
+  - Heiman Siren (2).
+  - Multi-Light: Combine multiple lights into one HomeKit accessory;
 - HomeKit support for **power consumption** (2) as reported by smart plugs, including:
   - Heiman SmartPlug,
   - OSRAM Lightify plug [does _not_ report power correctly],
-  - OSRAM Smart+ plug [does _not_ report power correctly];
+  - OSRAM Smart+ plug [does _not_ report power correctly],
   - Xiaomi Smart plug;
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
