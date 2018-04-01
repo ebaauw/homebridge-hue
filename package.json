@@ -24,19 +24,19 @@
   },
   "engines": {
     "BSB001": "1.16.0",
-    "BSB002": "1.23.0",
+    "BSB002": "1.24.0",
     "deCONZ": "2.5.16",
     "homebridge": "^0.4.38",
-    "node": "^8.10.0"
+    "node": "^8.11.1"
   },
   "dependencies": {
     "deferred": "^0.7.9",
     "fakegato-history": "^0.4.3",
-    "homebridge-hue-utils": "^0.4.7",
-    "moment": "^2.21.0",
-    "request": "^2.83.0",
+    "homebridge-hue-utils": "^0.4.8",
+    "moment": "^2.22.0",
+    "request": "^2.85.0",
     "semver": "^5.5.0",
-    "ws": "^5.0.0"
+    "ws": "^5.1.0"
   },
   "devDependencies": {
     "standard": "*"
