@@ -32,7 +32,7 @@
   "dependencies": {
     "deferred": "^0.7.9",
     "fakegato-history": "^0.4.3",
-    "homebridge-hue-utils": "^0.4.8",
+    "homebridge-hue-utils": "^0.4.9",
     "moment": "^2.22.0",
     "request": "^2.85.0",
     "semver": "^5.5.0",
