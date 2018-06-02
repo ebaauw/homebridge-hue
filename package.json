@@ -32,11 +32,12 @@
   "dependencies": {
     "deferred": "^0.7.9",
     "fakegato-history": "^0.5.1",
-    "homebridge-hue-utils": "^0.4.12",
-    "moment": "^2.22.1",
-    "request": "^2.86.0",
+    "homebridge-hue-utils": "^1.0.0",
+    "homebridge-lib": "^1.0.0",
+    "moment": "^2.22.2",
+    "request": "^2.87.0",
     "semver": "^5.5.0",
-    "ws": "^5.1.1"
+    "ws": "^5.2.0"
   },
   "devDependencies": {
     "standard": "*"
