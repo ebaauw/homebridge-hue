@@ -42,6 +42,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather, temperature/humidity, and temperature sensors (cf. Eve Weather and Eve Degree), including (multi-)CLIP versions of these;
 - HomeKit support for **switches**, including the list below.  Note that you need a home hub to use these switches in HomeKit, see [Prerequisites](#prerequisites):
+  - Gira Light Link wall transmitter (2),
   - IKEA Trådfri remote (2),
   - IKEA Trådfri wireless dimmer (2),
   - Philips hue bridge link button (1),
