@@ -2,9 +2,6 @@
 [![npm](https://img.shields.io/npm/dt/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue) [![npm](https://img.shields.io/npm/v/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-## Warning
-Breaking changes in v0.8, see: https://github.com/ebaauw/homebridge-hue/issues/299.
-
 ## Homebridge plugin for Philips Hue and/or deCONZ
 Copyright © 2016-2018 Erik Baauw. All rights reserved.
 
