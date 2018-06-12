@@ -50,9 +50,10 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Philips hue tap,
   - ubisys C4 control unit (2),
   - ubisys D1 dimmer and (2),
+  - Xiaomi Aqara smart cube (2),
   - Xiaomi Aqara smart wireless switch (2),
-  - Xiaomi Mi wireless switch (2),
   - Xiaomi Mi smart cube (2),
+  - Xiaomi Mi wireless switch (2),
   - Xiaomi wall switch (2);
 - HomeKit support for **lights** and **plugs**:
   - Philips hue lights,
@@ -63,6 +64,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Multi-Light: Combine multiple lights into one HomeKit accessory;
 - HomeKit support for **power consumption** (2) as reported by smart plugs, including:
   - Heiman SmartPlug,
+  - innr SP 120 smart plug
   - OSRAM Lightify plug [does _not_ report power correctly],
   - OSRAM Smart+ plug [does _not_ report power correctly],
   - Xiaomi Smart plug;
