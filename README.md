@@ -15,6 +15,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Heiman motion sensor (2),
   - IKEA Trådfri motion sensor (2),
   - Philips hue motion sensor,
+  - Samsung SmartThings Arrival sensor (2),
   - Xiaomi Aqara motion sensor (2),
   - Xiaomi Mi motion sensor (2);
 - Homekit support for **ambient light sensors**, including:
