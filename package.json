@@ -18,6 +18,7 @@
   "main": "index.js",
   "bin": {
     "dc_eventlog": "node_modules/homebridge-hue-utils/cli/dc_eventlog.js",
+    "hap": "node_modules/homebridge-hue-utils/cli/hap.js",
     "json": "node_modules/homebridge-hue-utils/cli/json.js",
     "ph": "node_modules/homebridge-hue-utils/cli/ph.js",
     "upnp": "node_modules/homebridge-hue-utils/cli/upnp.js"
