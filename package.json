@@ -26,22 +26,19 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.26.0",
-    "deCONZ": "2.5.35",
-    "homebridge": "^0.4.44",
-    "node": "^8.11.4"
+    "deCONZ": "2.5.38",
+    "homebridge": "^0.4.45",
+    "node": "^8.12.0"
   },
   "dependencies": {
     "deferred": "^0.7.9",
     "fakegato-history": "^0.5.2",
-    "homebridge-hue-utils": "^1.0.4",
-    "homebridge-lib": "^1.0.7",
+    "homebridge-hue-utils": "^1.0.5",
+    "homebridge-lib": "^1.0.8",
     "moment": "^2.22.2",
     "request": "^2.88.0",
-    "semver": "^5.5.0",
+    "semver": "^5.5.1",
     "ws": "^6.0.0"
-  },
-  "devDependencies": {
-    "standard": "*"
   },
   "scripts": {
     "test": "standard && echo \"Error: no test specified\" && exit 1"
