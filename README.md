@@ -43,6 +43,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Gira Light Link wall transmitter (2),
   - IKEA Trådfri remote (2),
   - IKEA Trådfri wireless dimmer (2),
+  - innr remote RC 110 (2),
   - Philips hue bridge link button (1),
   - Philips hue dimmer switch,
   - Philips hue tap,
