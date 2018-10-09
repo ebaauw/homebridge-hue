@@ -60,7 +60,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - ZigBee Light Link (ZLL) lights and plugs from other manufacturers,
   - ZigBee 3.0 lights and plugs,
   - ZigBee Home Automation (ZHA) lights and plugs (2),
-  - Heiman Siren (2).
+  - Heiman Siren (2),
   - Multi-Light: Combine multiple lights into one HomeKit accessory;
 - HomeKit support for **power consumption** (2) as reported by smart plugs, including:
   - Heiman SmartPlug,
@@ -68,6 +68,9 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - OSRAM Lightify plug [does _not_ report power correctly],
   - OSRAM Smart+ plug [does _not_ report power correctly],
   - Xiaomi Smart plug;
+- HomeKit support for **window covering**:
+  - Xiaomi Aqara curtain controller (2),
+  - ubisys J1 shutter control (2);
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway;
