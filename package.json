@@ -26,9 +26,9 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.28.0",
-    "deCONZ": "2.5.50",
+    "deCONZ": "2.5.52",
     "homebridge": "^0.4.45",
-    "node": "^10.14.1"
+    "node": "^10.14.2"
   },
   "dependencies": {
     "deferred": "~0.7.9",
