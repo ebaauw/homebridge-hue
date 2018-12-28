@@ -77,7 +77,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
 - Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, homebridge-hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
 - Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the native HomeKit functionality of the v2 Hue bridge;
-- Includes the command line utilities `dc_eventlog`, `json`, `ph`, and `upnp` from [homebridge-hue-utils](https://github.com/ebaauw/homebridge-hue-utils).
+- Includes the command line utilities `dc_eventlog` and `ph` from [homebridge-hue-utils](https://github.com/ebaauw/homebridge-hue-utils) and `hap`, `json`, and `upnp` from [homebridge-lib](https://github.com/ebaauw/homebridge-lib).
 
 1) Hue bridge only  
 2) deCONZ only
