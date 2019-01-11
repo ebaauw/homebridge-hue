@@ -74,6 +74,8 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - OSRAM Lightify plug [does _not_ report power correctly],
   - OSRAM Smart+ plug [does _not_ report power correctly],
   - Xiaomi Smart plug;
+- HomeKit support for **thermostats**:
+  - Bitron Thermostat 902010/32 (2);
 - HomeKit support for **window covering**:
   - Xiaomi Aqara curtain controller (2),
   - ubisys J1 shutter control (2);
