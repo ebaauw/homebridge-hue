@@ -5,7 +5,7 @@
 ## Homebridge plugin for Philips Hue and/or deCONZ
 Copyright © 2016-2019 Erik Baauw. All rights reserved.
 
-This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee lights, plugs, sensors, and switches connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
+This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee devices (lights, plugs, sensors, switches, ...) connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
 
 - HomeKit support for **contact sensors**, including:
   - Heiman door/window sensor (2),
@@ -40,7 +40,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Writeable CLIP sensors: GenericFlag, GenericStatus,
   - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather, temperature/humidity, and temperature sensors (cf. Eve Weather and Eve Degree), including (multi-)CLIP versions of these;
-- HomeKit support for **switches**, including the list below.  Note that you need a home hub to use these switches in HomeKit, see [Prerequisites](#prerequisites):
+- HomeKit support for **wireless switches**, including the list below.  Note that you need a home hub to use these switches in HomeKit, see [Prerequisites](#prerequisites):
   - Busch-Jaeger Light Link control element (2),
   - Busch-Jaeger Light Link wall-mounted transmitter (2),
   - dresden elektronik scene switch (2),
@@ -53,33 +53,34 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee l
   - Philips hue bridge link button (1),
   - Philips hue dimmer switch,
   - Philips hue tap,
-  - ubisys C4 control unit (2),
-  - ubisys D1 dimmer and (2),
+  - ubisys C4 and C4-R control unit (2),
+  - ubisys D1 and D1-R dimmer (2),
+  - ubisys S1, S2, S1-R, and S2-R switch (2),
   - Xiaomi Aqara smart cube (2),
   - Xiaomi Aqara smart wireless switch (2),
   - Xiaomi Aqara vibration sensor (2),
   - Xiaomi Mi smart cube (2),
   - Xiaomi Mi wireless switch (2),
   - Xiaomi wall switch (2);
-- HomeKit support for **lights** and **plugs**:
+- HomeKit support for **lights**, **wired in-wall switches**, and **plugs**:
   - Philips hue lights,
   - ZigBee Light Link (ZLL) lights and plugs from other manufacturers,
   - ZigBee 3.0 lights and plugs,
   - ZigBee Home Automation (ZHA) lights and plugs (2),
   - Heiman Siren (2),
   - Multi-Light: Combine multiple lights into one HomeKit accessory;
-- HomeKit support for **power consumption** (2) as reported by smart plugs, including:
+- HomeKit support for **power consumption** (2) as reported by smart plugs, or wired in-wall switches including:
   - Heiman SmartPlug,
-  - innr SP 120 smart plug
-  - OSRAM Lightify plug [does _not_ report power correctly],
-  - OSRAM Smart+ plug [does _not_ report power correctly],
-  - Xiaomi Smart plug;
+  - innr SP 120 smart plug,
+  - Xiaomi Smart plug,
+  - Xiaomi Aqara wall switch;
 - HomeKit support for **thermostats**:
-  - Bitron Thermostat 902010/32 (2);
+  - Bitron Thermostat 902010/32 (2),
+  - Eurotronic Spirit Zigbee (2);
 - HomeKit support for **window covering**:
   - Xiaomi Aqara curtain controller (2),
   - ubisys J1 shutter control (2);
-- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy);
+- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy) and Thermostats (cf. Eve Thermo);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
