@@ -1,0 +1,265 @@
+{
+  "pluginAlias": "Hue",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Homebridge plugin for Philips Hue and/or deCONZ",
+  "footerDisplay": "For a detailed description, see the [wiki](https://github.com/ebaauw/homebridge-hue/wiki/Configuration)",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "description": "Plugin name as displayed in the homebridge log.",
+        "type": "string",
+        "required": true,
+        "default": "Hue"
+      },
+      "excludeSensorTypes": {
+	      "description": "Sensor types to exclude.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "forceEveWeather": {
+        "description": "Create dummy pressure sensor for temperature/humidity sensors, so the Eve app treats them like an Eve Weather.",
+        "type": "boolean"
+      },
+      "groups": {
+        "description": "Expose groups.",
+        "type": "boolean"
+      },
+      "group0": {
+        "description": "Expose group 0 (all lights).",
+        "type": "boolean"
+      },
+      "heartrate": {
+        "description": "Heartbeat interval in seconds.  Default: 5.",
+        "type": "integer",
+        "placeholder": 5,
+        "minimum": 1,
+        "maximum": 30
+      },
+      "hosts": {
+        "title": "Bridges/Gateways",
+      	"type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "hueDimmerRepeat": {
+        "description": "Enable repeat mode for the Hue dimmer switch Dim Up and Dim Down buttons.",
+        "type": "boolean"
+      },
+      "hueMotionTemperatureHistory": {
+        "description": "Expose the temperature sensor of the Hue motion sensor as a separate HomeKit accessory, to enable temperature history in Eve.",
+        "type": "boolean"
+      },
+      "lights": {
+        "description": "Expose lights.",
+        "type": "boolean"
+      },
+      "lowBattery": {
+        "description": "Threshold for low battery.  Default: 25%.",
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "nativeHomeKitLights": {
+        "description": "Don't expose lights already exposed by the v2 (square) Hue bridge.",
+        "type": "boolean",
+        "default": true
+      },
+      "nativeHomeKitSensors": {
+        "description": "Don't expose sensors already exposed by the v2 (square) Hue bridge.",
+        "type": "boolean",
+        "default": true
+      },
+      "nupnp": {
+        "description": "Enable bridge/gateway discovery through the nUPnP method.",
+        "type": "boolean",
+        "default": true
+      },
+      "parallelRequests": {
+        "description": "The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Default: 3 or 10 (depending on the bridge/gateway).",
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 30
+      },
+      "resource": {
+        "description": "Expose a Resource characteristic.",
+        "type": "boolean",
+        "default": true
+      },
+      "rooms": {
+        "description": "Include Room groups.",
+        "type": "boolean"
+      },
+      "rules": {
+        "description": "Expose rules.",
+        "type": "boolean"
+      },
+      "schedules": {
+        "description": "Expose schedules.",
+        "type": "boolean"
+      },
+      "sensors": {
+        "description": "Expose sensors.",
+        "type": "boolean"
+      },
+      "timeout":
+      {
+        "description": "The timeout in seconds to wait for a response from a Hue bridge.  Default: 5.",
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 30
+      },
+      "users": {
+        "type": "object",
+        "patternProperties": {
+          "^[A-Z0-9]{16}$": { "type": "string" }
+        },
+        "minProperties": 1
+      },
+      "waitTimeResend": {
+        "description": "The time, in milliseconds, to wait before resending a request after an ECONNRESET error.  Default: 300.",
+        "type": "integer",
+        "minimum": 100,
+        "maximum": 1000
+      },
+      "waitTimeUpdate": {
+        "description": "The time, in milliseconds, to wait for a change from HomeKit to another characteristic for the same light or group, before updating the Hue bridge.  Default: 20.",
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 500
+      },
+      "wallSwitch": {
+        "description": "Indicate that you use traditional wall switches to power off your lights.",
+        "type": "boolean"
+      }
+    }
+  },
+  "form": [
+    "name",
+    {
+      "key": "hosts",
+      "type": "array",
+      "items": {
+        "title": "Bridge/Gateway",
+        "description": "Hostname and port of the Hue bridge or deCONZ gateway.",
+        "type": "string"
+      }
+    },
+    "users",
+    {
+      "type": "fieldset",
+      "expandable": true,
+      "title": "Resource types",
+      "description": "Select what resource types to expose.",
+      "items": [
+        "sensors",
+        {
+          "key": "excludeSensorTypes",
+          "type": "checkboxes",
+          "titleMap": [
+            { "name": "ZigBee Switch", "value": "ZLLSwitch" },
+            { "name": "ZigBee Green Power switch", "value": "ZGPSwitch" },
+            { "name": "ZigBee Motion Sensor", "value": "ZLLPresence" },
+            { "name": "ZigBee Light Level Sensor", "value": "ZLLLightLevel" },
+            { "name": "ZigBee Temperature Sensor", "value": "ZLLTemperature" },
+            { "name": "ZigBee Humidity Sensor", "value": "ZHAHumidity" },
+            { "name": "ZigBee Air Pressure Sensor", "value": "ZHAPressure" },
+            { "name": "ZigBee Door/Window Sensor", "value": "ZHAOpenClose" },
+            { "name": "ZigBee Alarm Sensor", "value": "ZHAAlarm" },
+            { "name": "ZigBee Carbon Monoxide Sensor", "value": "ZHACarbonMonoxide" },
+            { "name": "ZigBee Fire Sensor", "value": "ZHAFire" },
+            { "name": "ZigBee Vibration Sensor", "value": "ZHAVibration" },
+            { "name": "ZigBee Leak Sensor", "value": "ZHAWater" },
+            { "name": "ZigBee Consumption Sensor", "value": "ZHAConsumption" },
+            { "name": "ZigBee Power Sensor", "value": "ZHAPower" },
+            { "name": "ZigBee Thermostat", "value": "ZHAThermostat" },
+            { "name": "Built-in Daylight Sensor", "value": "Daylight" },
+            { "name": "CLIP Flag", "value": "CLIPGenericFlag" },
+            { "name": "CLIP Status", "value": "CLIPGenericStatus" },
+            { "name": "CLIP Presence Sensor", "value": "CLIPPresence" },
+            { "name": "CLIP Light Level Sensor", "value": "CLIPLightLevel" },
+            { "name": "CLIP Temperature Sensor", "value": "CLIPTemperature" },
+            { "name": "CLIP Humidity Sensor", "value": "CLIPHumidity" },
+            { "name": "CLIP Air Pressure Sensor", "value": "CLIPPressure" },
+            { "name": "CLIP Door/Window Sensor", "value": "CLIPOpenClose" },
+            { "name": "CLIP Alarm Sensor", "value": "CLIPAlarm" },
+            { "name": "CLIP Carbon Monoxide Sensor", "value": "CLIPCarbonMonoxide" },
+            { "name": "CLIP Fire Sensor", "value": "CLIPFire" },
+            { "name": "CLIP Vibration Sensor", "value": "CLIPVibration" },
+            { "name": "CLIP Leak Sensor", "value": "CLIPWater" },
+            { "name": "CLIP Consumption Sensor", "value": "CLIPConsumption" },
+            { "name": "CLIP Power Sensor", "value": "CLIPPower" },
+            { "name": "Geofence", "value": "Geofence" },
+            { "name": "Any CLIP sensor", "value": "CLIP" }
+          ],
+          "condition": { "functionBody": "return model.sensors" }
+        },
+        {
+          "key": "nativeHomeKitSensors",
+          "condition": { "functionBody": "return model.sensors" }
+        },
+        "lights",
+        {
+          "key": "nativeHomeKitLights",
+          "condition": { "functionBody": "return model.lights" }
+        },
+        "groups",
+        {
+          "key": "group0",
+          "condition": { "functionBody": "return model.groups" }
+        },
+        {
+          "key": "rooms",
+          "condition": { "functionBody": "return model.groups" }
+        },
+        "schedules",
+        "rules"
+      ]
+    },
+    {
+      "type": "fieldset",
+      "expandable": true,
+      "title": "How",
+      "description": "Select how to expose the resources.",
+      "items": [
+        {
+          "key": "forceEveWeather",
+          "condition": { "functionBody": "return model.sensors" }
+        },
+        {
+          "key": "hueDimmerRepeat",
+          "condition": { "functionBody": "return model.sensors" }
+        },
+        {
+          "key": "hueMotionTemperatureHistory",
+          "condition": { "functionBody": "return model.sensors" }
+        },
+        "resource",
+        {
+          "key": "wallSwitch",
+          "condition": { "functionBody": "return model.lights" }
+        }
+      ]
+    },
+    {
+      "type": "fieldset",
+      "expandable": true,
+      "title": "Advanced",
+      "items": [
+        "heartrate",
+        {
+          "key": "nupnp",
+          "condition": { "functionBody": "return model.hosts == null" }
+        },
+        "parallelRequests",
+        "timeout",
+        "waitTimeResend",
+        "waitTimeUpdate"
+      ]
+    }
+  ]
+}
