@@ -20,7 +20,8 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - Xiaomi Mi motion sensor (2),
   - Xiaomi Aqara Smart Motion Sensor / Vibration sensor (2);
 - HomeKit support for **ambient light sensors**, including:
-  - Philips hue motion sensor;
+  - Philips hue motion sensor,
+  - Xiaomi Aqara motion sensor (2);
 - HomeKit support for **weather** and **temperature/humidity sensors**, including:
   - Heiman temperature/humidity sensor (2),
   - Philips hue motion sensor,
@@ -46,12 +47,15 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - dresden elektronik scene switch (2),
   - Gira Light Link wall transmitter (2),
   - Gira/Jung Light Link hand transmitter (2),
+  - iCasa Pulse Keypad 2, 4S, and 8S (2),
   - IKEA Trådfri remote (2),
   - IKEA Trådfri wireless dimmer (2),
+  - IKEA Trådfri on/off switch (2),
   - innr remote RC 110 (2),
   - Jung Light Link wall transmitter (2),
   - Philips hue dimmer switch,
   - Philips hue tap,
+  - Friends of Hue switches,
   - ubisys C4 and C4-R control unit (2),
   - ubisys D1 and D1-R dimmer (2),
   - ubisys S1, S2, S1-R, and S2-R switch (2),
