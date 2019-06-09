@@ -89,7 +89,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
 - Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, homebridge-hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
 - Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the native HomeKit functionality of the v2 Hue bridge;
-- Includes the command line utilities `dc_eventlog` and `ph` from [homebridge-hue-utils](https://github.com/ebaauw/homebridge-hue-utils) and `hap`, `json`, and `upnp` from [homebridge-lib](https://github.com/ebaauw/homebridge-lib).
+- Includes the command line utilities `dc_eventlog` and `ph`.
 
 1) Hue bridge only  
 2) deCONZ only
@@ -105,6 +105,16 @@ I recommend using wired Ethernet to connect the server running homebridge, the H
 To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Watch, iPad, iPod Touch, or Apple TV (4th generation or later).  I recommend to use the latest released versions of iOS, watchOS, and tvOS.  
 Please note that Siri and even Apple's [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.  To use the full features of homebridge-hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid).  
 For HomeKit automation, you need to setup an Apple TV (4th generation or later), HomePod, or iPad as [home hub](https://support.apple.com/en-us/HT207057).
+
+## Commands
+This package provides the following commands:
+
+Command | Description
+-------- | -----------
+`dc_eventlog` | Logger for deCONZ websocket notifications.
+`ph` | Command line interface to Philips Hue API.
+
+Type _command_ `-h` to see help for the command.
 
 ### Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
@@ -122,7 +132,7 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
   Follow the instructions on [GitHub](https://github.com/nfarina/homebridge#installation) to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through:
   ```
-  $ sudo npm -g i homebridge-lib homebridge-hue-utils homebridge-hue
+  $ sudo npm -g i homebridge-lib homebridge-hue
   ```
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see [**Configuration**](#configuration);
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).
