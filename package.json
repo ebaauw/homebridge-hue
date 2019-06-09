@@ -16,13 +16,6 @@
     "conbee"
   ],
   "main": "index.js",
-  "bin": {
-    "dc_eventlog": "node_modules/homebridge-hue-utils/cli/dc_eventlog.js",
-    "hap": "node_modules/homebridge-lib/cli/hap.js",
-    "json": "node_modules/homebridge-lib/cli/json.js",
-    "ph": "node_modules/homebridge-hue-utils/cli/ph.js",
-    "upnp": "node_modules/homebridge-lib/cli/upnp.js"
-  },
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.32.0",
@@ -31,12 +24,12 @@
     "node": "^10.16.0"
   },
   "peerDependencies": {
+    "homebridge-hue-utils": "~2.0.23",
     "homebridge-lib": "~4.2.7"
   },
   "dependencies": {
     "deferred": "~0.7.10",
     "fakegato-history": "~0.5.3",
-    "homebridge-hue-utils": "~2.0.23",
     "moment": "~2.24.0",
     "request": "~2.88.0",
     "semver": "~6.1.1",
