@@ -109,17 +109,27 @@ For HomeKit automation, you need to setup an Apple TV (4th generation or later),
 ### Installation
 The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
-- Install the latest v10 LTS version of Node.js.  On a Raspberry Pi, use the 10.x [Debian package](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions). On other platforms, download the [10.x.x LTS](https://nodejs.org) installer.  Both installations include the `npm` package manager;
+- Install the latest v10 LTS version of Node.js.  On a Raspberry Pi, use the 10.x [Debian package](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions). On other platforms, download and run the [10.x.x LTS](https://nodejs.org) installer.  These installations include the `npm` package manager;
 - On macOS, make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there.  On a Raspberry Pi, these install to `/usr/bin`;
-- You might want to update `npm` through `sudo npm -g install npm@latest`;
-- Install homebridge through `sudo npm -g install homebridge`.  Follow the instructions on [GitHub](https://github.com/nfarina/homebridge#installation) to create a `config.json` in `~/.homebridge`, as described;
-- Install the homebridge-hue plugin through `sudo npm -g install homebridge-hue`;
+- You might want to update `npm` through:
+  ```
+  $ sudo npm -g i npm@latest
+  ```
+- Install homebridge through:
+  ```
+  $ sudo npm -g i homebridge
+  ```
+  Follow the instructions on [GitHub](https://github.com/nfarina/homebridge#installation) to create a `config.json` in `~/.homebridge`, as described;
+- Install the homebridge-hue plugin through:
+  ```
+  $ sudo npm -g i homebridge-lib homebridge-hue
+  ```
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see [**Configuration**](#configuration);
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).
 
 Once homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or on a Raspberry Pi.
 
-Somehow `sudo npm -g update` doesn't always seem to work.  To update homebridge-hue, simply issue another `sudo npm -g install homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating homebridge-hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing homebridge-hue, as in: `sudo npm install -g homebridge-hue@0.4.49`.
+Somehow `sudo npm -g update` doesn't always seem to work.  To update homebridge-hue, simply issue another `sudo npm -g i homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating homebridge-hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing homebridge-hue, as in: `sudo npm -g i homebridge-hue@0.4.49`.
 
 ### Configuration
 In homebridge's `config.json` you need to specify homebridge-hue as a platform plugin.  Furthermore, you need to specify what you want to expose to HomeKit, see the examples below.  See the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by homebridge-hue.
@@ -192,18 +202,18 @@ To capture these messages into a log file do the following:
 
 - When running homebridge manually, start homebridge by issuing:
 ```
-homebridge -D 2>&1 | tee homebridge.log
+$ homebridge -D 2>&1 | tee homebridge.log
 ```
 Hit interrupt (ctrl-C) to stop homebridge.
 
 - When running homebridge as a service, add `-D` to the `ExecStart` line of the service definition file, typically `/etc/systemd/system/homebridge.service`.  Then reload by
 ```
-sudo systemctl daemon-reload
-sudo systemctl restart homebridge
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart homebridge
 ```
 To capture the log file, issue:
 ```
-sudo journalctl -au homebridge > homebridge.log
+$ sudo journalctl -au homebridge > homebridge.log
 ```  
 
 Compress the log file by issuing `gzip homebridge.log`.
