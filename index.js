@@ -5,10 +5,8 @@
 
 'use strict'
 
-const HuePlatformModule = require('./lib/HuePlatform')
-const HuePlatform = HuePlatformModule.HuePlatform
+const HuePlatform = require('./lib/HuePlatform')
 
 module.exports = function (homebridge) {
-  HuePlatformModule.setHomebridge(homebridge)
   homebridge.registerPlatform('homebridge-hue', 'Hue', HuePlatform)
 }
