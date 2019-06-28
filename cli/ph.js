@@ -22,7 +22,7 @@ const u = chalk.underline
 class UsageError extends Error {}
 
 const usage = {
-  ph: `${b('ph')} [${b('-hVp')}] [${b('-H')} ${u('hostname')}[${b(':')}${u('port')}]] [${b('-u')} ${u('username')}] [${b('-t')} ${u('timeout')}] ${u('command')} [${u('argument')} ${u('...')}]`,
+  ph: `${b('ph')} [${b('-hVp')}] [${b('-H')} ${u('hostname')}[${b(':')}${u('port')}]] [${b('-u')} ${u('username')}] [${b('-t')} ${u('timeout')}] ${u('command')} [${u('argument')} ...]`,
 
   get: `${b('get')} [${b('-hsnjuatlkv')}] [${u('path')}]`,
   put: `${b('put')} [${b('-hv')}] ${u('resource')} [${u('body')}]`,
