@@ -28,7 +28,7 @@
     "node": "^10.16.0"
   },
   "peerDependencies": {
-    "homebridge-lib": "~4.2.9"
+    "homebridge-lib": "~4.3.0"
   },
   "dependencies": {
     "chalk": "~2.4.2",
