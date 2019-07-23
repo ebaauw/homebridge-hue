@@ -132,7 +132,7 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
   Follow the instructions on [GitHub](https://github.com/nfarina/homebridge#installation) to create a `config.json` in `~/.homebridge`, as described;
 - Install the homebridge-hue plugin through:
   ```
-  $ sudo npm -g i homebridge-lib homebridge-hue
+  $ sudo npm -g i homebridge-hue
   ```
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see [**Configuration**](#configuration);
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).
