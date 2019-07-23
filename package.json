@@ -18,7 +18,10 @@
   "main": "index.js",
   "bin": {
     "dc_eventlog": "cli/dc_eventlog.js",
-    "ph": "cli/ph.js"
+    "hap": "node_modules/homebridge-lib/cli/hap.js",
+    "json": "node_modules/homebridge-lib/cli/json.js",
+    "ph": "cli/ph.js",
+    "upnp": "node_modules/homebridge-lib/cli/upnp.js"
   },
   "engines": {
     "BSB001": "1.16.0",
