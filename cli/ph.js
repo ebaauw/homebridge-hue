@@ -5,7 +5,7 @@
 // Homebridge plug-in for Philips Hue and/or deCONZ.
 // Copyright © 2018-2019 Erik Baauw. All rights reserved.
 //
-// Command line interface to Philips Hue API.
+// Command line interface to Philips Hue or deCONZ API.
 
 'use strict'
 
@@ -43,7 +43,7 @@ const usage = {
   restart: `${b('restart')} [${b('-hv')}]`
 }
 const description = {
-  ph: 'Command line interface to Philips Hue API.',
+  ph: 'Command line interface to Philips Hue or deCONZ API.',
 
   get: `Retrieve ${u('path')} from bridge/gateway.`,
   put: `Update ${u('resource')} on bridge/gateway with ${u('body')}.`,
@@ -350,7 +350,7 @@ class Main extends homebridgeLib.CommandLineTool {
     parser.help('h', 'help', help.ph)
     parser.version('V', 'version')
     parser.option('H', 'host', (value) => {
-      homebridgeLib.OptionParser.toHost(value, true)
+      homebridgeLib.OptionParser.toHost('host', value, true)
       clargs.options.host = value
     })
     parser.flag('p', 'phoscon', () => {
@@ -360,10 +360,14 @@ class Main extends homebridgeLib.CommandLineTool {
       clargs.options.https = true
     })
     parser.option('t', 'timeout', (value) => {
-      clargs.options.timeout = homebridgeLib.OptionParser.toInt(value, 1, 60, true)
+      clargs.options.timeout = homebridgeLib.OptionParser.toInt(
+        'timeout', value, 1, 60, true
+      )
     })
     parser.option('u', 'username', (value) => {
-      clargs.options.username = homebridgeLib.OptionParser.toString(value, true, true)
+      clargs.options.username = homebridgeLib.OptionParser.toString(
+        'username', value, true, true
+      )
     })
     parser.parameter('command', (value) => {
       if (usage[value] == null || typeof this[value] !== 'function') {
@@ -540,7 +544,9 @@ class Main extends homebridgeLib.CommandLineTool {
     const clargs = {}
     parser.help('h', 'help', help.discover)
     parser.option('t', 'timeout', (value, key) => {
-      clargs.timeout = homebridgeLib.OptionParser.toInt(value, 1, 60, true)
+      clargs.timeout = homebridgeLib.OptionParser.toInt(
+        'timeout', value, 1, 60, true
+      )
     })
     parser.flag('v', 'verbose', () => { clargs.verbose = true })
     parser.parse(...args)
@@ -691,7 +697,9 @@ class Main extends homebridgeLib.CommandLineTool {
     parser.help('h', 'help', help.probe)
     parser.flag('v', 'verbose', () => { clargs.verbose = true })
     parser.option('t', 'timeout', (value, key) => {
-      homebridgeLib.OptionParser.toInt(value, 1, 10, true)
+      homebridgeLib.OptionParser.toInt(
+        'timeout', value, 1, 10, true
+      )
       clargs.maxCount = value * 12
     })
     parser.parameter('light', (value) => {

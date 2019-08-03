@@ -18,27 +18,27 @@
   "main": "index.js",
   "bin": {
     "dc_eventlog": "cli/dc_eventlog.js",
-    "hap": "node_modules/homebridge-lib/cli/hap.js",
-    "json": "node_modules/homebridge-lib/cli/json.js",
+    "hap": "cli/hap.js",
+    "json": "cli/json.js",
     "ph": "cli/ph.js",
-    "upnp": "node_modules/homebridge-lib/cli/upnp.js"
+    "upnp": "cli/upnp.js"
   },
   "engines": {
     "BSB001": "1.16.0",
-    "BSB002": "1.32.0",
+    "BSB002": "1.33.0",
     "deCONZ": "2.5.66",
     "homebridge": "^0.4.50",
-    "node": "^10.16.0"
+    "node": "^10.16.1"
   },
   "dependencies": {
     "chalk": "~2.4.2",
     "debug": "~4.1.1",
     "deferred": "~0.7.11",
     "fakegato-history": "~0.5.3",
-    "homebridge-lib": "~4.2.9",
+    "homebridge-lib": "~4.4.2",
     "moment": "~2.24.0",
     "request": "~2.88.0",
-    "semver": "~6.2.0",
+    "semver": "~6.3.0",
     "ws": "~7.1.1",
     "xml2js": "~0.4.19"
   },
