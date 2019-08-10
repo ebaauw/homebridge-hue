@@ -98,6 +98,10 @@
         "description": "Expose rules.",
         "type": "boolean"
       },
+      "scenes": {
+        "description": "Expose scenes.",
+        "type": "boolean"
+      },
       "schedules": {
         "description": "Expose schedules.",
         "type": "boolean"
@@ -214,6 +218,10 @@
         },
         {
           "key": "rooms",
+          "condition": { "functionBody": "return model.groups" }
+        },
+        {
+          "key": "scenes",
           "condition": { "functionBody": "return model.groups" }
         },
         "schedules",
