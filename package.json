@@ -28,18 +28,18 @@
     "BSB002": "1.33.0",
     "deCONZ": "2.5.66",
     "homebridge": "^0.4.50",
-    "node": "^10.16.2"
+    "node": "^10.16.3"
   },
   "dependencies": {
     "chalk": "~2.4.2",
     "debug": "~4.1.1",
     "deferred": "~0.7.11",
     "fakegato-history": "~0.5.3",
-    "homebridge-lib": "~4.4.3",
+    "homebridge-lib": "~4.4.4",
     "moment": "~2.24.0",
     "request": "~2.88.0",
     "semver": "~6.3.0",
-    "ws": "~7.1.1",
+    "ws": "~7.1.2",
     "xml2js": "~0.4.19"
   },
   "scripts": {
