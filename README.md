@@ -51,6 +51,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - IKEA Trådfri remote (2),
   - IKEA Trådfri wireless dimmer (2),
   - IKEA Trådfri on/off switch (2),
+  - IKEA Trådfri open/close remote (2),
   - innr remote RC 110 (2),
   - Jung Light Link wall transmitter (2),
   - Philips hue dimmer switch,
@@ -80,16 +81,17 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
 - HomeKit support for **thermostats**:
   - Bitron Thermostat 902010/32 (2),
   - Eurotronic Spirit Zigbee (2);
-- HomeKit support for **window covering**:
-  - Xiaomi Aqara curtain controller (2),
+- HomeKit support for **window covering** devices:
+  - IKEA FYRTUR and KADRILJ (2),
   - ubisys J1 shutter control (2);
+  - Xiaomi Aqara curtain controller (2),
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy) and Thermostats (cf. Eve Thermo);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
 - Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, homebridge-hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
 - Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the native HomeKit functionality of the v2 Hue bridge;
-- Includes the command line utilities `dc_eventlog` and `ph`.
+- Includes the command line utilities `dc_eventlog`, `hap`, `json`, `ph`, and `upnp`.
 
 1) Hue bridge only  
 2) deCONZ only
@@ -112,7 +114,10 @@ This package provides the following commands:
 Command | Description
 -------- | -----------
 `dc_eventlog` | Logger for deCONZ websocket notifications.
+`hap` | Logger for Bonjour announcements by HomeKit accessories.
+`json` | JSON formatter.
 `ph` | Command line interface to Philips Hue API.
+`upnp` | Logger for UPnP announcements.
 
 Type _command_ `-h` to see help for the command.
 
@@ -243,7 +248,5 @@ Homebridge is a great platform, but not really intended for consumers, as it req
 HomeKit is still relatively new, and Apple's [Home](https://support.apple.com/en-us/HT204893) app provides only limited support.  You might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free), Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid), or, if you use `Xcode`, Apple's [HMCatalog](https://developer.apple.com/library/content/samplecode/HomeKitCatalog/Introduction/Intro.html#//apple_ref/doc/uid/TP40015048-Intro-DontLinkElementID_2) example app.
 
 The HomeKit terminology needs some getting used to.  A _accessory_ more or less corresponds to a physical device, accessible from your iOS device over WiFi or Bluetooth.  A _bridge_ (like homebridge) is an accessory that provides access to other, bridged, accessories.  An accessory might provide multiple _services_.  Each service corresponds to a virtual device (like a lightbulb, switch, motion sensor, ..., but also: a programmable switch button, accessory information, battery status).  Siri interacts with services, not with accessories.  A service contains one or more _characteristics_.  A characteristic is like a service attribute, which might be read or written by HomeKit apps.  You might want to checkout Apple's [HomeKit Accessory Simulator](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/TestingYourHomeKitApp/TestingYourHomeKitApp.html), which is distributed as an additional tool for `Xcode`.
-
-HomeKit only supports 99 bridged accessories per HomeKit bridge (i.e. homebridge, not the Hue bridge).  When homebridge exposes more accessories, HomeKit refuses to pair with homebridge or it blocks homebridge if it was paired already.  While homebridge-hue checks that it doesn't expose more than 99 accessories itself, it is unaware of any accessories exposed by other homebridge plugins.  As a workaround to overcome this limit, you can run multiple instances of homebridge with different plugins and/or different homebridge-hue settings, using the `-U` flag to specify a different directory with a different `config.json` for each instance.  Make sure to use a different homebridge `name`, `username`, and `port` for each instance.
 
 Internally, HomeKit identifies accessories by UUID.  For Zigbee devices (lights, sensors, switches), homebridge-hue bases this UUID on the Zigbee mac address.  For non-Zigbee resources (groups, schedules, CLIP sensors), the UUID is based on the bridge / gateway ID and resource path (e.g. `/sensors/1`).  By not using the resource name (e.g. `Daylight`), homebridge-hue can deal with duplicate names.  In addition, HomeKit will still recognise the accessory after the resource name has changed on the bridge / gateway, remembering which HomeKit room, groups, scenes, actions, and triggers it belongs to.  However, when a non-Zigbee bridge / gateway resource is deleted and then re-created, resulting in a different resource path, HomeKit will treat it as a new accessory, and you will need to re-configure HomeKit.
