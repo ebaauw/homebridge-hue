@@ -256,7 +256,8 @@
     {
       "type": "fieldset",
       "expandable": true,
-      "title": "Advanced",
+      "title": "Advanced Settings",
+      "description": "Don't change these, unless you understand what you're doing.",
       "items": [
         "heartrate",
         {
