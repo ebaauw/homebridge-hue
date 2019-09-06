@@ -34,13 +34,13 @@
     "chalk": "~2.4.2",
     "debug": "~4.1.1",
     "deferred": "~0.7.11",
-    "fakegato-history": "~0.5.3",
-    "homebridge-lib": "~4.4.4",
+    "fakegato-history": "~0.5.4",
+    "homebridge-lib": "~4.4.5",
     "moment": "~2.24.0",
     "request": "~2.88.0",
     "semver": "~6.3.0",
     "ws": "~7.1.2",
-    "xml2js": "~0.4.19"
+    "xml2js": "~0.4.22"
   },
   "scripts": {
     "prepare": "standard",
