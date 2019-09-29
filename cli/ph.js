@@ -438,7 +438,7 @@ class Main extends homebridgeLib.CommandLineTool {
   // ===== GET =================================================================
 
   async get (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {
       options: {}
     }
@@ -473,7 +473,7 @@ class Main extends homebridgeLib.CommandLineTool {
   // ===== PUT, POST, DELETE ===================================================
 
   async resourceCommand (command, ...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {
       options: {}
     }
@@ -530,7 +530,7 @@ class Main extends homebridgeLib.CommandLineTool {
   // ===========================================================================
 
   async simpleCommand (command, ...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     parser.help('h', 'help', help[command])
     parser.parse(...args)
     const response = await this.hueClient[command]()
@@ -540,7 +540,7 @@ class Main extends homebridgeLib.CommandLineTool {
   }
 
   async discover (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
     parser.help('h', 'help', help.discover)
     parser.option('t', 'timeout', (value, key) => {
@@ -557,7 +557,7 @@ class Main extends homebridgeLib.CommandLineTool {
   }
 
   async config (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const options = {}
     parser.help('h', 'help', help.config)
     parser.flag('s', 'sortKeys', () => { options.sortKeys = true })
@@ -568,7 +568,7 @@ class Main extends homebridgeLib.CommandLineTool {
   }
 
   async description (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const options = {}
     parser.help('h', 'help', help.description)
     parser.flag('s', 'sortKeys', () => { options.sortKeys = true })
@@ -580,7 +580,7 @@ class Main extends homebridgeLib.CommandLineTool {
   }
 
   async createuser (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const jsonFormatter = new homebridgeLib.JsonFormatter(
       { noWhiteSpace: true, sortKeys: true }
     )
@@ -610,7 +610,7 @@ class Main extends homebridgeLib.CommandLineTool {
   // ===========================================================================
 
   async lightlist (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
     parser.help('h', 'help', help.lightlist)
     parser.flag('v', 'verbose', () => { clargs.verbose = true })
@@ -648,7 +648,7 @@ class Main extends homebridgeLib.CommandLineTool {
   }
 
   async outlet (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
     parser.help('h', 'help', help.outlet)
     parser.flag('v', 'verbose', () => { clargs.verbose = true })
@@ -690,7 +690,7 @@ class Main extends homebridgeLib.CommandLineTool {
   // ===== LIGHTVALUES =========================================================
 
   async probe (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {
       maxCount: 60
     }
@@ -792,7 +792,7 @@ class Main extends homebridgeLib.CommandLineTool {
   // ===== BRIDGE/GATEWAY DISCOVERY ==============================================
 
   async restart (...args) {
-    const parser = new homebridgeLib.CommandLineParser()
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
     parser.help('h', 'help', help.restart)
     parser.flag('v', 'verbose', () => { clargs.verbose = true })
