@@ -58,6 +58,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - Philips hue dimmer switch,
   - Philips hue tap,
   - Friends of Hue switches,
+  - Samsung SmartThings Button,
   - Sunricher remote controller and CCT remote (2),
   - ubisys C4 and C4-R control unit (2),
   - ubisys D1 and D1-R dimmer (2),
