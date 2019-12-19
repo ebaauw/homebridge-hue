@@ -26,9 +26,9 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.35.0",
-    "deCONZ": "2.5.71",
+    "deCONZ": "2.5.72",
     "homebridge": "^0.4.50",
-    "node": "^12.13.1"
+    "node": "^12.14.0"
   },
   "dependencies": {
     "chalk": "~3.0.0",
@@ -38,9 +38,9 @@
     "homebridge-lib": "~4.4.8",
     "moment": "~2.24.0",
     "request": "~2.88.0",
-    "semver": "~6.3.0",
-    "ws": "~7.2.0",
-    "xml2js": "~0.4.22"
+    "semver": "~7.1.1",
+    "ws": "~7.2.1",
+    "xml2js": "~0.4.23"
   },
   "scripts": {
     "prepare": "standard",
