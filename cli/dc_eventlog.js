@@ -3,7 +3,7 @@
 // homebridge-hue/cli/dc_eventlog.js
 //
 // Homebridge plug-in for Philips Hue and/or deCONZ.
-// Copyright © 2018-2019 Erik Baauw. All rights reserved.
+// Copyright © 2018-2020 Erik Baauw. All rights reserved.
 //
 // Logger for deCONZ websocket notifications.
 

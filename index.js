@@ -1,5 +1,5 @@
 // homebridge-hue/index.js
-// Copyright © 2016-2019 Erik Baauw. All rights reserved.
+// Copyright © 2016-2020 Erik Baauw. All rights reserved.
 //
 // Homebridge plug-in for Philips Hue and/or deCONZ.
 
