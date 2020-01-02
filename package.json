@@ -18,10 +18,7 @@
   "main": "index.js",
   "bin": {
     "dc_eventlog": "cli/dc_eventlog.js",
-    "hap": "cli/hap.js",
-    "json": "cli/json.js",
-    "ph": "cli/ph.js",
-    "upnp": "cli/upnp.js"
+    "ph": "cli/ph.js"
   },
   "engines": {
     "BSB001": "1.16.0",
@@ -35,7 +32,7 @@
     "debug": "~4.1.1",
     "deferred": "~0.7.11",
     "fakegato-history": "~0.5.6",
-    "homebridge-lib": "~4.4.9",
+    "homebridge-lib": "~4.4.10",
     "moment": "~2.24.0",
     "request": "~2.88.0",
     "semver": "~7.1.1",
