@@ -117,10 +117,7 @@ This package provides the following commands:
 Command | Description
 -------- | -----------
 `dc_eventlog` | Logger for deCONZ websocket notifications.
-`hap` | Logger for Bonjour announcements by HomeKit accessories.
-`json` | JSON formatter.
 `ph` | Command line interface to Philips Hue API.
-`upnp` | Logger for UPnP announcements.
 
 Type _command_ `-h` to see help for the command.
 
