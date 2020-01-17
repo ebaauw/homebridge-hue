@@ -61,7 +61,7 @@ const description = {
   lightlist: 'Create/update lightlist resourcelink.',
   outlet: 'Create/update outlet resourcelink.',
   probe: `Probe ${u('light')} for supported colour (temperature) range.`,
-  restart: 'Restart deCONZ gateway.'
+  restart: 'Restart Hue bridge or deCONZ gateway.'
 }
 const help = {
   ph: `${description.ph}
@@ -293,7 +293,6 @@ Parameters:
 Usage: ${b('ph')} ${usage.restart}
 
 ${description.restart}
-Note: this command is not supported on a Hue bridge.
 
 Parameters:
   ${b('-h')}          Print this help and exit.
