@@ -797,16 +797,18 @@ class Main extends homebridgeLib.CommandLineTool {
     parser.help('h', 'help', help.restart)
     parser.flag('v', 'verbose', () => { clargs.verbose = true })
     parser.parse(...args)
-    if (this.hueClient.isDeconz) {
+    if (this.hueClient.isHue) {
+      const response = await this.hueClient.put('/config', { reboot: true })
+      if (!response.reboot) {
+        return false
+      }
+    } else if (this.hueClient.isDeconz) {
       const response = await this.hueClient.post('/config/restartapp')
       if (!response['/config/restartapp']) {
         return false
       }
     } else {
-      const response = await this.hueClient.put('/config', { reboot: true })
-      if (!response.reboot) {
-        return false
-      }
+      this.fatal('restart: only supported for Hue bridge or deCONZ gateway')
     }
     clargs.verbose && this.log('restarting ...\\c')
     return new Promise((resolve, reject) => {
