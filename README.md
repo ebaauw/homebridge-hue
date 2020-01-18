@@ -55,6 +55,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - IKEA Trådfri open/close remote (2),
   - innr remote RC 110 (2),
   - Jung Light Link wall transmitter (2),
+  - Philips hue bridge link button (1), for Hue bridges with API before v1.31.0,
   - Philips hue dimmer switch,
   - Philips hue tap,
   - Friends of Hue switches,
