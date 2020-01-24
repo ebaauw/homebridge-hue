@@ -1,9 +1,10 @@
 # homebridge-hue
-[![npm](https://img.shields.io/npm/dt/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue)
-[![npm](https://img.shields.io/npm/v/homebridge-hue.svg)](https://www.npmjs.com/package/homebridge-hue)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Downloads](https://img.shields.io/npm/dt/homebridge-hue)](https://www.npmjs.com/package/homebridge-hue)
+[![Version](https://img.shields.io/npm/v/homebridge-hue)](https://www.npmjs.com/package/homebridge-hue)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen)](https://standardjs.com)
 [![GitHub issues](https://img.shields.io/github/issues/ebaauw/homebridge-hue)](https://github.com/ebaauw/homebridge-hue/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/ebaauw/homebridge-hue)](https://github.com/ebaauw/homebridge-hue/pulls)
+[![Contribute](https://img.shields.io/badge/contribute-paypal%20me-brightgreen)](https://www.paypal.me/ebaauw/EUR)
 
 ## Homebridge plugin for Philips Hue and/or deCONZ
 Copyright © 2016-2020 Erik Baauw. All rights reserved.
@@ -58,7 +59,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - IKEA Trådfri open/close remote (2),
   - innr remote RC 110 (2),
   - Jung Light Link wall transmitter (2),
-  - Philips hue bridge link button (1), for Hue bridges with API before v1.31.0,
+  - Philips hue bridge link button (1),
   - Philips hue dimmer switch,
   - Philips hue tap,
   - Friends of Hue switches,
@@ -98,7 +99,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
 - Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, homebridge-hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
 - Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the native HomeKit functionality of the v2 Hue bridge;
-- Includes the command line utilities `dc_eventlog`, `hap`, `json`, `ph`, and `upnp`.
+- Includes the command line utilities `dc_eventlog` and `ph`.
 
 1) Hue bridge only  
 2) deCONZ only
@@ -243,6 +244,18 @@ To aid troubleshooting, on startup, homebridge-hue dumps its environment, includ
 #### Raising Issues
 If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of `homebridge.log.gz` (see [**Debug Log File**](#debug-log-file)) and of `homebridge-hue.json.gz`  (see [**Debug Dump File**](#debug-dump-file)).  Please do not copy/paste large amounts of logging.  
 For questions, you can also post a message to the **#homebridge-hue** channel of the [homebridge workspace on Slack](https://github.com/nfarina/homebridge#community).
+
+### Contributing
+Sometimes I get the question how people can support my work on homebridge-hue.
+I created homebridge-hue as a hobby project, for my own use.
+I share it on GitHub so others might benefit, and to give back to the open source community, without whom homebridge-hue wouldn't have been possible.
+I do not seek any compensation for my work on homebridge-hue.
+
+Having said that, adding support for new devices, in homebridge-hue, and in the deCONZ REST API plugin, is very hard without having physical access to the device.
+Since this is a hobby project, I cannot afford to spend money on devices I won't be using myself, just to integrate them for the benefit of others.
+I am happy to receive small donations in the form of new devices to integrate, or the money to buy these devices myself.
+I am also happy to return the devices afterwards, if you provide the shipping costs.
+Please contact me by email or on Slack for shipping details.
 
 ### Caveats
 The homebridge-hue plugin is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for years, but your mileage might vary.  Please report any issues on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).
