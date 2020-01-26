@@ -95,7 +95,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - Xiaomi Aqara curtain controller (2),
 - History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy) and Thermostats (cf. Eve Thermo);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
-- HomeKit support for groups on a Hue bridge or deCONZ gateway;
+- HomeKit support for groups on a Hue bridge or deCONZ gateway, including recalling Hue bridge `GroupScene` scenes and deCONZ gateway scenes, and turning off streaming for Hue bridge `Entertainment` groups;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
 - Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, homebridge-hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
 - Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the native HomeKit functionality of the v2 Hue bridge;
