@@ -107,6 +107,10 @@
         "description": "Expose scenes.",
         "type": "boolean"
       },
+      "scenesAsSwitch": {
+        "description" "Expose scenes as Switch service.",
+        "type": "boolean"
+      },
       "schedules": {
         "description": "Expose schedules.",
         "type": "boolean"
@@ -232,6 +236,10 @@
         {
           "key": "scenes",
           "condition": { "functionBody": "return model.groups" }
+        },
+        {
+          "key": "scenesAsSwitch",
+          "condition": { "functionBody": "return model.scenes" }
         },
         "schedules",
         "rules"
