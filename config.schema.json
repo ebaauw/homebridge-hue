@@ -13,6 +13,11 @@
         "required": true,
         "default": "Hue"
       },
+      "anyOn": {
+        "description": "Expose state.any_on as AnyOn characteristic.",
+        "type": "boolean",
+        "default": true
+      },
       "excludeSensorTypes": {
 	      "description": "Sensor types to exclude.",
         "type": "array",
@@ -108,7 +113,7 @@
         "type": "boolean"
       },
       "scenesAsSwitch": {
-        "description" "Expose scenes as Switch service.",
+        "description": "Expose scenes as Switch service.",
         "type": "boolean"
       },
       "schedules": {
@@ -227,6 +232,10 @@
         "groups",
         {
           "key": "group0",
+          "condition": { "functionBody": "return model.groups" }
+        },
+        {
+          "key": "anyOn",
           "condition": { "functionBody": "return model.groups" }
         },
         {
