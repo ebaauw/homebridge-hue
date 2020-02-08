@@ -317,7 +317,12 @@ class Main extends homebridgeLib.CommandLineTool {
 
   _readBridges () {
     const text = fs.readFileSync(process.env.HOME + '/.ph')
-    this.bridges = JSON.parse(text)
+    try {
+      this.bridges = JSON.parse(text)
+    } catch (error) {
+      this.warn('%s/.ph: file corrupted', process.env.HOME)
+      this.bridges = {}
+    }
     // Convert old format
     let converted = false
     for (const bridgeid in this.bridges) {
