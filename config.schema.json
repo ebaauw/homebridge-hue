@@ -180,6 +180,7 @@
           "type": "checkboxes",
           "titleMap": [
             { "name": "ZigBee Switch", "value": "ZLLSwitch" },
+            { "name": "ZigBee Rotary Switch", "value": "ZLLRelativeRotary" },
             { "name": "ZigBee Green Power switch", "value": "ZGPSwitch" },
             { "name": "ZigBee Motion Sensor", "value": "ZLLPresence" },
             { "name": "ZigBee Light Level Sensor", "value": "ZLLLightLevel" },
