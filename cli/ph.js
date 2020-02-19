@@ -305,9 +305,9 @@ class Main extends homebridgeLib.CommandLineTool {
     this.usage = usage.ph
     try {
       this._readBridges()
-    } catch (err) {
-      if (err.code !== 'ENOENT') {
-        this.error(err)
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        this.error(error)
       }
       this.bridges = {}
     }
@@ -393,10 +393,10 @@ class Main extends homebridgeLib.CommandLineTool {
           await this.hueClient.connect()
           this.bridgeid = this.hueClient.bridgeid
         } catch (error) {
-          this.error('%s: %s', clargs.options.host, error.message)
+          this.error(error)
           this.fatal('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
         }
-        if (clargs.command !== 'config' && clargs.command !== 'description') {
+        if (clargs.command !== 'config') {
           clargs.options.bridgeid = this.bridgeid
           if (clargs.options.username == null) {
             if (
@@ -414,18 +414,20 @@ class Main extends homebridgeLib.CommandLineTool {
           ) {
             clargs.options.fingerprint = this.bridges[this.bridgeid].fingerprint
           }
-          if (clargs.options.username == null && clargs.command !== 'createuser') {
-            let args = ''
-            if (
-              clargs.options.host !== 'localhost' &&
-              clargs.options.host !== process.env.PH_HOST
-            ) {
-              args += ' -H ' + clargs.options.host
+          if (clargs.command !== 'config' && clargs.command !== 'description') {
+            if (clargs.options.username == null && clargs.command !== 'createuser') {
+              let args = ''
+              if (
+                clargs.options.host !== 'localhost' &&
+                clargs.options.host !== process.env.PH_HOST
+              ) {
+                args += ' -H ' + clargs.options.host
+              }
+              this.fatal(
+                'missing username - %s and run "ph%s createuser"',
+                this.hueClient.isDeconz ? 'unlock gateway' : 'press link button', args
+              )
             }
-            this.fatal(
-              'missing username - %s and run "ph%s createuser"',
-              this.hueClient.isDeconz ? 'unlock gateway' : 'press link button', args
-            )
           }
           this.hueClient = new HueClient(clargs.options)
           await this.hueClient.connect()
