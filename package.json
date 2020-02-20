@@ -3,7 +3,7 @@
   "description": "Homebridge plugin for Philips Hue and deCONZ",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
-  "version": "0.11.54-1",
+  "version": "0.11.54",
   "keywords": [
     "homebridge-plugin",
     "homekit",
@@ -24,7 +24,7 @@
     "BSB001": "1.16.0",
     "BSB002": "1.36.0",
     "deCONZ": "2.5.73",
-    "homebridge": "^0.4.50",
+    "homebridge": "^0.4.51",
     "node": "^12.16.1"
   },
   "dependencies": {
