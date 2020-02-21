@@ -683,7 +683,7 @@ class Main extends homebridgeLib.CommandLineTool {
       links: []
     }
     for (const id in lights) {
-      if (lights[id].type.substr(-5) !== 'light') {
+      if (lights[id].type.slice(-5) !== 'light') {
         body.links.push(`/lights/${id}`)
       }
     }
