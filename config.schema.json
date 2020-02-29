@@ -34,6 +34,10 @@
         "description": "Create dummy pressure sensor for temperature/humidity sensors, so the Eve app treats them like an Eve Weather.",
         "type": "boolean"
       },
+      "forceHttp": {
+        "description": "Use plain http instead of https.",
+        "type": "boolean"
+      },
       "groups": {
         "description": "Expose groups.",
         "type": "boolean"
@@ -139,7 +143,7 @@
         "minProperties": 1
       },
       "waitTimeResend": {
-        "description": "The time, in milliseconds, to wait before resending a request after an ECONNRESET error.  Default: 300.",
+        "description": "The time, in milliseconds, to wait before resending a request after an ECONNRESET or http status 503 error.  Default: 300.",
         "type": "integer",
         "minimum": 100,
         "maximum": 1000
@@ -286,6 +290,7 @@
       "title": "Advanced Settings",
       "description": "Don't change these, unless you understand what you're doing.",
       "items": [
+        "forceHttp",
         "heartrate",
         {
           "key": "nupnp",
