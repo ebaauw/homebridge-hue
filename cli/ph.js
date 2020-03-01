@@ -464,10 +464,8 @@ class Main extends homebridgeLib.CommandLineTool {
       if (list.length > 1) {
         throw new UsageError('too many paramters')
       }
-      clargs.resource = list.length === 1 ? list[0] : '/'
-      if (clargs.resource[0] !== '/') {
-        throw new UsageError(`${clargs.resource}: invalid resource`)
-      }
+      clargs.resource = list.length === 0 ? '/'
+        : homebridgeLib.OptionParser.toPath('resource', list[0])
     })
     parser.parse(...args)
     const jsonFormatter = new homebridgeLib.JsonFormatter(clargs.options)
@@ -485,13 +483,11 @@ class Main extends homebridgeLib.CommandLineTool {
     }
     parser.help('h', 'help', help[command])
     parser.flag('v', 'verbose', () => { clargs.options.verbose = true })
-    parser.parameter('resource', (value) => {
-      clargs.resource = value
-      if (
-        clargs.resource.length === 0 || clargs.resource[0] !== '/' ||
-        clargs.resource === '/'
-      ) {
-        throw new Error(`${clargs.resource}: invalid resource`)
+    parser.parameter('resource', (resource) => {
+      clargs.resource = homebridgeLib.OptionParser.toPath('resource', resource)
+      if (clargs.resource === '/') {
+        // deCONZ will crash otherwise, see deconz-rest-plugin#2520.
+        throw new UsageError(`/: invalid resource for ${command}`)
       }
     })
     parser.remaining((list) => {
