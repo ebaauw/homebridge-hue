@@ -71,7 +71,7 @@ class Main extends homebridgeLib.CommandLineTool {
       process.on('SIGTERM', () => { this.exit('SIGTERM') })
       wsMonitor.on('listening', (url) => { this.log('listening on %s', url) })
       wsMonitor.on('closed', () => { this.log('connection closed') })
-      wsMonitor.on('error', (err) => { this.error(err) })
+      wsMonitor.on('error', (error) => { this.error(error) })
       wsMonitor.on('changed', (resource, body) => {
         this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
       })
@@ -86,8 +86,8 @@ class Main extends homebridgeLib.CommandLineTool {
       })
       this.setOptions({ mode: this.options.mode })
       wsMonitor.listen()
-    } catch (err) {
-      this.fatal(err)
+    } catch (error) {
+      this.fatal(error)
     }
   }
 }
