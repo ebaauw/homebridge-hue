@@ -436,8 +436,8 @@ class Main extends homebridgeLib.CommandLineTool {
       this.name = 'ph ' + clargs.command
       this.usage = `${b('ph')} ${usage[clargs.command]}`
       await this[clargs.command](clargs.args)
-    } catch (err) {
-      this.fatal(err)
+    } catch (error) {
+      this.fatal(error)
     }
   }
 
@@ -497,8 +497,8 @@ class Main extends homebridgeLib.CommandLineTool {
       if (list.length === 1) {
         try {
           clargs.body = JSON.parse(list[0])
-        } catch (err) {
-          throw new Error(err.message)
+        } catch (error) {
+          throw new Error(error.message) // Covert TypeError to Error.
         }
       }
     })
@@ -827,7 +827,7 @@ class Main extends homebridgeLib.CommandLineTool {
             }
             busy = false
           }
-        } catch (err) {
+        } catch (error) {
           busy = false
         }
         clargs.verbose && this.logc('.\\c')
