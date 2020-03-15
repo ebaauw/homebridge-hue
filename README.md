@@ -13,6 +13,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
 
 - HomeKit support for **contact sensors**, including:
   - Heiman door/window sensor (2),
+  - Samsung SmartThings multipurpose sensor (2),
   - Xiaomi Aqara door/window sensor (2),
   - Xiaomi Mi door/window sensor (2);
 - HomeKit support for **motion sensors**, including:
@@ -20,6 +21,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - IKEA Trådfri motion sensor (2),
   - Philips hue motion sensor,
   - Samsung SmartThings Arrival sensor (2),
+  - Samsung SmartThings multipurpose sensor (2),
   - Xiaomi Aqara motion sensor (2),
   - Xiaomi Mi motion sensor (2),
   - Xiaomi Aqara Smart Motion Sensor / Vibration sensor (2);
@@ -29,6 +31,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
 - HomeKit support for **weather** and **temperature/humidity sensors**, including:
   - Heiman temperature/humidity sensor (2),
   - Philips hue motion sensor,
+  - Samsung SmartThings multipurpose sensor (2),
   - Xiaomi Aqara weather sensor (2),
   - Xiaomi Mi temperature/humidity sensor (2);
 - HomeKit support for **carbon-monoxide (CO) sensors**, including:
@@ -62,6 +65,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee d
   - Lutron Aurora Friends-of-Hue dimmer switch,
   - Philips hue bridge link button (1),
   - Philips hue dimmer switch,
+  - Philips hue smart button,
   - Philips hue tap,
   - Friends of Hue switches,
   - Samsung SmartThings Button,
