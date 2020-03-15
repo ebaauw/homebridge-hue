@@ -61,7 +61,7 @@
         }
       },
       "hueDimmerRepeat": {
-        "description": "Enable repeat mode for the Hue dimmer switch Dim Up and Dim Down buttons.",
+        "description": "Enable repeat mode for the Hue dimmer switch (Dim Up and Dim Down buttons) and the Hue smart button.",
         "type": "boolean"
       },
       "hueMotionTemperatureHistory": {
