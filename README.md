@@ -5,11 +5,10 @@
 [![GitHub issues](https://img.shields.io/github/issues/ebaauw/homebridge-hue)](https://github.com/ebaauw/homebridge-hue/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/ebaauw/homebridge-hue)](https://github.com/ebaauw/homebridge-hue/pulls)
 [![Contribute](https://img.shields.io/badge/contribute-paypal%20me-brightgreen)](https://www.paypal.me/ebaauw/EUR)
-
 ## Homebridge plugin for Philips Hue and/or deCONZ
 Copyright © 2016-2020 Erik Baauw. All rights reserved.
 
-This [homebridge](https://github.com/nfarina/homebridge) plugin exposes ZigBee devices (lights, plugs, sensors, switches, ...) connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
+This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes ZigBee devices (lights, plugs, sensors, switches, ...) connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
 
 - HomeKit support for **contact sensors**, including:
   - Heiman door/window sensor (2),
@@ -114,8 +113,8 @@ Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detai
 ### Prerequisites
 You need a Philips Hue bridge or deCONZ gateway to connect homebridge-hue to your ZigBee lights, switches, and sensors.  I recommend using the latest Hue bridge firmware, with API v1.28.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, and the latest deCONZ beta, v2.05.48 or higher.
 
-You need a server to run homebridge.  This can be anything running [Node.js](https://nodejs.org): from a Raspberry Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for details.  I run deCONZ and homebridge-hue together on a Raspberry Pi 3 model B, with a [RaspBee](https://www.dresden-elektronik.de/funktechnik/solutions/wireless-light-control/raspbee/?L=1) add-on board.  
-I recommend using wired Ethernet to connect the server running homebridge, the Hue bridge, and the AppleTV.
+You need a server to run Homebridge.  This can be anything running [Node.js](https://nodejs.org): from a Raspberry Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.  See the [Homebridge Wiki](https://github.com/homebridge/homebridge/wiki) for details.  I run deCONZ and homebridge-hue together on a Raspberry Pi 3 model B, with a [RaspBee](https://www.dresden-elektronik.de/funktechnik/solutions/wireless-light-control/raspbee/?L=1) add-on board.  
+I recommend using wired Ethernet to connect the server running Homebridge, the Hue bridge, and the AppleTV.
 
 To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Watch, iPad, iPod Touch, or Apple TV (4th generation or later).  I recommend to use the latest released versions of iOS, watchOS, and tvOS.  
 Please note that Siri and even Apple's [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.  To use the full features of homebridge-hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid).  
@@ -132,7 +131,7 @@ Command | Description
 Type _command_ `-h` to see help for the command.
 
 ### Installation
-The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
+The homebridge-hue plugin obviously needs Homebridge, which, in turn needs Node.js.  I've followed these steps to set it up on my macOS server:
 
 - Install the latest v10 LTS version of Node.js.  On a Raspberry Pi, use the 10.x [Debian package](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions). On other platforms, download and run the [10.x.x LTS](https://nodejs.org) installer.  These installations include the `npm` package manager;
 - On macOS, make sure `/usr/local/bin` is in your `$PATH`, as `node`, `npm`, and, later, `homebridge` install there.  On a Raspberry Pi, these install to `/usr/bin`;
@@ -140,7 +139,7 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
   ```
   $ sudo npm -g i npm@latest
   ```
-- Install homebridge through:
+- Install Homebridge through:
   ```
   $ sudo npm -g i homebridge
   ```
@@ -152,12 +151,12 @@ The homebridge-hue plugin obviously needs homebridge, which, in turn needs Node.
 - Edit `~/.homebridge/config.json` and add the `Hue` platform provided by homebridge-hue, see [**Configuration**](#configuration);
 - Run homebridge-hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).
 
-Once homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [homebridge Wiki](https://github.com/nfarina/homebridge/wiki) for more info how to do that on MacOS or on a Raspberry Pi.
+Once Homebridge is up and running with the homebridge-hue plugin, you might want to daemonise it and start it automatically on login or system boot.  See the [Homebridge Wiki](https://github.com/homebridge/homebridge/wiki) for more info how to do that on MacOS or on a Raspberry Pi.
 
 Somehow `sudo npm -g update` doesn't always seem to work.  To update homebridge-hue, simply issue another `sudo npm -g i homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating homebridge-hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing homebridge-hue, as in: `sudo npm -g i homebridge-hue@0.4.49`.
 
 ### Configuration
-In homebridge's `config.json` you need to specify homebridge-hue as a platform plugin.  Furthermore, you need to specify what you want to expose to HomeKit, see the examples below.  See the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by homebridge-hue.
+In Homebridge's `config.json` you need to specify homebridge-hue as a platform plugin.  Furthermore, you need to specify what you want to expose to HomeKit, see the examples below.  See the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by homebridge-hue.
 
 The example below is a typical configuration for a v2 (square) bridge, which already exposes the Philips Hue lights, Hue motion sensors, Hue dimmer switches, and Hue taps to HomeKit.  With this configuration, homebridge-hue exposes the non-Philips lights.
 ```json
@@ -218,20 +217,20 @@ For example, if you have a chandelier with three bulbs, you might want to expose
 ### Troubleshooting
 
 #### Run homebridge-hue Solo
-If you run into homebridge startup issues, please run a separate instance of homebridge with only the homebridge-hue plugin enabled in `config.json`.  This way, you can determine whether the issue is related to the homebridge-hue plugin itself, or to the interaction of multiple homebridge plugins in your setup.  You can start this separate instance of homebridge on a different system, as a different user, or from a different user directory (specified by the `-U` flag).  Make sure to use a different homebridge `name`, `username`, and (if running on the same system) `port` in the `config.json` for each instance.
+If you run into Homebridge startup issues, please run a separate instance of Homebridge with only the homebridge-hue plugin enabled in `config.json`.  This way, you can determine whether the issue is related to the homebridge-hue plugin itself, or to the interaction of multiple Homebridge plugins in your setup.  You can start this separate instance of Homebridge on a different system, as a different user, or from a different user directory (specified by the `-U` flag).  Make sure to use a different Homebridge `name`, `username`, and (if running on the same system) `port` in the `config.json` for each instance.
 
 #### Debug Log File
-The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the bridge / gateway, for each state change it detects while polling the bridge / gateway, and for each push notification it receives from the deCONZ gateway.  Additionally, it issues a debug message for each bridge / gateway resource it detects.
+The homebridge-hue plugin outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.  When Homebridge is started with `-D`, homebridge-hue outputs a debug message for each request it makes to the bridge / gateway, for each state change it detects while polling the bridge / gateway, and for each push notification it receives from the deCONZ gateway.  Additionally, it issues a debug message for each bridge / gateway resource it detects.
 
 To capture these messages into a log file do the following:
 
-- When running homebridge manually, start homebridge by issuing:
+- When running Homebridge manually, start Homebridge by issuing:
 ```
 $ homebridge -D 2>&1 | tee homebridge.log
 ```
-Hit interrupt (ctrl-C) to stop homebridge.
+Hit interrupt (ctrl-C) to stop Homebridge.
 
-- When running homebridge as a service, add `-D` to the `ExecStart` line of the service definition file, typically `/etc/systemd/system/homebridge.service`.  Then reload by
+- When running Homebridge as a service, add `-D` to the `ExecStart` line of the service definition file, typically `/etc/systemd/system/homebridge.service`.  Then reload by
 ```
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart homebridge
@@ -248,7 +247,7 @@ To aid troubleshooting, on startup, homebridge-hue dumps its environment, includ
 
 #### Raising Issues
 If you need help, please open an issue on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).  Please attach a copy of `homebridge.log.gz` (see [**Debug Log File**](#debug-log-file)) and of `homebridge-hue.json.gz`  (see [**Debug Dump File**](#debug-dump-file)).  Please do not copy/paste large amounts of logging.  
-For questions, you can also post a message to the **#homebridge-hue** channel of the [homebridge workspace on Slack](https://github.com/nfarina/homebridge#community).
+For questions, you can also post a message to the **#hue** channel of the [Homebridge Discord community](https://discord.gg/hZubhrz).
 
 ### Contributing
 Sometimes I get the question how people can support my work on homebridge-hue.
@@ -260,7 +259,7 @@ Having said that, adding support for new devices, in homebridge-hue, and in the 
 Since this is a hobby project, I cannot afford to spend money on devices I won't be using myself, just to integrate them for the benefit of others.
 I am happy to receive small donations in the form of new devices to integrate, or the money to buy these devices myself.
 I am also happy to return the devices afterwards, if you provide the shipping costs.
-Please contact me by email or on Slack for shipping details.
+Please contact me by email or on Discord for shipping details.
 
 ### Caveats
 The homebridge-hue plugin is a hobby project of mine, provided as-is, with no warranty whatsoever.  I've been running it successfully at my home for years, but your mileage might vary.  Please report any issues on [GitHub](https://github.com/ebaauw/homebridge-hue/issues).
@@ -269,6 +268,6 @@ Homebridge is a great platform, but not really intended for consumers, as it req
 
 HomeKit is still relatively new, and Apple's [Home](https://support.apple.com/en-us/HT204893) app provides only limited support.  You might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free), Matthias Hochgatterer's [Home](http://selfcoded.com/home/) app (paid), or, if you use `Xcode`, Apple's [HMCatalog](https://developer.apple.com/library/content/samplecode/HomeKitCatalog/Introduction/Intro.html#//apple_ref/doc/uid/TP40015048-Intro-DontLinkElementID_2) example app.
 
-The HomeKit terminology needs some getting used to.  A _accessory_ more or less corresponds to a physical device, accessible from your iOS device over WiFi or Bluetooth.  A _bridge_ (like homebridge) is an accessory that provides access to other, bridged, accessories.  An accessory might provide multiple _services_.  Each service corresponds to a virtual device (like a lightbulb, switch, motion sensor, ..., but also: a programmable switch button, accessory information, battery status).  Siri interacts with services, not with accessories.  A service contains one or more _characteristics_.  A characteristic is like a service attribute, which might be read or written by HomeKit apps.  You might want to checkout Apple's [HomeKit Accessory Simulator](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/TestingYourHomeKitApp/TestingYourHomeKitApp.html), which is distributed as an additional tool for `Xcode`.
+The HomeKit terminology needs some getting used to.  A _accessory_ more or less corresponds to a physical device, accessible from your iOS device over WiFi or Bluetooth.  A _bridge_ (like Homebridge) is an accessory that provides access to other, bridged, accessories.  An accessory might provide multiple _services_.  Each service corresponds to a virtual device (like a lightbulb, switch, motion sensor, ..., but also: a programmable switch button, accessory information, battery status).  Siri interacts with services, not with accessories.  A service contains one or more _characteristics_.  A characteristic is like a service attribute, which might be read or written by HomeKit apps.  You might want to checkout Apple's [HomeKit Accessory Simulator](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/TestingYourHomeKitApp/TestingYourHomeKitApp.html), which is distributed as an additional tool for `Xcode`.
 
 Internally, HomeKit identifies accessories by UUID.  For Zigbee devices (lights, sensors, switches), homebridge-hue bases this UUID on the Zigbee mac address.  For non-Zigbee resources (groups, schedules, CLIP sensors), the UUID is based on the bridge / gateway ID and resource path (e.g. `/sensors/1`).  By not using the resource name (e.g. `Daylight`), homebridge-hue can deal with duplicate names.  In addition, HomeKit will still recognise the accessory after the resource name has changed on the bridge / gateway, remembering which HomeKit room, groups, scenes, actions, and triggers it belongs to.  However, when a non-Zigbee bridge / gateway resource is deleted and then re-created, resulting in a different resource path, HomeKit will treat it as a new accessory, and you will need to re-configure HomeKit.
