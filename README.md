@@ -1,4 +1,5 @@
-# homebridge-hue
+# <img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-logo-gradient-named.png"> homebridge-hue
+
 [![Downloads](https://img.shields.io/npm/dt/homebridge-hue)](https://www.npmjs.com/package/homebridge-hue)
 [![Version](https://img.shields.io/npm/v/homebridge-hue)](https://www.npmjs.com/package/homebridge-hue)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen)](https://standardjs.com)
