@@ -1,4 +1,4 @@
-Homebridge Hue<p align="center">
+<p align="center">
   <img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-logo-gradient-named.png" width="200px">
 </p>
 <span align="center">
