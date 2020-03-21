@@ -1,5 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-logo-duo-purple.png" width="200px">
+</p>
 <span align="center">
-<img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-logo-duo-purple.png" width="200px">
                                                                                                                       
 # homebridge-hue
 
