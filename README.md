@@ -139,7 +139,7 @@ To use the full features of Homebridg Hue, you might want to check out some othe
 As HomeKit uses Bonjour to discover Homebridge, the server running Homebridge must be on the same subnet as your iDevices running HomeKit.
 For remote access and for HomeKit automations, you need to setup an Apple TV (4th generation or later), HomePod, or iPad as [home hub](https://support.apple.com/en-us/HT207057).
 
-## Commands
+### Commands
 Homebridge Hue comes with the following command-line tools:
 
 Command | Description
