@@ -55,7 +55,7 @@ This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes ZigBe
   - CLIP sensors: OpenClose, Presence, LightLevel, Temperature, Humidity, Pressure (2), CarbonMonoxide (2), Fire (2), Water (2)
   - Writeable CLIP sensors: GenericFlag, GenericStatus,
   - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
-- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather, temperature/humidity, and temperature sensors (cf. Eve Weather and Eve Degree), including (multi-)CLIP versions of these;
+- History support in the [Eve](https://www.evehome.com/en/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather, temperature/humidity, and temperature sensors (cf. Eve Weather and Eve Degree), including (multi-)CLIP versions of these;
 - HomeKit support for **wireless switches**, including the list below.  Note that you need a home hub to use these switches in HomeKit, see [Prerequisites](#prerequisites):
   - Busch-Jaeger Light Link control element (2),
   - Busch-Jaeger Light Link wall-mounted transmitter (2),
@@ -106,7 +106,7 @@ This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes ZigBe
   - IKEA FYRTUR and KADRILJ (2),
   - ubisys J1 shutter control (2);
   - Xiaomi Aqara curtain controller (2),
-- History support in Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app for smart plug power consumption (cf. Eve Energy) and Thermostats (cf. Eve Thermo);
+- History support in the [Eve](https://www.evehome.com/en/eve-app) app for smart plug power consumption (cf. Eve Energy) and Thermostats (cf. Eve Thermo);
 - HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway, including recalling Hue bridge `GroupScene` scenes and deCONZ gateway scenes, and turning off streaming for Hue bridge `Entertainment` groups;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
@@ -132,20 +132,20 @@ I recommend using wired Ethernet to connect the server running Homebridge, the H
 To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Watch, iPad, iPod Touch, or Apple TV (4th generation or later).
 I recommend to use the latest released versions of iOS, watchOS, and tvOS.  
 Please note that Siri and even Apple's [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.
-To use the full features of Homebridg Hue, you might want to check out some other HomeKit apps, like Elgato's [Eve](https://www.elgato.com/en/eve/eve-app) app (free) or Matthias Hochgatterer's [Home+](https://hochgatterer.me/home/) app (paid).
+To use the full features of Homebridg Hue, you might want to check out some other HomeKit apps, like the [Eve](https://www.evehome.com/en/eve-app) app (free) or Matthias Hochgatterer's [Home+](https://hochgatterer.me/home/) app (paid).
 
 As HomeKit uses Bonjour to discover Homebridge, the server running Homebridge must be on the same subnet as your iDevices running HomeKit.
 For remote access and for HomeKit automations, you need to setup an Apple TV (4th generation or later), HomePod, or iPad as [home hub](https://support.apple.com/en-us/HT207057).
 
 ### Command-Line Tools
-Homebridge Hue comes with the following command-line tools:
+Homebridge Hue includes the following command-line tools:
 
 Command | Description
 -------- | -----------
 `dc_eventlog` | Logger for deCONZ websocket notifications.
-`ph` | Command line interface to Philips Hue API.
+`ph` | Command line interface to Philips Hue or deCONZ REST API.
 
-Type _command_ `-h` to see help for the command.
+These tools takes a `-h` or `--help` argument to provide a brief overview of their functionality and command-line arguments.
 
 ### Installation
 To install Homebridge Hue:
