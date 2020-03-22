@@ -1,7 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-logo-gradient-named.png" height="200px">  
-  <img src="img/philips-hue.png" height="180px">
-  <img src="img/de.png" height="180px">
+  <img src="homebridge-hue.png" height="200px">  
 </p>
 <span align="center">
 
