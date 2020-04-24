@@ -72,6 +72,10 @@
         "description": "Expose lights.",
         "type": "boolean"
       },
+      "linkButton": {
+        "description", "Expose the link button on the Hue bridge.",
+        "type": "boolean"
+      },
       "lowBattery": {
         "description": "Threshold for low battery.  Default: 25%.",
         "type": "integer",
@@ -255,6 +259,7 @@
           "key": "scenesAsSwitch",
           "condition": { "functionBody": "return model.scenes" }
         },
+        "linkButton",
         "schedules",
         "rules"
       ]
