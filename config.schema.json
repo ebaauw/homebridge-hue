@@ -73,7 +73,7 @@
         "type": "boolean"
       },
       "linkButton": {
-        "description", "Expose the link button on the Hue bridge.",
+        "description": "Expose the link button on the Hue bridge.",
         "type": "boolean"
       },
       "lowBattery": {
