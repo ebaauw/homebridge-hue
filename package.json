@@ -24,7 +24,7 @@
     "BSB001": "1.16.0",
     "BSB002": "1.37.0",
     "deCONZ": "2.5.75",
-    "homebridge": "~1.0.0||0.4.54-beta.54",
+    "homebridge": "~1.0.0",
     "node": "^12.16.2"
   },
   "dependencies": {
@@ -34,7 +34,7 @@
     "homebridge-lib": "~4.6.0",
     "moment": "~2.24.0",
     "semver": "~7.3.2",
-    "ws": "~7.2.3",
+    "ws": "~7.2.5",
     "xml2js": "~0.4.23"
   },
   "scripts": {
