@@ -72,6 +72,10 @@
         "description": "Expose lights.",
         "type": "boolean"
       },
+      "hideBridge": {
+        "description": "Do not expose the bridge as an accessory (if true, also disables link button).",
+        "type": "boolean"
+      },
       "linkButton": {
         "description": "Expose the link button on the Hue bridge.",
         "type": "boolean"
@@ -260,6 +264,7 @@
           "condition": { "functionBody": "return model.scenes" }
         },
         "linkButton",
+        "hideBridge",
         "schedules",
         "rules"
       ]
