@@ -256,7 +256,8 @@ To capture these messages into a log file do the following:
 #### Debug Dump File
 To aid troubleshooting, on startup, Homebridge Hue dumps its environment, including its `config.json` settings and the full state of all bridges / gateways into a compresed json file, `homebridge-hue.json.gz`.
 IP addresses, and bridge / gateway usernames are masked.
-This file is created in the user directory, `~/.homebridge` by default.
+This file is created in the Homebridge user directory, `~/.homebridge` by default.
+It can be downloaded through the Homebridge Config UI X user interface, from the Homebridge Hue _SETTINGS_ popup window, on the _Plugins_ tab.
 
 #### Getting help
 If you have a question, please post a message to the **#hue** channel of the Homebridge community on [Discord](https://discord.gg/hZubhrz).
