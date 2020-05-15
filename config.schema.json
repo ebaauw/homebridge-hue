@@ -229,10 +229,6 @@
           "key": "nativeHomeKitLights",
           "condition": { "functionBody": "return model.lights" }
         },
-        {
-          "key": "forceCt",
-          "condition": { "functionBody": "return model.lights" }
-        },
         "groups",
         {
           "key": "group0",
