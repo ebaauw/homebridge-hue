@@ -25,11 +25,6 @@
           "type": "string"
         }
       },
-      "forceCt": {
-        "description": "Expose Color Temperature for extended color lights.",
-        "type": "boolean",
-        "default": true
-      },
       "forceEveWeather": {
         "description": "Create dummy pressure sensor for temperature/humidity sensors, so the Eve app treats them like an Eve Weather.",
         "type": "boolean"
