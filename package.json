@@ -22,19 +22,19 @@
   },
   "engines": {
     "BSB001": "1.16.0",
-    "BSB002": "1.37.0",
-    "deCONZ": "2.5.75",
-    "homebridge": "^1.0.4",
-    "node": "^12.16.3"
+    "BSB002": "1.38.0",
+    "deCONZ": "2.5.77",
+    "homebridge": "^1.1.0",
+    "node": "^12.17.0"
   },
   "dependencies": {
-    "chalk": "~4.0.0",
-    "debug": "~4.1.1",
-    "fakegato-history": "~0.5.6",
-    "homebridge-lib": "~4.7.5",
-    "moment": "~2.25.3",
-    "semver": "~7.3.2",
-    "ws": "~7.3.0",
+    "chalk": "^4.0.0",
+    "debug": "^4.1.1",
+    "fakegato-history": "^0.5.6",
+    "homebridge-lib": "^4.7.7",
+    "moment": "^2.26.0",
+    "semver": "^7.3.2",
+    "ws": "^7.3.0",
     "xml2js": "~0.4.23"
   },
   "scripts": {
