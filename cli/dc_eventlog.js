@@ -39,6 +39,9 @@ class Main extends homebridgeLib.CommandLineTool {
       mode: 'daemon'
     }
     this.ws = {}
+    if (process.env.PH_HOST != null) {
+      this.ws.host = process.env.PH_HOST
+    }
   }
 
   parseArguments () {
