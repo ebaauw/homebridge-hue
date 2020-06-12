@@ -504,17 +504,32 @@ class Main extends homebridgeLib.CommandLineTool {
     })
     parser.parse(...args)
     const response = await this.hueClient[command](clargs.resource, clargs.body)
-    if (response != null) {
-      const jsonFormatter = new homebridgeLib.JsonFormatter()
-      if (clargs.options.verbose) {
-        const json = jsonFormatter.stringify(response)
-        this.print(json)
-      } else if (command === 'post') {
-        const key = Object.keys(response)[0]
-        const json = jsonFormatter.stringify(response[key])
-        this.print(json)
+    if (response == null) {
+      return
+    }
+    const jsonFormatter = new homebridgeLib.JsonFormatter()
+    if (clargs.options.verbose || !Array.isArray(response)) {
+      this.print(jsonFormatter.stringify(response))
+      return
+    }
+    const result = {}
+    for (const id in response) {
+      const obj = response[id].success
+      if (obj) {
+        const key = Object.keys(obj)[0]
+        const path = key.split('/')
+        result[path[path.length - 1]] = obj[key]
+      }
+      const error = response[id].error
+      if (error) {
+        this.warn('api error %d: %s', error.type, error.description)
       }
     }
+    if (command !== 'put' && result.id != null) {
+      this.print(jsonFormatter.stringify(result.id))
+      return
+    }
+    this.print(jsonFormatter.stringify(result))
   }
 
   async put (...args) {
