@@ -39,6 +39,7 @@ const usage = {
 
   lightlist: `${b('lightlist')} [${b('-hv')}]`,
   outlet: `${b('outlet')} [${b('-hv')}]`,
+  switch: `${b('switch')} [${b('-hv')}]`,
   probe: `${b('probe')} [${b('-hv')}] [${b('-t')} ${u('timeout')}] ${u('light')}`,
   restart: `${b('restart')} [${b('-hv')}]`
 }
@@ -60,6 +61,7 @@ const description = {
 
   lightlist: 'Create/update lightlist resourcelink.',
   outlet: 'Create/update outlet resourcelink.',
+  switch: 'Create/update switch resourcelink.',
   probe: `Probe ${u('light')} for supported colour (temperature) range.`,
   restart: 'Restart Hue bridge or deCONZ gateway.'
 }
@@ -126,6 +128,9 @@ Commands:
 
   ${usage.outlet}
   ${description.outlet}
+
+  ${usage.switch}
+  ${description.switch}
 
   ${usage.probe}
   ${description.probe}
@@ -273,6 +278,17 @@ Usage: ${b('ph')} ${usage.outlet}
 ${description.outlet}
 The outlet resourcelink indicates which lights (and groups) homebridge-hue
 exposes as Outlet (instead of Lightbulb).
+
+Parameters:
+  ${b('-h')}          Print this help and exit.
+  ${b('-v')}          Verbose.`,
+  switch: `${description.ph}
+
+Usage: ${b('ph')} ${usage.switch}
+
+${description.switch}
+The switch resourcelink indicates which lights (and groups) homebridge-hue
+exposes as Switch (instead of Lightbulb).
 
 Parameters:
   ${b('-h')}          Print this help and exit.
@@ -695,6 +711,46 @@ class Main extends homebridgeLib.CommandLineTool {
     }
     for (const id in lights) {
       if (lights[id].type.includes('plug')) {
+        body.links.push(`/lights/${id}`)
+      }
+    }
+    await this.hueClient.put(`/resourcelinks/${outlet}`, body)
+    clargs.verbose && this.log(
+      '/resourcelinks/%s: %d outlets', outlet, body.links.length
+    )
+  }
+
+  async switch (...args) {
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
+    const clargs = {}
+    parser.help('h', 'help', help.switch)
+    parser.flag('v', 'verbose', () => { clargs.verbose = true })
+    parser.parse(...args)
+    let outlet
+    const lights = await this.hueClient.get('/lights')
+    const resourcelinks = await this.hueClient.get('/resourcelinks')
+    for (const id in resourcelinks) {
+      const link = resourcelinks[id]
+      if (link.name === 'homebridge-hue' && link.description === 'switch') {
+        outlet = id
+      }
+    }
+    if (outlet == null) {
+      const body = {
+        name: 'homebridge-hue',
+        classid: 1,
+        description: 'switch',
+        links: []
+      }
+      const response = await this.hueClient.post('/resourcelinks', body)
+      const key = Object.keys(response)[0]
+      outlet = response[key]
+    }
+    const body = {
+      links: []
+    }
+    for (const id in lights) {
+      if (lights[id].type.toLowerCase().includes('on/off')) {
         body.links.push(`/lights/${id}`)
       }
     }
