@@ -32,10 +32,10 @@ const usage = {
   discover: `${b('discover')} [${b('-hv')}] [${b('-t')} ${u('timeout')}]`,
   config: `${b('config')} [${b('-hs')}]`,
   description: `${b('description')} [${b('-hs')}]`,
-  createuser: `${b('createuser')} [${b('-h')}]`,
-  unlock: `${b('unlock')} [${b('-h')}]`,
-  touchlink: `${b('touchlink')} [${b('-h')}]`,
-  search: `${b('search')} [${b('-h')}]`,
+  createuser: `${b('createuser')} [${b('-hv')}]`,
+  unlock: `${b('unlock')} [${b('-hv')}]`,
+  touchlink: `${b('touchlink')} [${b('-hv')}]`,
+  search: `${b('search')} [${b('-hv')}]`,
 
   lightlist: `${b('lightlist')} [${b('-hv')}]`,
   outlet: `${b('outlet')} [${b('-hv')}]`,
@@ -232,7 +232,8 @@ through the web app prior to issuing this command.
 The username is saved to ${b('~/.ph')}.
 
 Parameters:
-  ${b('-h')}          Print this help and exit.`,
+  ${b('-h')}          Print this help and exit.
+  ${b('-v')}          Verbose.`,
   unlock: `${description.ph}
 
 Usage: ${b('ph')} ${usage.unlock}
@@ -242,7 +243,8 @@ This is the equivalent of pressing the linkbutton on the Hue bridge or unlocking
 the deCONZ gateway through the web app.
 
 Parameters:
-  ${b('-h')}          Print this help and exit.`,
+  ${b('-h')}          Print this help and exit.
+  ${b('-v')}          Verbose.`,
   touchlink: `${description.ph}
 
 Usage: ${b('ph')} ${usage.touchlink}
@@ -250,7 +252,8 @@ Usage: ${b('ph')} ${usage.touchlink}
 ${description.touchlink}
 
 Parameters:
-  ${b('-h')}          Print this help and exit.`,
+  ${b('-h')}          Print this help and exit.
+  ${b('-v')}          Verbose.`,
   search: `${description.ph}
 
 Usage: ${b('ph')} ${usage.search}
@@ -258,7 +261,8 @@ Usage: ${b('ph')} ${usage.search}
 ${description.search}
 
 Parameters:
-  ${b('-h')}          Print this help and exit.`,
+  ${b('-h')}          Print this help and exit.
+  ${b('-v')}          Verbose.`,
   lightlist: `${description.ph}
 
 Usage: ${b('ph')} ${usage.lightlist}
@@ -485,9 +489,12 @@ class Main extends homebridgeLib.CommandLineTool {
     })
     parser.parse(...args)
     const jsonFormatter = new homebridgeLib.JsonFormatter(clargs.options)
-    const response = await this.hueClient.get(clargs.resource)
-    const json = jsonFormatter.stringify(response)
-    this.print(json)
+    try {
+      const response = await this.hueClient.get(clargs.resource)
+      this.print(jsonFormatter.stringify(response))
+    } catch (error) {
+      this.warn(error)
+    }
   }
 
   // ===== PUT, POST, DELETE ===================================================
@@ -524,28 +531,20 @@ class Main extends homebridgeLib.CommandLineTool {
       return
     }
     const jsonFormatter = new homebridgeLib.JsonFormatter()
-    if (clargs.options.verbose || !Array.isArray(response)) {
-      this.print(jsonFormatter.stringify(response))
+    for (const error of response.errors) {
+      this.warn('api error %d: %s', error.type, error.description)
+    }
+    if (clargs.options.verbose || response.state == null) {
+      this.print(jsonFormatter.stringify(response.body))
       return
     }
-    const result = {}
-    for (const id in response) {
-      const obj = response[id].success
-      if (obj) {
-        const key = Object.keys(obj)[0]
-        const path = key.split('/')
-        result[path[path.length - 1]] = obj[key]
+    if (command !== 'put') {
+      if (response.state.id != null) {
+        this.print(jsonFormatter.stringify(response.state.id))
       }
-      const error = response[id].error
-      if (error) {
-        this.warn('api error %d: %s', error.type, error.description)
-      }
-    }
-    if (command !== 'put' && result.id != null) {
-      this.print(jsonFormatter.stringify(result.id))
       return
     }
-    this.print(jsonFormatter.stringify(result))
+    this.print(jsonFormatter.stringify(response.state))
   }
 
   async put (...args) {
@@ -564,12 +563,28 @@ class Main extends homebridgeLib.CommandLineTool {
 
   async simpleCommand (command, ...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
+    const clargs = {
+      options: {}
+    }
     parser.help('h', 'help', help[command])
+    parser.flag('v', 'verbose', () => { clargs.options.verbose = true })
     parser.parse(...args)
     const response = await this.hueClient[command]()
     const jsonFormatter = new homebridgeLib.JsonFormatter()
-    const json = jsonFormatter.stringify(response)
-    this.print(json)
+    for (const error of response.errors) {
+      this.warn('api error %d: %s', error.type, error.description)
+    }
+    if (clargs.options.verbose || response.state == null) {
+      this.print(jsonFormatter.stringify(response.body))
+      return
+    }
+    if (response.state.id != null) {
+      this.print(jsonFormatter.stringify(response.state.id))
+      return
+    }
+    if (response.body != null) {
+      this.print(jsonFormatter.stringify(response.state))
+    }
   }
 
   async discover (...args) {
@@ -665,8 +680,10 @@ class Main extends homebridgeLib.CommandLineTool {
         links: []
       }
       const response = await this.hueClient.post('/resourcelinks', body)
-      const key = Object.keys(response)[0]
-      lightlist = response[key]
+      for (const error of response.errors) {
+        this.warn('api error %d: %s', error.type, error.description)
+      }
+      lightlist = response.state.id
     }
     const body = {
       links: []
@@ -703,8 +720,10 @@ class Main extends homebridgeLib.CommandLineTool {
         links: []
       }
       const response = await this.hueClient.post('/resourcelinks', body)
-      const key = Object.keys(response)[0]
-      outlet = response[key]
+      for (const error of response.errors) {
+        this.warn('api error %d: %s', error.type, error.description)
+      }
+      outlet = response.state.id
     }
     const body = {
       links: []
@@ -743,8 +762,10 @@ class Main extends homebridgeLib.CommandLineTool {
         links: []
       }
       const response = await this.hueClient.post('/resourcelinks', body)
-      const key = Object.keys(response)[0]
-      outlet = response[key]
+      for (const error of response.errors) {
+        this.warn('api error %d: %s', error.type, error.description)
+      }
+      outlet = response.state.id
     }
     const body = {
       links: []
@@ -872,12 +893,12 @@ class Main extends homebridgeLib.CommandLineTool {
     parser.parse(...args)
     if (this.hueClient.isHue) {
       const response = await this.hueClient.put('/config', { reboot: true })
-      if (!response.reboot) {
+      if (!response.state.reboot) {
         return false
       }
     } else if (this.hueClient.isDeconz) {
       const response = await this.hueClient.post('/config/restartapp')
-      if (!response['/config/restartapp']) {
+      if (!response.state.restartapp) {
         return false
       }
     } else {
