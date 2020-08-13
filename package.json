@@ -47,5 +47,9 @@
   "bugs": {
     "url": "https://github.com/ebaauw/homebridge-hue/issues"
   },
-  "homepage": "https://github.com/ebaauw/homebridge-hue#readme"
+  "homepage": "https://github.com/ebaauw/homebridge-hue#readme",
+  "funding": {
+    "type": "paypal",
+    "url": "https://www.paypal.me/ebaauw/EUR"
+  }
 }
