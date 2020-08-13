@@ -123,7 +123,7 @@ Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detai
 
 ### Prerequisites
 You need a Philips Hue bridge or deCONZ gateway to connect Homebridge Hue to your ZigBee lights, switches, and sensors.
-I recommend using the latest Hue bridge firmware, with API v1.36.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, and the latest deCONZ beta, v2.05.75 or higher.
+I recommend using the latest Hue bridge firmware, with API v1.38.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, and the latest deCONZ beta, v2.05.79 or higher.
 
 You need a server to run Homebridge.
 This can be anything running [Node.js](https://nodejs.org): from a Raspberry Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.
@@ -271,7 +271,6 @@ Please do **not** copy/paste large amounts of log output.
 Sometimes I get the question how people can support my work on Homebridge Hue.
 I created Homebridge Hue as a hobby project, for my own use.
 I share it on GitHub so others might benefit, and to give back to the open source community, without whom Homebridge Hue wouldn't have been possible.
-I do not seek any compensation for my work on Homebridge Hue.
 
 Having said that, adding support for new devices, in Homebridge Hue, and in the deCONZ REST API plugin, is very hard without having physical access to the device.
 Since this is a hobby project, I cannot afford to spend money on devices I won't be using myself, just to integrate them for the benefit of others.
