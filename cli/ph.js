@@ -484,7 +484,8 @@ class Main extends homebridgeLib.CommandLineTool {
       if (list.length > 1) {
         throw new UsageError('too many paramters')
       }
-      clargs.resource = list.length === 0 ? '/'
+      clargs.resource = list.length === 0
+        ? '/'
         : homebridgeLib.OptionParser.toPath('resource', list[0])
     })
     parser.parse(...args)
