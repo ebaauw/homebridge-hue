@@ -108,7 +108,7 @@ This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes ZigBe
   - ubisys J1 shutter control (2);
   - Xiaomi Aqara curtain controller (2),
 - History support in the [Eve](https://www.evehome.com/en/eve-app) app for smart plug power consumption (cf. Eve Energy) and Thermostats (cf. Eve Thermo);
-- HomeKit support for colour temperature on all _Color temperature lights_ and _Extended color lights_;
+- HomeKit support for Adaptive Lighting on all _Color temperature lights_ and _Extended color lights_;
 - HomeKit support for groups on a Hue bridge or deCONZ gateway, including recalling Hue bridge `GroupScene` scenes and deCONZ gateway scenes, and turning off streaming for Hue bridge `Entertainment` groups;
 - HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
 - Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, Homebridge Hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
