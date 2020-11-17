@@ -23,14 +23,14 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.41.0",
-    "deCONZ": "2.5.84",
+    "deCONZ": "2.5.88",
     "homebridge": "^1.1.0",
-    "node": "^14.15.0"
+    "node": "^14.15.1"
   },
   "dependencies": {
     "chalk": "^4.1.0",
     "debug": "^4.2.0",
-    "fakegato-history": "~0.6.0",
+    "fakegato-history": "~0.6.1",
     "homebridge-lib": "^4.8.1",
     "semver": "^7.3.2",
     "ws": "^7.4.0",
