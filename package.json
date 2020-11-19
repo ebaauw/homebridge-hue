@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
-    "debug": "^4.2.0",
+    "debug": "^4.3.0",
     "fakegato-history": "~0.6.1",
     "homebridge-lib": "^4.8.1",
     "semver": "^7.3.2",
