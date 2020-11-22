@@ -18,6 +18,13 @@
         "type": "boolean",
         "default": true
       },
+      "brightnessAdjustment": {
+        "description": "Adjustment factor for brightness for adaptive lighting.  Default: 100.",
+        "type": "integer",
+        "placeholder": 100,
+        "minimum": 10,
+        "maximum": 100
+      },
       "excludeSensorTypes": {
 	      "description": "Sensor types to exclude.",
         "type": "array",
@@ -286,6 +293,10 @@
       "title": "Advanced Settings",
       "description": "Don't change these, unless you understand what you're doing.",
       "items": [
+        {
+          "key": "brightnessAdjustment",
+          "condition": { "functionBody": "return model.lights" }
+        },
         "forceHttp",
         "heartrate",
         {
