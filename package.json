@@ -32,7 +32,7 @@
     "debug": "^4.3.1",
     "fakegato-history": "~0.6.1",
     "homebridge-lib": "^4.8.1",
-    "semver": "^7.3.2",
+    "semver": "^7.3.4",
     "ws": "^7.4.0",
     "xml2js": "~0.4.23"
   },
