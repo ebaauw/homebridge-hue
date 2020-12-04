@@ -374,7 +374,7 @@ class Main extends homebridgeLib.CommandLineTool {
     parser.help('h', 'help', help.ph)
     parser.version('V', 'version')
     parser.option('H', 'host', (value) => {
-      homebridgeLib.OptionParser.toHost('host', value, true)
+      homebridgeLib.OptionParser.toHost('host', value, false, true)
       clargs.options.host = value
     })
     parser.flag('p', 'phoscon', () => {
