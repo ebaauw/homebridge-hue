@@ -22,7 +22,7 @@ const u = chalk.underline
 class UsageError extends Error {}
 
 const usage = {
-  ph: `${b('ph')} [${b('-hVp')}] [${b('-H')} ${u('hostname')}[${b(':')}${u('port')}]] [${b('-u')} ${u('username')}] [${b('-t')} ${u('timeout')}] ${u('command')} [${u('argument')} ...]`,
+  ph: `${b('ph')} [${b('-hVDp')}] [${b('-H')} ${u('hostname')}[${b(':')}${u('port')}]] [${b('-u')} ${u('username')}] [${b('-t')} ${u('timeout')}] ${u('command')} [${u('argument')} ...]`,
 
   get: `${b('get')} [${b('-hsnjuatlkv')}] [${u('path')}]`,
   put: `${b('put')} [${b('-hv')}] ${u('resource')} [${u('body')}]`,
@@ -76,6 +76,9 @@ Parameters:
 
   ${b('-V')}, ${b('--version')}
   Print version and exit.
+
+  ${b('-D')}, ${b('--debug')}
+  Print debug messages for communication with Hue bridge / deCONZ gateway.
 
   ${b('-p')}, ${b('--phoscon')}
   Imitate the Phoscon app.  Only works for deCONZ.
@@ -383,6 +386,13 @@ class Main extends homebridgeLib.CommandLineTool {
     parser.flag('s', 'https', () => {
       clargs.options.https = true
     })
+    parser.flag('D', 'debug', () => {
+      if (this.debugEnabled) {
+        this.setOptions({ vdebug: true, mode: 'service' })
+      } else {
+        this.setOptions({ debug: true, mode: 'service' })
+      }
+    })
     parser.option('t', 'timeout', (value) => {
       clargs.options.timeout = homebridgeLib.OptionParser.toInt(
         'timeout', value, 1, 60, true
@@ -408,6 +418,27 @@ class Main extends homebridgeLib.CommandLineTool {
     try {
       const clargs = this.parseArguments()
       this.hueClient = new HueClient(clargs.options)
+      this.hueClient.on('request', (id, method, resource, body, url) => {
+        if (body == null) {
+          this.debug('request %d: %s %s', id, method, resource)
+          this.vdebug('request %d: %s %s', id, method, url)
+        } else {
+          this.debug('request %d: %s %s %j', id, method, resource, body)
+          this.vdebug('request %d: %s %s %j', id, method, url, body)
+        }
+      })
+      this.hueClient.on('response', (id, code, message, body) => {
+        this.vdebug('request %d: response: %j', id, body)
+        this.debug('request %d: %d %s', id, code, message)
+      })
+      this.hueClient.on('error', (error, id, method, resource, body, url) => {
+        if (body == null) {
+          this.log('request %d: %s %s', id, method, resource)
+        } else {
+          this.log('request %d: %s %s %j', id, method, resource, body)
+        }
+        this.warn(error)
+      })
       if (clargs.command !== 'discover') {
         try {
           await this.hueClient.connect()
@@ -450,6 +481,28 @@ class Main extends homebridgeLib.CommandLineTool {
             }
           }
           this.hueClient = new HueClient(clargs.options)
+          this.hueClient.on('request', (id, method, resource, body, url) => {
+            if (body == null) {
+              this.debug('request %d: %s %s', id, method, resource)
+              this.vdebug('request %d: %s %s', id, method, url)
+            } else {
+              this.debug('request %d: %s %s %j', id, method, resource, body)
+              this.vdebug('request %d: %s %s %j', id, method, url, body)
+            }
+          })
+          this.hueClient.on('response', (id, code, message, body) => {
+            this.vdebug('request %d: response: %j', id, body)
+            this.debug('request %d: %d %s', id, code, message)
+          })
+          this.hueClient.on('error', (error, id, method, resource, body, url) => {
+            if (body == null) {
+              this.log('request %d: %s %s', id, method, resource)
+            } else {
+              this.log('request %d: %s %s %j', id, method, resource, body)
+            }
+            this.warn(error)
+          })
+
           await this.hueClient.connect()
         }
       }
@@ -600,6 +653,18 @@ class Main extends homebridgeLib.CommandLineTool {
     parser.flag('v', 'verbose', () => { clargs.verbose = true })
     parser.parse(...args)
     const hueDiscovery = new HueDiscovery(clargs)
+    // hueDiscovery.on('request', (id, method, resource, body, url) => {
+    //   this.debug('request %d: %s %s', id, method, resource)
+    //   this.vdebug('request %d: %s %s', id, method, url)
+    // })
+    // hueDiscovery.on('response', (id, code, message, body) => {
+    //   this.vdebug('request %d: response: %j', id, body)
+    //   this.debug('request %d: %d %s', id, code, message)
+    // })
+    // hueDiscovery.on('error', (error, id, method, resource, body, url) => {
+    //   this.log('request %d: %s %s', id, method, resource)
+    //   this.warn(error)
+    // })
     const jsonFormatter = new homebridgeLib.JsonFormatter({ sortKeys: true })
     const bridges = await hueDiscovery.discover()
     this.print(jsonFormatter.stringify(bridges))
