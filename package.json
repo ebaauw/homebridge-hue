@@ -31,9 +31,9 @@
     "chalk": "^4.1.0",
     "debug": "^4.3.1",
     "fakegato-history": "~0.6.1",
-    "homebridge-lib": "^4.8.2",
+    "homebridge-lib": "^4.8.3",
     "semver": "^7.3.4",
-    "ws": "^7.4.0",
+    "ws": "^7.4.1",
     "xml2js": "~0.4.23"
   },
   "scripts": {
