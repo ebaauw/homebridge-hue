@@ -240,6 +240,10 @@
           "key": "nativeHomeKitLights",
           "condition": { "functionBody": "return model.lights" }
         },
+        {
+          "key": "excludeEffects",
+          "condition": { "functionBody": "return model.lights" }
+        },
         "groups",
         {
           "key": "group0",
