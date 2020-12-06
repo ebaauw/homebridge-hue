@@ -33,7 +33,7 @@
         }
       },
       "excludeEffects": {
-        "description": "Disable light effects exposure",
+        "description": "Don't expose light effects if available",
         "type": "boolean"
       },
       "forceEveWeather": {
