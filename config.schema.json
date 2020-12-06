@@ -32,6 +32,10 @@
           "type": "string"
         }
       },
+      "excludeEffects": {
+        "description": "Disable light effects exposure",
+        "type": "boolean"
+      },
       "forceEveWeather": {
         "description": "Create dummy pressure sensor for temperature/humidity sensors, so the Eve app treats them like an Eve Weather.",
         "type": "boolean"
