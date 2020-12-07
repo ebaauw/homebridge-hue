@@ -32,6 +32,10 @@
           "type": "string"
         }
       },
+      "excludeEffects": {
+        "description": "Don't expose light effects if available",
+        "type": "boolean"
+      },
       "forceEveWeather": {
         "description": "Create dummy pressure sensor for temperature/humidity sensors, so the Eve app treats them like an Eve Weather.",
         "type": "boolean"
@@ -234,6 +238,10 @@
         "lights",
         {
           "key": "nativeHomeKitLights",
+          "condition": { "functionBody": "return model.lights" }
+        },
+        {
+          "key": "excludeEffects",
           "condition": { "functionBody": "return model.lights" }
         },
         "groups",
