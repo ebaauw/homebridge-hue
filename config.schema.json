@@ -25,16 +25,17 @@
         "minimum": 10,
         "maximum": 100
       },
+      "effects": {
+        "description": "Expose special effects (on supported lights) as separate services.  Default: true.",
+        "type": "boolean",
+        "default": true
+      },
       "excludeSensorTypes": {
 	      "description": "Sensor types to exclude.",
         "type": "array",
         "items": {
           "type": "string"
         }
-      },
-      "excludeEffects": {
-        "description": "Don't expose light effects if available",
-        "type": "boolean"
       },
       "forceEveWeather": {
         "description": "Create dummy pressure sensor for temperature/humidity sensors, so the Eve app treats them like an Eve Weather.",
@@ -237,11 +238,11 @@
         },
         "lights",
         {
-          "key": "nativeHomeKitLights",
+          "key": "effects",
           "condition": { "functionBody": "return model.lights" }
         },
         {
-          "key": "excludeEffects",
+          "key": "nativeHomeKitLights",
           "condition": { "functionBody": "return model.lights" }
         },
         "groups",
@@ -263,7 +264,7 @@
         },
         {
           "key": "scenesAsSwitch",
-          "condition": { "functionBody": "return model.scenes" }
+          "condition": { "functionBody": "return model.groups && model.scenes" }
         },
         "linkButton",
         "schedules",
