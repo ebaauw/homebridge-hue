@@ -500,7 +500,7 @@ class Main extends homebridgeLib.CommandLineTool {
             } else {
               this.log('request %d: %s %s %j', id, method, resource, body)
             }
-            this.warn(error)
+            this.warn('request %d: %s', id, error)
           })
 
           await this.hueClient.connect()
@@ -547,7 +547,7 @@ class Main extends homebridgeLib.CommandLineTool {
       const response = await this.hueClient.get(clargs.resource)
       this.print(jsonFormatter.stringify(response))
     } catch (error) {
-      this.warn(error)
+      // this.warn(error)
     }
   }
 
@@ -663,7 +663,7 @@ class Main extends homebridgeLib.CommandLineTool {
     // })
     // hueDiscovery.on('error', (error, id, method, resource, body, url) => {
     //   this.log('request %d: %s %s', id, method, resource)
-    //   this.warn(error)
+    //   this.warn('request %d: %s', id, error)
     // })
     const jsonFormatter = new homebridgeLib.JsonFormatter({ sortKeys: true })
     const bridges = await hueDiscovery.discover()
