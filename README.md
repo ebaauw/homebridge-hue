@@ -83,6 +83,8 @@ For finer-grained control of what resources Homebridge Hue exposes to HomeKit, a
 
 ### Troubleshooting
 
+Please check the [FAQ](https://github.com/ebaauw/homebridge-hue/wiki/FAQ).
+
 #### Check Dependencies
 If you run into Homebridge startup issues, please double-check what versions of Node.js and of Homebridge have been installed.
 Homebridge Hue has been developed and tested using the [latest LTS](https://nodejs.org/en/about/releases/) version of Node.js and the [latest](https://www.npmjs.com/package/homebridge) version of Homebridge.
