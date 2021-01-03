@@ -16,127 +16,41 @@
 </span>
 
 ## Homebridge plugin for Philips Hue and/or deCONZ
-Copyright © 2016-2020 Erik Baauw. All rights reserved.
+Copyright © 2016-2021 Erik Baauw. All rights reserved.
 
-This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes ZigBee devices (lights, plugs, sensors, switches, ...) connected to (1) a Philips [Hue](http://www2.meethue.com/) bridge or (2) a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway to Apple's [HomeKit](http://www.apple.com/ios/home/).  It provides the following features:
+### Introduction
 
-- HomeKit support for **contact sensors**, including:
-  - Heiman door/window sensor (2),
-  - Samsung SmartThings multipurpose sensor (2),
-  - Xiaomi Aqara door/window sensor (2),
-  - Xiaomi Mi door/window sensor (2);
-- HomeKit support for **motion sensors**, including:
-  - Heiman motion sensor (2),
-  - IKEA Trådfri motion sensor (2),
-  - Philips hue motion sensor,
-  - Samsung SmartThings Arrival sensor (2),
-  - Samsung SmartThings multipurpose sensor (2),
-  - Xiaomi Aqara motion sensor (2),
-  - Xiaomi Mi motion sensor (2),
-  - Xiaomi Aqara Smart Motion Sensor / Vibration sensor (2);
-- HomeKit support for **ambient light sensors**, including:
-  - Philips hue motion sensor,
-  - Xiaomi Aqara motion sensor (2);
-- HomeKit support for **weather** and **temperature/humidity sensors**, including:
-  - Heiman temperature/humidity sensor (2),
-  - Philips hue motion sensor,
-  - Samsung SmartThings multipurpose sensor (2),
-  - Xiaomi Aqara weather sensor (2),
-  - Xiaomi Mi temperature/humidity sensor (2);
-- HomeKit support for **carbon-monoxide (CO) sensors**, including:
-  - Heiman carbon-monoxide sensor (2),
-- HomeKit support for **fire sensors**, including:
-  - Heiman combustable gas sensor (2),
-  - Heiman smoke sensor (2);
-- HomeKit support for **water sensors**, including:
-  - Heiman water sensor (2),
-  - Xiaomi Aqara leak sensor (2);
-- HomeKit support for **built-in sensors**:
-  - Daylight sensor,
-  - CLIP sensors: OpenClose, Presence, LightLevel, Temperature, Humidity, Pressure (2), CarbonMonoxide (2), Fire (2), Water (2)
-  - Writeable CLIP sensors: GenericFlag, GenericStatus,
-  - Multi-CLIP: Combine multiple CLIP sensors into one HomeKit accessory;
-- History support in the [Eve](https://www.evehome.com/en/eve-app) app for contact sensors (cf. Eve Door), motion sensors (cf. Eve Motion), weather, temperature/humidity, and temperature sensors (cf. Eve Weather and Eve Degree), including (multi-)CLIP versions of these;
-- HomeKit support for **wireless switches**, including the list below.  Note that you need a home hub to use these switches in HomeKit, see [Prerequisites](#prerequisites):
-  - Busch-Jaeger Light Link control element (2),
-  - Busch-Jaeger Light Link wall-mounted transmitter (2),
-  - dresden elektronik scene switch (2),
-  - Gira Light Link wall transmitter (2),
-  - Gira/Jung Light Link hand transmitter (2),
-  - iCasa Pulse Keypad 2, 4S, and 8S (2),
-  - IKEA Symfonisk sound controller (2),
-  - IKEA Trådfri remote (2),
-  - IKEA Trådfri wireless dimmer (2),
-  - IKEA Trådfri on/off switch (2),
-  - IKEA Trådfri open/close remote (2),
-  - innr remote RC 110 (2),
-  - Jung Light Link wall transmitter (2),
-  - Lutron Aurora Friends-of-Hue dimmer switch,
-  - Philips hue bridge link button (1),
-  - Philips hue dimmer switch,
-  - Philips hue smart button,
-  - Philips hue tap,
-  - Friends of Hue switches,
-  - Samsung SmartThings Button,
-  - Sunricher remote controller and CCT remote (2),
-  - ubisys C4 and C4-R control unit (2),
-  - ubisys D1 and D1-R dimmer (2),
-  - ubisys S1, S2, S1-R, and S2-R switch (2),
-  - Xiaomi Aqara smart cube (2),
-  - Xiaomi Aqara smart wireless switch (2),
-  - Xiaomi Aqara vibration sensor (2),
-  - Xiaomi Mi smart cube (2),
-  - Xiaomi Mi wireless switch (2),
-  - Xiaomi wall switch (2);
-- HomeKit support for **lights**, **wired in-wall switches**, and **plugs**:
-  - Philips hue lights,
-  - ZigBee Light Link (ZLL) lights and plugs from other manufacturers,
-  - ZigBee 3.0 lights and plugs,
-  - ZigBee Home Automation (ZHA) lights and plugs (2),
-  - Heiman Siren (2),
-  - Multi-Light: Combine multiple lights into one HomeKit accessory;
-- HomeKit support for **power consumption** (2) as reported by smart plugs, or wired in-wall switches including:
-  - Heiman SmartPlug,
-  - innr SP 120 smart plug,
-  - Xiaomi Smart plug,
-  - Xiaomi Aqara wall switch;
-- HomeKit support for **thermostats**:
-  - Bitron Thermostat 902010/32 (2),
-  - Eurotronic Spirit Zigbee (2);
-- HomeKit support for **window covering** devices:
-  - IKEA FYRTUR and KADRILJ (2),
-  - ubisys J1 shutter control (2);
-  - Xiaomi Aqara curtain controller (2),
-- History support in the [Eve](https://www.evehome.com/en/eve-app) app for smart plug power consumption (cf. Eve Energy) and Thermostats (cf. Eve Thermo);
-- HomeKit support for Adaptive Lighting on all _Color temperature lights_ and _Extended color lights_;
-- HomeKit support for groups on a Hue bridge or deCONZ gateway, including recalling Hue bridge `GroupScene` scenes and deCONZ gateway scenes, and turning off streaming for Hue bridge `Entertainment` groups;
-- HomeKit support for enabling/disabling sensors, schedules, and rules on a Hue bridge or deCONZ gateway;
-- Monitoring Hue bridge and deCONZ gateway resources (sensors, lights, groups, schedules, and rules) from HomeKit, without the need to refresh the HomeKit app.  To achieve this, Homebridge Hue polls the bridge / gateway to detect state changes.  In addition, it subscribes to the push notifications provided by the deCONZ gateway;
-- Automatic discovery of Hue bridges and deCONZ gateways; support for multiple bridges / gateways; support for both v2 (square) and v1 (round) Hue bridge; works in combination with the native HomeKit functionality of the v2 Hue bridge;
-- Includes the command line utilities `dc_eventlog` and `ph`.
+This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) ZigBee devices (lights, plugs, sensors, switches, ...) connected to a Philips [Hue](http://www2.meethue.com/) bridge or a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway.
 
-1) Hue bridge only  
-2) deCONZ only
+See the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Features) for a list of Homebridge Hue features and supported devices, including a comparison of the features of:
+- The native HomeKit function of the gen-2 (square) Hue bridge; of
+- Homebridge Hue in combination with a Hue bridge; and of
+- Homebridge Hue in combination with deCONZ.
 
-Please see the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki) for a detailed description of Homebridge Hue.
+Homebridge Hue does automatic discovery of Hue bridges and deCONZ gateways.
+It supports multiple bridges / gateways from one installation.
+It supports both the v2 (square) and v1 (round) Hue bridge.
+It works in combination with the native HomeKit functionality of the v2 Hue bridge.
+
+Please see the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki) for a detailed description of Homebridge Hue.
 
 ### Prerequisites
 You need a Philips Hue bridge or deCONZ gateway to connect Homebridge Hue to your ZigBee lights, switches, and sensors.
-I recommend using the latest Hue bridge firmware, with API v1.38.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, and the latest deCONZ beta, v2.05.79 or higher.
+I recommend using the latest Hue bridge firmware, with API v1.41.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, and the latest deCONZ beta, v2.9.0 or higher.
 
 You need a server to run Homebridge.
 This can be anything running [Node.js](https://nodejs.org): from a Raspberry Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.
 See the [Homebridge Wiki](https://github.com/homebridge/homebridge/wiki) for details.
 I run deCONZ and Homebridge Hue together on a Raspberry Pi 3B+, with a [RaspBee](https://phoscon.de/en/raspbee) add-on board.  
-I recommend using wired Ethernet to connect the server running Homebridge, the Hue bridge, and the AppleTV or HomePod acting as home hub.
+I recommend using wired Ethernet to connect the server running Homebridge, the Hue bridge, and the AppleTV acting as home hub.
 
 To interact with HomeKit, you need Siri or a HomeKit app on an iPhone, Apple Watch, iPad, iPod Touch, or Apple TV (4th generation or later).
 I recommend to use the latest released versions of iOS, watchOS, and tvOS.  
 Please note that Siri and even Apple's [Home](https://support.apple.com/en-us/HT204893) app still provide only limited HomeKit support.
-To use the full features of Homebridg Hue, you might want to check out some other HomeKit apps, like the [Eve](https://www.evehome.com/en/eve-app) app (free) or Matthias Hochgatterer's [Home+](https://hochgatterer.me/home/) app (paid).
+To use the full features of Homebridge Hue, you might want to check out some other HomeKit apps, like the [Eve](https://www.evehome.com/en/eve-app) app (free) or Matthias Hochgatterer's [Home+](https://hochgatterer.me/home/) app (paid).
 
 As HomeKit uses Bonjour to discover Homebridge, the server running Homebridge must be on the same subnet as your iDevices running HomeKit.
-For remote access and for HomeKit automations, you need to setup an Apple TV (4th generation or later), HomePod, or iPad as [home hub](https://support.apple.com/en-us/HT207057).
+For remote access and for HomeKit automations (incl. support for wireless switches), you need to setup an Apple TV (4th generation or later), HomePod, or iPad as [home hub](https://support.apple.com/en-us/HT207057).
 
 ### Command-Line Tools
 Homebridge Hue includes the following command-line tools:
@@ -163,63 +77,9 @@ Note that you cannot add these through the Homebridge Hue *Settings* in Homebrid
 To update Homebridge Hue, simply issue another `sudo npm -g i homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating Homebridge Hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing Homebridge Hue, as in: `sudo npm -g i homebridge-hue@0.11.59`.
 
 ### Configuration
-In Homebridge's `config.json` you need to specify Homebridge Hue as a platform plugin.  Furthermore, you need to specify what you want to expose to HomeKit, see the examples below.  See the [WiKi](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by Homebridge Hue.
+In Homebridge's `config.json` you need to specify Homebridge Hue as a platform plugin.  Furthermore, you need to specify what you want to expose to HomeKit.  See the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by Homebridge Hue, and for some examples.
 
-The example below is a typical configuration for a v2 (square) bridge, which already exposes the Philips Hue lights, Hue motion sensors, Hue dimmer switches, and Hue taps to HomeKit.  With this configuration, Homebridge Hue exposes the non-Philips lights.
-```json
-  "platforms": [
-    {
-      "platform": "Hue",
-      "users": {
-        "001788FFFExxxxxx": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "001788FFFEyyyyyy": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-      },
-      "lights": true
-    }
-  ]
-```
-
-The example below is a typical configuration for a v2 (square) bridge where the native HomeKit feature for sensors isn't used.  With this configuration, Homebridge Hue exposes the non-Philips lights and all sensor resources, except those created by the Hue app for _Home & Away_ routines.
-```json
-  "platforms": [
-    {
-      "platform": "Hue",
-      "users": {
-        "001788FFFExxxxxx": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "001788FFFEyyyyyy": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-      },
-      "sensors": true,
-      "nativeHomeKitSensors": false,
-      "excludeSensorTypes": ["CLIPPresence", "Geofence"],
-      "lights": true
-    }
-  ]
-```
-
-For finer-grained control of what resources Homebridge Hue exposes to HomeKit, create resourcelinks on the bridge / gateway for whitelists or blacklists.  The `name` of the resourcelink needs to be `"homebridge-hue"`, the `description` indicates the type of list: `"whitelist"` or `"blacklist"`.  Whitelists take precedence over blacklists.  Both whitelists and blacklists take precedence over the settings in `config.json`.  
-For example, if you have a chandelier with three bulbs, you might want to expose this as a group instead of as three individual lights, by creating the following resourcelinks:
-```json
-{
-  "name": "homebridge-hue",
-  "classid": 1,
-  "description": "whitelist",
-  "links": [
-    "/groups/1"
-  ]
-}
-```
-```json
-{
-  "name": "homebridge-hue",
-  "classid": 1,
-  "description": "blacklist",
-  "links": [
-    "/lights/1",
-    "/lights/2",
-    "/lights/3"
-  ]
-}
-```
+For finer-grained control of what resources Homebridge Hue exposes to HomeKit, and how, create resource links on the bridge / gateway, see the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Resource-Links).
 
 ### Troubleshooting
 
