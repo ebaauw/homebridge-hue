@@ -3,7 +3,7 @@
 // homebridge-hue/cli/dc_eventlog.js
 //
 // Homebridge plug-in for Philips Hue and/or deCONZ.
-// Copyright © 2018-2020 Erik Baauw. All rights reserved.
+// Copyright © 2018-2021 Erik Baauw. All rights reserved.
 //
 // Logger for deCONZ websocket notifications.
 
@@ -46,16 +46,17 @@ class Main extends homebridgeLib.CommandLineTool {
 
   parseArguments () {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
-    parser.help('h', 'help', help)
-    parser.version('V', 'version')
-    parser.option('H', 'host', (value) => {
-      homebridgeLib.OptionParser.toHost('host', value, false, true)
-      this.ws.host = value
-    })
-    parser.flag('n', 'noretry', () => { this.ws.retryTime = 0 })
-    parser.flag('r', 'raw', () => { this.ws.raw = true })
-    parser.flag('s', 'service', () => { this.options.mode = 'service' })
-    parser.parse()
+    parser
+      .help('h', 'help', help)
+      .version('V', 'version')
+      .option('H', 'host', (value) => {
+        homebridgeLib.OptionParser.toHost('host', value, false, true)
+        this.ws.host = value
+      })
+      .flag('n', 'noretry', () => { this.ws.retryTime = 0 })
+      .flag('r', 'raw', () => { this.ws.raw = true })
+      .flag('s', 'service', () => { this.options.mode = 'service' })
+      .parse()
   }
 
   exit (signal) {
@@ -70,25 +71,27 @@ class Main extends homebridgeLib.CommandLineTool {
       this.jsonFormatter = new homebridgeLib.JsonFormatter(
         this.options.mode === 'service' ? { noWhiteSpace: true } : {}
       )
-      process.on('SIGINT', () => { this.exit('SIGINT') })
-      process.on('SIGTERM', () => { this.exit('SIGTERM') })
-      wsMonitor.on('listening', (url) => { this.log('listening on %s', url) })
-      wsMonitor.on('closed', () => { this.log('connection closed') })
-      wsMonitor.on('error', (error) => { this.error(error) })
-      wsMonitor.on('changed', (resource, body) => {
-        this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
-      })
-      wsMonitor.on('added', (resource, body) => {
-        this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
-      })
-      wsMonitor.on('sceneRecall', (resource) => {
-        this.log('%s: recall', resource)
-      })
-      wsMonitor.on('notification', (body) => {
-        this.log(this.jsonFormatter.stringify(body))
-      })
       this.setOptions({ mode: this.options.mode })
-      wsMonitor.listen()
+      process
+        .on('SIGINT', () => { this.exit('SIGINT') })
+        .on('SIGTERM', () => { this.exit('SIGTERM') })
+      wsMonitor
+        .on('error', (error) => { this.error(error) })
+        .on('listening', (url) => { this.log('listening on %s', url) })
+        .on('closed', () => { this.log('connection closed') })
+        .on('changed', (resource, body) => {
+          this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
+        })
+        .on('added', (resource, body) => {
+          this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
+        })
+        .on('sceneRecall', (resource) => {
+          this.log('%s: recall', resource)
+        })
+        .on('notification', (body) => {
+          this.log(this.jsonFormatter.stringify(body))
+        })
+        .listen()
     } catch (error) {
       this.fatal(error)
     }
