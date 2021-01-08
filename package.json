@@ -25,19 +25,18 @@
     "BSB002": "1.41.0",
     "deCONZ": "2.7.1",
     "homebridge": "^1.1.0",
-    "node": "^14.15.2"
+    "node": "^14.15.4"
   },
   "dependencies": {
     "chalk": "^4.1.0",
-    "debug": "^4.3.1",
     "fakegato-history": "~0.6.1",
-    "homebridge-lib": "~4.8.4",
+    "homebridge-lib": "~5.0.2",
     "semver": "^7.3.4",
-    "ws": "^7.4.1",
+    "ws": "^7.4.2",
     "xml2js": "~0.4.23"
   },
   "scripts": {
-    "prepare": "standard",
+    "prepare": "standard && rm -rf out && jsdoc -c jsdoc.json",
     "test": "standard && echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
