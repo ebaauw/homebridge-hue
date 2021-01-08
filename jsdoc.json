@@ -1,0 +1,16 @@
+{
+  "plugins": ["plugins/markdown"],
+  "rescurseDepth": 10,
+  "source": {
+    "include": [
+      "README.md", "index.js", "lib", "doc",
+      "node_modules/homebridge-lib/lib/HttpClient.js"
+    ]
+  },
+  "opts": {
+    "tutorials": "doc"
+  },
+  "templates": {
+    "monospaceLinks": true
+  }
+}
