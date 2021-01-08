@@ -3,7 +3,7 @@
 // homebridge-hue/cli/ph.js
 //
 // Homebridge plug-in for Philips Hue and/or deCONZ.
-// Copyright © 2018-2020 Erik Baauw. All rights reserved.
+// Copyright © 2018-2021 Erik Baauw. All rights reserved.
 //
 // Command line interface to Philips Hue or deCONZ API.
 
@@ -327,7 +327,7 @@ class Main extends homebridgeLib.CommandLineTool {
     super({ mode: 'command', debug: false })
     this.usage = usage.ph
     try {
-      this._readBridges()
+      this.readBridges()
     } catch (error) {
       if (error.code !== 'ENOENT') {
         this.error(error)
@@ -338,7 +338,7 @@ class Main extends homebridgeLib.CommandLineTool {
 
   // ===========================================================================
 
-  _readBridges () {
+  readBridges () {
     const text = fs.readFileSync(process.env.HOME + '/.ph')
     try {
       this.bridges = JSON.parse(text)
@@ -355,11 +355,11 @@ class Main extends homebridgeLib.CommandLineTool {
       }
     }
     if (converted) {
-      this._writeBridges()
+      this.writeBridges()
     }
   }
 
-  _writeBridges () {
+  writeBridges () {
     const jsonFormatter = new homebridgeLib.JsonFormatter(
       { noWhiteSpace: true, sortKeys: true }
     )
@@ -371,146 +371,196 @@ class Main extends homebridgeLib.CommandLineTool {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {
       options: {
-        host: process.env.PH_HOST || 'localhost'
+        forceHttp: false,
+        host: process.env.PH_HOST || 'localhost',
+        timeout: 5
       }
     }
-    parser.help('h', 'help', help.ph)
-    parser.version('V', 'version')
-    parser.option('H', 'host', (value) => {
-      homebridgeLib.OptionParser.toHost('host', value, false, true)
-      clargs.options.host = value
-    })
-    parser.flag('p', 'phoscon', () => {
-      clargs.options.phoscon = true
-    })
-    parser.flag('s', 'https', () => {
-      clargs.options.https = true
-    })
-    parser.flag('D', 'debug', () => {
-      if (this.debugEnabled) {
-        this.setOptions({ vdebug: true, mode: 'service' })
-      } else {
-        this.setOptions({ debug: true, mode: 'service' })
-      }
-    })
-    parser.option('t', 'timeout', (value) => {
-      clargs.options.timeout = homebridgeLib.OptionParser.toInt(
-        'timeout', value, 1, 60, true
-      )
-    })
-    parser.option('u', 'username', (value) => {
-      clargs.options.username = homebridgeLib.OptionParser.toString(
-        'username', value, true, true
-      )
-    })
-    parser.parameter('command', (value) => {
-      if (usage[value] == null || typeof this[value] !== 'function') {
-        throw new UsageError(`${value}: unknown command`)
-      }
-      clargs.command = value
-    })
-    parser.remaining((list) => { clargs.args = list })
-    parser.parse()
+    parser
+      .help('h', 'help', help.ph)
+      .version('V', 'version')
+      .option('H', 'host', (value) => {
+        homebridgeLib.OptionParser.toHost('host', value, false, true)
+        clargs.options.host = value
+      })
+      .flag('p', 'phoscon', () => {
+        clargs.options.phoscon = true
+      })
+      .flag('s', 'https', () => {
+        clargs.options.https = true
+      })
+      .flag('D', 'debug', () => {
+        if (this.debugEnabled) {
+          this.setOptions({ vdebug: true, mode: 'service' })
+        } else {
+          this.setOptions({ debug: true, mode: 'service' })
+        }
+      })
+      .option('t', 'timeout', (value) => {
+        clargs.options.timeout = homebridgeLib.OptionParser.toInt(
+          'timeout', value, 1, 60, true
+        )
+      })
+      .option('u', 'username', (value) => {
+        clargs.options.username = homebridgeLib.OptionParser.toString(
+          'username', value, true, true
+        )
+      })
+      .parameter('command', (value) => {
+        if (usage[value] == null || typeof this[value] !== 'function') {
+          throw new UsageError(`${value}: unknown command`)
+        }
+        clargs.command = value
+      })
+      .remaining((list) => { clargs.args = list })
+      .parse()
     return clargs
   }
 
   async main () {
     try {
       const clargs = this.parseArguments()
-      this.hueClient = new HueClient(clargs.options)
-      this.hueClient.on('request', (id, method, resource, body, url) => {
-        if (body == null) {
-          this.debug('request %d: %s %s', id, method, resource)
-          this.vdebug('request %d: %s %s', id, method, url)
-        } else {
-          this.debug('request %d: %s %s %j', id, method, resource, body)
-          this.vdebug('request %d: %s %s %j', id, method, url, body)
-        }
+      this.hueDiscovery = new HueDiscovery({
+        forceHttp: clargs.options.forceHttp,
+        timeout: clargs.options.timeout
       })
-      this.hueClient.on('response', (id, code, message, body) => {
-        this.vdebug('request %d: response: %j', id, body)
-        this.debug('request %d: %d %s', id, code, message)
-      })
-      this.hueClient.on('error', (error, id, method, resource, body, url) => {
-        if (body == null) {
-          this.log('request %d: %s %s', id, method, resource)
-        } else {
-          this.log('request %d: %s %s %j', id, method, resource, body)
-        }
-        this.warn(error)
-      })
-      if (clargs.command !== 'discover') {
-        try {
-          await this.hueClient.connect()
-          this.bridgeid = this.hueClient.bridgeid
-        } catch (error) {
-          this.error(error)
-          this.fatal('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
-        }
-        if (clargs.command !== 'config') {
-          clargs.options.bridgeid = this.bridgeid
-          if (clargs.options.username == null) {
-            if (
-              this.bridges[this.bridgeid] != null &&
-              this.bridges[this.bridgeid].username != null
-            ) {
-              clargs.options.username = this.bridges[this.bridgeid].username
-            } else if (process.env.PH_USERNAME != null) {
-              clargs.options.username = process.env.PH_USERNAME
-            }
-          }
-          if (
-            this.bridges[this.bridgeid] != null &&
-            this.bridges[this.bridgeid].fingerprint != null
-          ) {
-            clargs.options.fingerprint = this.bridges[this.bridgeid].fingerprint
-          }
-          if (clargs.command !== 'config' && clargs.command !== 'description') {
-            if (clargs.options.username == null && clargs.command !== 'createuser') {
-              let args = ''
-              if (
-                clargs.options.host !== 'localhost' &&
-                clargs.options.host !== process.env.PH_HOST
-              ) {
-                args += ' -H ' + clargs.options.host
-              }
-              this.fatal(
-                'missing username - %s and run "ph%s createuser"',
-                this.hueClient.isDeconz ? 'unlock gateway' : 'press link button', args
-              )
-            }
-          }
-          this.hueClient = new HueClient(clargs.options)
-          this.hueClient.on('request', (id, method, resource, body, url) => {
-            if (body == null) {
-              this.debug('request %d: %s %s', id, method, resource)
-              this.vdebug('request %d: %s %s', id, method, url)
-            } else {
-              this.debug('request %d: %s %s %j', id, method, resource, body)
-              this.vdebug('request %d: %s %s %j', id, method, url, body)
-            }
-          })
-          this.hueClient.on('response', (id, code, message, body) => {
-            this.vdebug('request %d: response: %j', id, body)
-            this.debug('request %d: %d %s', id, code, message)
-          })
-          this.hueClient.on('error', (error, id, method, resource, body, url) => {
-            if (body == null) {
-              this.log('request %d: %s %s', id, method, resource)
-            } else {
-              this.log('request %d: %s %s %j', id, method, resource, body)
-            }
-            this.warn('request %d: %s', id, error)
-          })
+      this.hueDiscovery
+        .on('error', (error) => {
+          this.log(
+            '%s: request %d: %s %s', error.request.name,
+            error.request.id, error.request.method, error.request.resource
+          )
+          this.warn(
+            '%s: request %d: %s', error.request.name, error.request.id, error
+          )
+        })
+        .on('request', (request) => {
+          this.debug(
+            '%s: request %d: %s %s', request.name,
+            request.id, request.method, request.resource
+          )
+          this.vdebug(
+            '%s: request %d: %s %s', request.name,
+            request.id, request.method, request.url
+          )
+        })
+        .on('response', (response) => {
+          this.vdebug(
+            '%s: request %d: response: %j', response.request.name,
+            response.request.id, response.body
+          )
+          this.debug(
+            '%s: request %d: %d %s', response.request.name,
+            response.request.id, response.statusCode, response.statusMessage
+          )
+        })
+        .on('found', (name, id, address) => {
+          this.debug('%s: found %s at %s', name, id, address)
+        })
+        .on('searching', (host) => {
+          this.debug('upnp: listening on %s', host)
+        })
+        .on('searchDone', () => { this.debug('upnp: search done') })
 
-          await this.hueClient.connect()
+      if (clargs.command === 'discover') {
+        return this.discover(clargs.args)
+      }
+      try {
+        this.bridgeConfig = await this.hueDiscovery.config(clargs.options.host)
+      } catch (error) {
+        this.error(error)
+        this.fatal('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
+      }
+      if (clargs.command === 'config') {
+        return this.config(clargs.args)
+      }
+
+      clargs.options.config = this.bridgeConfig
+      this.bridgeid = this.bridgeConfig.bridgeid
+      if (clargs.options.username == null) {
+        if (
+          this.bridges[this.bridgeid] != null &&
+          this.bridges[this.bridgeid].username != null
+        ) {
+          clargs.options.username = this.bridges[this.bridgeid].username
+        } else if (process.env.PH_USERNAME != null) {
+          clargs.options.username = process.env.PH_USERNAME
         }
       }
+      if (
+        this.bridges[this.bridgeid] != null &&
+        this.bridges[this.bridgeid].fingerprint != null
+      ) {
+        clargs.options.fingerprint = this.bridges[this.bridgeid].fingerprint
+      }
+      if (clargs.options.username == null && clargs.command !== 'createuser') {
+        let args = ''
+        if (
+          clargs.options.host !== 'localhost' &&
+          clargs.options.host !== process.env.PH_HOST
+        ) {
+          args += ' -H ' + clargs.options.host
+        }
+        this.fatal(
+          'missing username - %s and run "ph%s createuser"',
+          this.hueClient.isDeconz ? 'unlock gateway' : 'press link button', args
+        )
+      }
+      this.hueClient = new HueClient(clargs.options)
+      this.hueClient
+        .on('error', (error) => {
+          if (error.request.id !== this.requestId) {
+            if (error.request.body == null) {
+              this.log(
+                'request %d: %s %s', error.request.id,
+                error.request.method, error.request.resource
+              )
+            } else {
+              this.log(
+                'request %d: %s %s %s', error.request.id,
+                error.request.method, error.request.resource, error.request.body
+              )
+            }
+            this.requestId = error.request.id
+          }
+          this.warn('request %d: %s', error.request.id, error)
+        })
+        .on('request', (request) => {
+          if (request.body == null) {
+            this.debug(
+              'request %d: %s %s', request.id, request.method, request.resource
+            )
+            this.vdebug(
+              'request %d: %s %s', request.id, request.method, request.url
+            )
+          } else {
+            this.debug(
+              'request %d: %s %s %s', request.id,
+              request.method, request.resource, request.body
+            )
+            this.vdebug(
+              'request %d: %s %s %s', request.id,
+              request.method, request.url, request.body
+            )
+          }
+        })
+        .on('response', (response) => {
+          this.vdebug(
+            'request %d: response: %j', response.request.id, response.body
+          )
+          this.debug(
+            'request %d: %d %s', response.request.id,
+            response.statusCode, response.statusMessage
+          )
+        })
+      this.options = clargs.options
       this.name = 'ph ' + clargs.command
       this.usage = `${b('ph')} ${usage[clargs.command]}`
       await this[clargs.command](clargs.args)
     } catch (error) {
-      this.fatal(error)
+      if (error.request == null) {
+        this.error(error)
+      }
     }
   }
 
@@ -521,34 +571,31 @@ class Main extends homebridgeLib.CommandLineTool {
     const clargs = {
       options: {}
     }
-    parser.help('h', 'help', help.get)
-    parser.flag('s', 'sortKeys', () => { clargs.options.sortKeys = true })
-    parser.flag('n', 'noWhiteSpace', () => {
-      clargs.options.noWhiteSpace = true
-    })
-    parser.flag('j', 'jsonArray', () => { clargs.options.noWhiteSpace = true })
-    parser.flag('u', 'joinKeys', () => { clargs.options.joinKeys = true })
-    parser.flag('a', 'ascii', () => { clargs.options.ascii = true })
-    parser.flag('t', 'topOnly', () => { clargs.options.topOnly = true })
-    parser.flag('l', 'leavesOnly', () => { clargs.options.leavesOnly = true })
-    parser.flag('k', 'keysOnly', () => { clargs.options.keysOnly = true })
-    parser.flag('v', 'valuesOnly', () => { clargs.options.valuesOnly = true })
-    parser.remaining((list) => {
-      if (list.length > 1) {
-        throw new UsageError('too many paramters')
-      }
-      clargs.resource = list.length === 0
-        ? '/'
-        : homebridgeLib.OptionParser.toPath('resource', list[0])
-    })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.get)
+      .flag('s', 'sortKeys', () => { clargs.options.sortKeys = true })
+      .flag('n', 'noWhiteSpace', () => {
+        clargs.options.noWhiteSpace = true
+      })
+      .flag('j', 'jsonArray', () => { clargs.options.noWhiteSpace = true })
+      .flag('u', 'joinKeys', () => { clargs.options.joinKeys = true })
+      .flag('a', 'ascii', () => { clargs.options.ascii = true })
+      .flag('t', 'topOnly', () => { clargs.options.topOnly = true })
+      .flag('l', 'leavesOnly', () => { clargs.options.leavesOnly = true })
+      .flag('k', 'keysOnly', () => { clargs.options.keysOnly = true })
+      .flag('v', 'valuesOnly', () => { clargs.options.valuesOnly = true })
+      .remaining((list) => {
+        if (list.length > 1) {
+          throw new UsageError('too many paramters')
+        }
+        clargs.resource = list.length === 0
+          ? '/'
+          : homebridgeLib.OptionParser.toPath('resource', list[0])
+      })
+      .parse(...args)
     const jsonFormatter = new homebridgeLib.JsonFormatter(clargs.options)
-    try {
-      const response = await this.hueClient.get(clargs.resource)
-      this.print(jsonFormatter.stringify(response))
-    } catch (error) {
-      // this.warn(error)
-    }
+    const response = await this.hueClient.get(clargs.resource)
+    this.print(jsonFormatter.stringify(response))
   }
 
   // ===== PUT, POST, DELETE ===================================================
@@ -558,47 +605,44 @@ class Main extends homebridgeLib.CommandLineTool {
     const clargs = {
       options: {}
     }
-    parser.help('h', 'help', help[command])
-    parser.flag('v', 'verbose', () => { clargs.options.verbose = true })
-    parser.parameter('resource', (resource) => {
-      clargs.resource = homebridgeLib.OptionParser.toPath('resource', resource)
-      if (clargs.resource === '/') {
-        // deCONZ will crash otherwise, see deconz-rest-plugin#2520.
-        throw new UsageError(`/: invalid resource for ${command}`)
-      }
-    })
-    parser.remaining((list) => {
-      if (list.length > 1) {
-        throw new Error('too many paramters')
-      }
-      if (list.length === 1) {
-        try {
-          clargs.body = JSON.parse(list[0])
-        } catch (error) {
-          throw new Error(error.message) // Covert TypeError to Error.
+    parser
+      .help('h', 'help', help[command])
+      .flag('v', 'verbose', () => { clargs.options.verbose = true })
+      .parameter('resource', (resource) => {
+        clargs.resource = homebridgeLib.OptionParser.toPath('resource', resource)
+        if (clargs.resource === '/') {
+          // deCONZ will crash otherwise, see deconz-rest-plugin#2520.
+          throw new UsageError(`/: invalid resource for ${command}`)
         }
-      }
-    })
-    parser.parse(...args)
+      })
+      .remaining((list) => {
+        if (list.length > 1) {
+          throw new Error('too many paramters')
+        }
+        if (list.length === 1) {
+          try {
+            clargs.body = JSON.parse(list[0])
+          } catch (error) {
+            throw new Error(error.message) // Covert TypeError to Error.
+          }
+        }
+      })
+      .parse(...args)
     const response = await this.hueClient[command](clargs.resource, clargs.body)
-    if (response == null) {
-      return
-    }
     const jsonFormatter = new homebridgeLib.JsonFormatter()
-    for (const error of response.errors) {
-      this.warn('api error %d: %s', error.type, error.description)
-    }
-    if (clargs.options.verbose || response.state == null) {
+    if (clargs.options.verbose || response.success == null) {
       this.print(jsonFormatter.stringify(response.body))
       return
     }
     if (command !== 'put') {
-      if (response.state.id != null) {
-        this.print(jsonFormatter.stringify(response.state.id))
+      if (response.success.id != null) {
+        this.print(jsonFormatter.stringify(response.success.id))
+      } else {
+        this.print(jsonFormatter.stringify(response.success))
       }
       return
     }
-    this.print(jsonFormatter.stringify(response.state))
+    this.print(jsonFormatter.stringify(response.success))
   }
 
   async put (...args) {
@@ -620,73 +664,59 @@ class Main extends homebridgeLib.CommandLineTool {
     const clargs = {
       options: {}
     }
-    parser.help('h', 'help', help[command])
-    parser.flag('v', 'verbose', () => { clargs.options.verbose = true })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help[command])
+      .flag('v', 'verbose', () => { clargs.options.verbose = true })
+      .parse(...args)
     const response = await this.hueClient[command]()
     const jsonFormatter = new homebridgeLib.JsonFormatter()
     for (const error of response.errors) {
       this.warn('api error %d: %s', error.type, error.description)
     }
-    if (clargs.options.verbose || response.state == null) {
+    if (clargs.options.verbose || response.success == null) {
       this.print(jsonFormatter.stringify(response.body))
       return
     }
-    if (response.state.id != null) {
-      this.print(jsonFormatter.stringify(response.state.id))
+    if (response.success.id != null) {
+      this.print(jsonFormatter.stringify(response.success.id))
       return
     }
-    if (response.body != null) {
-      this.print(jsonFormatter.stringify(response.state))
+    if (response.success != null) {
+      this.print(jsonFormatter.stringify(response.success))
+      return
     }
+    this.print(jsonFormatter.stringify(response.body))
   }
 
   async discover (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
-    const clargs = {}
-    parser.help('h', 'help', help.discover)
-    parser.option('t', 'timeout', (value, key) => {
-      clargs.timeout = homebridgeLib.OptionParser.toInt(
-        'timeout', value, 1, 60, true
-      )
-    })
-    parser.flag('v', 'verbose', () => { clargs.verbose = true })
-    parser.parse(...args)
-    const hueDiscovery = new HueDiscovery(clargs)
-    // hueDiscovery.on('request', (id, method, resource, body, url) => {
-    //   this.debug('request %d: %s %s', id, method, resource)
-    //   this.vdebug('request %d: %s %s', id, method, url)
-    // })
-    // hueDiscovery.on('response', (id, code, message, body) => {
-    //   this.vdebug('request %d: response: %j', id, body)
-    //   this.debug('request %d: %d %s', id, code, message)
-    // })
-    // hueDiscovery.on('error', (error, id, method, resource, body, url) => {
-    //   this.log('request %d: %s %s', id, method, resource)
-    //   this.warn('request %d: %s', id, error)
-    // })
+    parser
+      .help('h', 'help', help.discover)
+      .parse(...args)
     const jsonFormatter = new homebridgeLib.JsonFormatter({ sortKeys: true })
-    const bridges = await hueDiscovery.discover()
+    const bridges = await this.hueDiscovery.discover()
     this.print(jsonFormatter.stringify(bridges))
   }
 
   async config (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
     const options = {}
-    parser.help('h', 'help', help.config)
-    parser.flag('s', 'sortKeys', () => { options.sortKeys = true })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.config)
+      .flag('s', 'sortKeys', () => { options.sortKeys = true })
+      .parse(...args)
     const jsonFormatter = new homebridgeLib.JsonFormatter(options)
-    const json = jsonFormatter.stringify(await this.hueClient.config())
+    const json = jsonFormatter.stringify(this.bridgeConfig)
     this.print(json)
   }
 
   async description (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
     const options = {}
-    parser.help('h', 'help', help.description)
-    parser.flag('s', 'sortKeys', () => { options.sortKeys = true })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.description)
+      .flag('s', 'sortKeys', () => { options.sortKeys = true })
+      .parse(...args)
     const response = await this.hueClient.description()
     const jsonFormatter = new homebridgeLib.JsonFormatter(options)
     const json = jsonFormatter.stringify(response)
@@ -698,15 +728,16 @@ class Main extends homebridgeLib.CommandLineTool {
     const jsonFormatter = new homebridgeLib.JsonFormatter(
       { noWhiteSpace: true, sortKeys: true }
     )
-    parser.help('h', 'help', help.createuser)
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.createuser)
+      .parse(...args)
     const username = await this.hueClient.createuser('ph')
     this.print(jsonFormatter.stringify(username))
     this.bridges[this.bridgeid] = { username: username }
     if (this.hueClient.fingerprint != null) {
       this.bridges[this.bridgeid].fingerprint = this.hueClient.fingerprint
     }
-    this._writeBridges()
+    this.writeBridges()
   }
 
   async unlock (...args) {
@@ -726,9 +757,10 @@ class Main extends homebridgeLib.CommandLineTool {
   async lightlist (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
-    parser.help('h', 'help', help.lightlist)
-    parser.flag('v', 'verbose', () => { clargs.verbose = true })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.lightlist)
+      .flag('v', 'verbose', () => { clargs.verbose = true })
+      .parse(...args)
     let lightlist
     const lights = await this.hueClient.get('/lights')
     const resourcelinks = await this.hueClient.get('/resourcelinks')
@@ -749,7 +781,7 @@ class Main extends homebridgeLib.CommandLineTool {
       for (const error of response.errors) {
         this.warn('api error %d: %s', error.type, error.description)
       }
-      lightlist = response.state.id
+      lightlist = response.success.id
     }
     const body = {
       links: []
@@ -766,9 +798,10 @@ class Main extends homebridgeLib.CommandLineTool {
   async outlet (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
-    parser.help('h', 'help', help.outlet)
-    parser.flag('v', 'verbose', () => { clargs.verbose = true })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.outlet)
+      .flag('v', 'verbose', () => { clargs.verbose = true })
+      .parse(...args)
     let outlet
     const lights = await this.hueClient.get('/lights')
     const resourcelinks = await this.hueClient.get('/resourcelinks')
@@ -789,7 +822,7 @@ class Main extends homebridgeLib.CommandLineTool {
       for (const error of response.errors) {
         this.warn('api error %d: %s', error.type, error.description)
       }
-      outlet = response.state.id
+      outlet = response.success.id
     }
     const body = {
       links: []
@@ -808,9 +841,10 @@ class Main extends homebridgeLib.CommandLineTool {
   async switch (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
-    parser.help('h', 'help', help.switch)
-    parser.flag('v', 'verbose', () => { clargs.verbose = true })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.switch)
+      .flag('v', 'verbose', () => { clargs.verbose = true })
+      .parse(...args)
     let outlet
     const lights = await this.hueClient.get('/lights')
     const resourcelinks = await this.hueClient.get('/resourcelinks')
@@ -831,7 +865,7 @@ class Main extends homebridgeLib.CommandLineTool {
       for (const error of response.errors) {
         this.warn('api error %d: %s', error.type, error.description)
       }
-      outlet = response.state.id
+      outlet = response.success.id
     }
     const body = {
       links: []
@@ -843,7 +877,7 @@ class Main extends homebridgeLib.CommandLineTool {
     }
     await this.hueClient.put(`/resourcelinks/${outlet}`, body)
     clargs.verbose && this.log(
-      '/resourcelinks/%s: %d outlets', outlet, body.links.length
+      '/resourcelinks/%s: %d switches', outlet, body.links.length
     )
   }
 
@@ -854,21 +888,22 @@ class Main extends homebridgeLib.CommandLineTool {
     const clargs = {
       maxCount: 60
     }
-    parser.help('h', 'help', help.probe)
-    parser.flag('v', 'verbose', () => { clargs.verbose = true })
-    parser.option('t', 'timeout', (value, key) => {
-      homebridgeLib.OptionParser.toInt(
-        'timeout', value, 1, 10, true
-      )
-      clargs.maxCount = value * 12
-    })
-    parser.parameter('light', (value) => {
-      if (value.substring(0, 8) !== '/lights/') {
-        throw new UsageError(`${value}: invalid light`)
-      }
-      clargs.light = value
-    })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.probe)
+      .flag('v', 'verbose', () => { clargs.verbose = true })
+      .option('t', 'timeout', (value, key) => {
+        homebridgeLib.OptionParser.toInt(
+          'timeout', value, 1, 10, true
+        )
+        clargs.maxCount = value * 12
+      })
+      .parameter('light', (value) => {
+        if (value.substring(0, 8) !== '/lights/') {
+          throw new UsageError(`${value}: invalid light`)
+        }
+        clargs.light = value
+      })
+      .parse(...args)
     const light = await this.hueClient.get(clargs.light)
 
     async function probeCt (name, value) {
@@ -954,17 +989,18 @@ class Main extends homebridgeLib.CommandLineTool {
   async restart (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
     const clargs = {}
-    parser.help('h', 'help', help.restart)
-    parser.flag('v', 'verbose', () => { clargs.verbose = true })
-    parser.parse(...args)
+    parser
+      .help('h', 'help', help.restart)
+      .flag('v', 'verbose', () => { clargs.verbose = true })
+      .parse(...args)
     if (this.hueClient.isHue) {
       const response = await this.hueClient.put('/config', { reboot: true })
-      if (!response.state.reboot) {
+      if (!response.success.reboot) {
         return false
       }
     } else if (this.hueClient.isDeconz) {
       const response = await this.hueClient.post('/config/restartapp')
-      if (!response.state.restartapp) {
+      if (!response.success.restartapp) {
         return false
       }
     } else {
