@@ -153,6 +153,18 @@
         },
         "minProperties": 1
       },
+      "waitTimePut": {
+        "description": "The time, in milliseconds, to wait after sending a PUT request, before sending the next PUT request.  Default: 50.",
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 50
+      },
+      "waitTimePutGroup": {
+        "description": "The time, in milliseconds, to wait after sending a PUT request to a group, before sending the next PUT request.  Default: 1000.",
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1000
+      },
       "waitTimeResend": {
         "description": "The time, in milliseconds, to wait before resending a request after an ECONNRESET or http status 503 error.  Default: 300.",
         "type": "integer",
@@ -314,6 +326,11 @@
         },
         "parallelRequests",
         "timeout",
+        "waitTimePut",
+        {
+          "key": "waitTimePutGroup",
+          "condition": { "functionBody": "return model.groups" }
+        },
         "waitTimeResend",
         "waitTimeUpdate"
       ]
