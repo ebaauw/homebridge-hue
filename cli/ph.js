@@ -523,7 +523,11 @@ class Main extends homebridgeLib.CommandLineTool {
             }
             this.requestId = error.request.id
           }
-          this.warn('request %d: %s', error.request.id, error)
+          if (error.nonCritical) {
+            this.warn('request %d: %s', error.request.id, error)
+          } else {
+            this.error('request %d: %s', error.request.id, error)
+          }
         })
         .on('request', (request) => {
           if (request.body == null) {
