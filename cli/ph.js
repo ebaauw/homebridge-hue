@@ -9,15 +9,13 @@
 
 'use strict'
 
-const chalk = require('chalk')
 const fs = require('fs')
 const HueClient = require('../lib/HueClient')
 const HueDiscovery = require('../lib/HueDiscovery')
 const homebridgeLib = require('homebridge-lib')
 const packageJson = require('../package.json')
 
-const b = chalk.bold
-const u = chalk.underline
+const { b, u } = homebridgeLib.CommandLineTool
 
 class UsageError extends Error {}
 
@@ -391,9 +389,9 @@ class Main extends homebridgeLib.CommandLineTool {
       })
       .flag('D', 'debug', () => {
         if (this.debugEnabled) {
-          this.setOptions({ vdebug: true, mode: 'service' })
+          this.setOptions({ vdebug: true })
         } else {
-          this.setOptions({ debug: true, mode: 'service' })
+          this.setOptions({ debug: true, chalk: true })
         }
       })
       .option('t', 'timeout', (value) => {
@@ -413,6 +411,7 @@ class Main extends homebridgeLib.CommandLineTool {
         clargs.command = value
       })
       .remaining((list) => { clargs.args = list })
+    parser
       .parse()
     return clargs
   }
@@ -468,8 +467,11 @@ class Main extends homebridgeLib.CommandLineTool {
       try {
         this.bridgeConfig = await this.hueDiscovery.config(clargs.options.host)
       } catch (error) {
-        this.error(error)
-        this.fatal('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
+        if (error.request == null) {
+          this.error(error)
+        }
+        this.error('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
+        return
       }
       if (clargs.command === 'config') {
         return this.config(clargs.args)
@@ -503,7 +505,9 @@ class Main extends homebridgeLib.CommandLineTool {
         }
         this.fatal(
           'missing username - %s and run "ph%s createuser"',
-          this.hueClient.isDeconz ? 'unlock gateway' : 'press link button', args
+          HueClient.isDeconzBridgeId(this.bridgeid)
+            ? 'unlock gateway' : 'press link button',
+          args
         )
       }
       this.hueClient = new HueClient(clargs.options)
