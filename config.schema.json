@@ -139,6 +139,10 @@
         "description": "Expose sensors.",
         "type": "boolean"
       },
+      "stealth": {
+        "description": "Stealth mode: don't make any calls to the Internet.  Default: false.",
+        "type": "boolen"
+      },
       "timeout":
       {
         "description": "The timeout in seconds to wait for a response from a Hue bridge.  Default: 5.",
@@ -325,6 +329,7 @@
           "condition": { "functionBody": "return model.hosts == null" }
         },
         "parallelRequests",
+        "stealth",
         "timeout",
         "waitTimePut",
         {
