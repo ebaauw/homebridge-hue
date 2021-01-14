@@ -9,13 +9,12 @@
 
 'use strict'
 
-const chalk = require('chalk')
 const homebridgeLib = require('homebridge-lib')
 const WsMonitor = require('../lib/WsMonitor')
 const packageJson = require('../package.json')
 
-const b = chalk.bold
-const u = chalk.underline
+const { b, u } = homebridgeLib.CommandLineTool
+
 const usage = `${b('dc_eventlog')} [${b('-hVnrs')}] [${b('--host=')}${u('hostname')}[${b(':')}${u('port')}]]`
 const help = `Logger for deCONZ websocket notifications.
 
@@ -59,23 +58,22 @@ class Main extends homebridgeLib.CommandLineTool {
       .parse()
   }
 
-  exit (signal) {
-    this.log('got %s - exiting', signal)
-    process.exit(0)
+  async destroy () {
+    if (this.wsMonitor == null) {
+      return
+    }
+    await this.wsMonitor.close()
   }
 
   main () {
     try {
       this.parseArguments()
-      const wsMonitor = new WsMonitor(this.ws)
+      this.wsMonitor = new WsMonitor(this.ws)
       this.jsonFormatter = new homebridgeLib.JsonFormatter(
         this.options.mode === 'service' ? { noWhiteSpace: true } : {}
       )
       this.setOptions({ mode: this.options.mode })
-      process
-        .on('SIGINT', () => { this.exit('SIGINT') })
-        .on('SIGTERM', () => { this.exit('SIGTERM') })
-      wsMonitor
+      this.wsMonitor
         .on('error', (error) => { this.error(error) })
         .on('listening', (url) => { this.log('listening on %s', url) })
         .on('closed', () => { this.log('connection closed') })
