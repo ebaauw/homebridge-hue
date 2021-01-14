@@ -506,7 +506,8 @@ class Main extends homebridgeLib.CommandLineTool {
         this.fatal(
           'missing username - %s and run "ph%s createuser"',
           HueClient.isDeconzBridgeId(this.bridgeid)
-            ? 'unlock gateway' : 'press link button',
+            ? 'unlock gateway'
+            : 'press link button',
           args
         )
       }
