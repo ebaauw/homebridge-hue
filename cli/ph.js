@@ -16,8 +16,7 @@ const homebridgeLib = require('homebridge-lib')
 const packageJson = require('../package.json')
 
 const { b, u } = homebridgeLib.CommandLineTool
-
-class UsageError extends Error {}
+const { UsageError } = homebridgeLib.CommandLineParser
 
 const usage = {
   ph: `${b('ph')} [${b('-hVDp')}] [${b('-H')} ${u('hostname')}[${b(':')}${u('port')}]] [${b('-u')} ${u('username')}] [${b('-t')} ${u('timeout')}] ${u('command')} [${u('argument')} ...]`,
