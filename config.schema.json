@@ -25,6 +25,10 @@
         "minimum": 10,
         "maximum": 100
       },
+      "configuredName": {
+        "description": "Expose Configured Name characteritic.  Default: false.",
+        "type": "boolean"
+      },
       "effects": {
         "description": "Expose special effects (on supported lights) as separate services.  Default: true.",
         "type": "boolean",
@@ -322,6 +326,7 @@
           "key": "brightnessAdjustment",
           "condition": { "functionBody": "return model.lights" }
         },
+        "configuredName",
         "forceHttp",
         "heartrate",
         {
