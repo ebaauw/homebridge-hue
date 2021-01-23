@@ -103,10 +103,9 @@
         "type": "boolean",
         "default": true
       },
-      "nupnp": {
-        "description": "Enable bridge/gateway discovery through the nUPnP method.",
-        "type": "boolean",
-        "default": true
+      "noResponse": {
+        "description": "Report unreachable lights as <i>No Response</i> in HomeKit.",
+        "type": "boolean"
       },
       "parallelRequests": {
         "description": "The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Default: 3 or 10 (depending on the bridge/gateway).",
@@ -330,8 +329,8 @@
         "forceHttp",
         "heartrate",
         {
-          "key": "nupnp",
-          "condition": { "functionBody": "return model.hosts == null" }
+          "key": "noResponse",
+          "condition": { "functionBody": "return model.lights" }
         },
         "parallelRequests",
         "stealth",
