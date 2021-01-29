@@ -383,9 +383,6 @@ class Main extends homebridgeLib.CommandLineTool {
       .flag('p', 'phoscon', () => {
         clargs.options.phoscon = true
       })
-      .flag('s', 'https', () => {
-        clargs.options.https = true
-      })
       .flag('D', 'debug', () => {
         if (this.debugEnabled) {
           this.setOptions({ vdebug: true })
