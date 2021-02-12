@@ -23,15 +23,15 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.42.0",
-    "deCONZ": "2.7.1",
+    "deCONZ": "2.9.3",
     "homebridge": "^1.1.0",
-    "node": "^14.15.4"
+    "node": "^14.15.5"
   },
   "dependencies": {
     "fakegato-history": "~0.6.1",
-    "homebridge-lib": "~5.0.5",
+    "homebridge-lib": "~5.0.6",
     "semver": "^7.3.4",
-    "ws": "^7.4.2",
+    "ws": "^7.4.3",
     "xml2js": "~0.4.23"
   },
   "scripts": {
