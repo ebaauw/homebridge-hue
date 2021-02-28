@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "fakegato-history": "~0.6.1",
-    "homebridge-lib": "~5.0.9",
+    "homebridge-lib": "~5.0.10",
     "semver": "^7.3.4",
     "ws": "^7.4.3",
     "xml2js": "~0.4.23"
