@@ -499,7 +499,7 @@ class Main extends homebridgeLib.CommandLineTool {
         ) {
           args += ' -H ' + clargs.options.host
         }
-        this.fatal(
+        await this.fatal(
           'missing username - %s and run "ph%s createuser"',
           HueClient.isDeconzBridgeId(this.bridgeid)
             ? 'unlock gateway'
@@ -1009,7 +1009,7 @@ class Main extends homebridgeLib.CommandLineTool {
         return false
       }
     } else {
-      this.fatal('restart: only supported for Hue bridge or deCONZ gateway')
+      await this.fatal('restart: only supported for Hue bridge or deCONZ gateway')
     }
     clargs.verbose && this.log('restarting ...\\c')
     return new Promise((resolve, reject) => {
