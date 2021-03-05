@@ -144,7 +144,7 @@
       },
       "stealth": {
         "description": "Stealth mode: don't make any calls to the Internet.  Default: false.",
-        "type": "boolen"
+        "type": "boolean"
       },
       "timeout":
       {
