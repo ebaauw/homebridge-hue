@@ -722,7 +722,7 @@ class Main extends homebridgeLib.CommandLineTool {
       .help('h', 'help', help.description)
       .flag('s', 'sortKeys', () => { options.sortKeys = true })
       .parse(...args)
-    const response = await this.hueClient.description()
+    const response = await this.hueDiscovery.description(this.options.host)
     const jsonFormatter = new homebridgeLib.JsonFormatter(options)
     const json = jsonFormatter.stringify(response)
     this.print(json)
