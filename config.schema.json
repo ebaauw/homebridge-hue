@@ -107,6 +107,10 @@
         "description": "Report unreachable lights as <i>No Response</i> in HomeKit.",
         "type": "boolean"
       },
+      "ownResourcelinks": {
+        "description": "Only consider resourcelinks owned by username running Homebridge Hue.",
+        "type": "boolean"
+      },
       "parallelRequests": {
         "description": "The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Default: 3 or 10 (depending on the bridge/gateway).",
         "type": "integer",
@@ -332,6 +336,7 @@
           "key": "noResponse",
           "condition": { "functionBody": "return model.lights" }
         },
+        "ownResourceLinks",
         "parallelRequests",
         "stealth",
         "timeout",
