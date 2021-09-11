@@ -235,6 +235,7 @@
             { "name": "ZigBee Consumption Sensor", "value": "ZHAConsumption" },
             { "name": "ZigBee Power Sensor", "value": "ZHAPower" },
             { "name": "ZigBee Thermostat", "value": "ZHAThermostat" },
+            { "name": "ZigBee Battery Sensor", "value": "ZHABattery" },
             { "name": "Built-in Daylight Sensor", "value": "Daylight" },
             { "name": "CLIP Flag", "value": "CLIPGenericFlag" },
             { "name": "CLIP Status", "value": "CLIPGenericStatus" },
@@ -252,6 +253,7 @@
             { "name": "CLIP Leak Sensor", "value": "CLIPWater" },
             { "name": "CLIP Consumption Sensor", "value": "CLIPConsumption" },
             { "name": "CLIP Power Sensor", "value": "CLIPPower" },
+            { "name": "CLIP Battery Sensor", "value": "CLIPBattery" },
             { "name": "Geofence", "value": "Geofence" },
             { "name": "Any CLIP sensor", "value": "CLIP" }
           ],
