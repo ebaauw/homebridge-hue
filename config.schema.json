@@ -108,7 +108,7 @@
         "type": "boolean"
       },
       "ownResourcelinks": {
-        "description": "Only consider resourcelinks owned by username running Homebridge Hue.",
+        "description": "Only consider resource links owned by username running Homebridge Hue.",
         "type": "boolean"
       },
       "parallelRequests": {
@@ -336,7 +336,7 @@
           "key": "noResponse",
           "condition": { "functionBody": "return model.lights" }
         },
-        "ownResourceLinks",
+        "ownResourcelinks",
         "parallelRequests",
         "stealth",
         "timeout",
