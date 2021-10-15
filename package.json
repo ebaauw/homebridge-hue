@@ -24,12 +24,12 @@
     "BSB001": "1.16.0",
     "BSB002": "1.46.0",
     "deCONZ": "2.12.6",
-    "homebridge": "^1.3.4",
-    "node": "^14.18.0"
+    "homebridge": "^1.3.5",
+    "node": "^14.18.1"
   },
   "dependencies": {
     "fakegato-history": "~0.6.2",
-    "homebridge-lib": "~5.1.14",
+    "homebridge-lib": "~5.1.15",
     "semver": "^7.3.5",
     "ws": "^8.2.3",
     "xml2js": "~0.4.23"
