@@ -3,12 +3,9 @@
   "rescurseDepth": 10,
   "source": {
     "include": [
-      "README.md", "index.js", "lib", "doc",
+      "README.md", "index.js", "lib",
       "node_modules/homebridge-lib/lib/HttpClient.js"
     ]
-  },
-  "opts": {
-    "tutorials": "doc"
   },
   "templates": {
     "monospaceLinks": true
