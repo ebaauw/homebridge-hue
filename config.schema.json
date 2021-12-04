@@ -35,7 +35,7 @@
         "default": true
       },
       "excludeSensorTypes": {
-	      "description": "Sensor types to exclude.",
+        "description": "Sensor types to exclude.",
         "type": "array",
         "items": {
           "type": "string"
@@ -66,7 +66,7 @@
       },
       "hosts": {
         "title": "Bridges/Gateways",
-      	"type": "array",
+        "type": "array",
         "items": {
           "type": "string"
         }
@@ -150,8 +150,7 @@
         "description": "Stealth mode: don't make any calls to the Internet.  Default: false.",
         "type": "boolean"
       },
-      "timeout":
-      {
+      "timeout": {
         "description": "The timeout in seconds to wait for a response from a Hue bridge.  Default: 5.",
         "type": "integer",
         "minimum": 1,
@@ -160,7 +159,9 @@
       "users": {
         "type": "object",
         "patternProperties": {
-          "^[A-Z0-9]{16}$": { "type": "string" }
+          "^[A-Z0-9]{16}$": {
+            "type": "string"
+          }
         },
         "minProperties": 1
       },
@@ -217,81 +218,216 @@
           "key": "excludeSensorTypes",
           "type": "checkboxes",
           "titleMap": [
-            { "name": "ZigBee Switch", "value": "ZLLSwitch" },
-            { "name": "ZigBee Rotary Switch", "value": "ZLLRelativeRotary" },
-            { "name": "ZigBee Green Power switch", "value": "ZGPSwitch" },
-            { "name": "ZigBee Motion Sensor", "value": "ZLLPresence" },
-            { "name": "ZigBee Light Level Sensor", "value": "ZLLLightLevel" },
-            { "name": "ZigBee Temperature Sensor", "value": "ZLLTemperature" },
-            { "name": "ZigBee Humidity Sensor", "value": "ZHAHumidity" },
-            { "name": "ZigBee Air Pressure Sensor", "value": "ZHAPressure" },
-            { "name": "ZigBee Air Quality Sensor", "value": "ZHAAirQuality" },
-            { "name": "ZigBee Door/Window Sensor", "value": "ZHAOpenClose" },
-            { "name": "ZigBee Alarm Sensor", "value": "ZHAAlarm" },
-            { "name": "ZigBee Carbon Monoxide Sensor", "value": "ZHACarbonMonoxide" },
-            { "name": "ZigBee Fire Sensor", "value": "ZHAFire" },
-            { "name": "ZigBee Vibration Sensor", "value": "ZHAVibration" },
-            { "name": "ZigBee Leak Sensor", "value": "ZHAWater" },
-            { "name": "ZigBee Consumption Sensor", "value": "ZHAConsumption" },
-            { "name": "ZigBee Power Sensor", "value": "ZHAPower" },
-            { "name": "ZigBee Thermostat", "value": "ZHAThermostat" },
-            { "name": "ZigBee Battery Sensor", "value": "ZHABattery" },
-            { "name": "Built-in Daylight Sensor", "value": "Daylight" },
-            { "name": "CLIP Flag", "value": "CLIPGenericFlag" },
-            { "name": "CLIP Status", "value": "CLIPGenericStatus" },
-            { "name": "CLIP Presence Sensor", "value": "CLIPPresence" },
-            { "name": "CLIP Light Level Sensor", "value": "CLIPLightLevel" },
-            { "name": "CLIP Temperature Sensor", "value": "CLIPTemperature" },
-            { "name": "CLIP Humidity Sensor", "value": "CLIPHumidity" },
-            { "name": "CLIP Air Pressure Sensor", "value": "CLIPPressure" },
-            { "name": "CLIP Air Quality Sensor", "value": "CLIPAirQuality" },
-            { "name": "CLIP Door/Window Sensor", "value": "CLIPOpenClose" },
-            { "name": "CLIP Alarm Sensor", "value": "CLIPAlarm" },
-            { "name": "CLIP Carbon Monoxide Sensor", "value": "CLIPCarbonMonoxide" },
-            { "name": "CLIP Fire Sensor", "value": "CLIPFire" },
-            { "name": "CLIP Vibration Sensor", "value": "CLIPVibration" },
-            { "name": "CLIP Leak Sensor", "value": "CLIPWater" },
-            { "name": "CLIP Consumption Sensor", "value": "CLIPConsumption" },
-            { "name": "CLIP Power Sensor", "value": "CLIPPower" },
-            { "name": "CLIP Battery Sensor", "value": "CLIPBattery" },
-            { "name": "Geofence", "value": "Geofence" },
-            { "name": "Any CLIP sensor", "value": "CLIP" }
+            {
+              "name": "ZigBee Switch",
+              "value": "ZLLSwitch"
+            },
+            {
+              "name": "ZigBee Rotary Switch",
+              "value": "ZLLRelativeRotary"
+            },
+            {
+              "name": "ZigBee Green Power switch",
+              "value": "ZGPSwitch"
+            },
+            {
+              "name": "ZigBee Motion Sensor",
+              "value": "ZLLPresence"
+            },
+            {
+              "name": "ZigBee Light Level Sensor",
+              "value": "ZLLLightLevel"
+            },
+            {
+              "name": "ZigBee Temperature Sensor",
+              "value": "ZLLTemperature"
+            },
+            {
+              "name": "ZigBee Humidity Sensor",
+              "value": "ZHAHumidity"
+            },
+            {
+              "name": "ZigBee Air Pressure Sensor",
+              "value": "ZHAPressure"
+            },
+            {
+              "name": "ZigBee Air Quality Sensor",
+              "value": "ZHAAirQuality"
+            },
+            {
+              "name": "ZigBee Door/Window Sensor",
+              "value": "ZHAOpenClose"
+            },
+            {
+              "name": "ZigBee Alarm Sensor",
+              "value": "ZHAAlarm"
+            },
+            {
+              "name": "ZigBee Carbon Monoxide Sensor",
+              "value": "ZHACarbonMonoxide"
+            },
+            {
+              "name": "ZigBee Fire Sensor",
+              "value": "ZHAFire"
+            },
+            {
+              "name": "ZigBee Vibration Sensor",
+              "value": "ZHAVibration"
+            },
+            {
+              "name": "ZigBee Leak Sensor",
+              "value": "ZHAWater"
+            },
+            {
+              "name": "ZigBee Consumption Sensor",
+              "value": "ZHAConsumption"
+            },
+            {
+              "name": "ZigBee Power Sensor",
+              "value": "ZHAPower"
+            },
+            {
+              "name": "ZigBee Thermostat",
+              "value": "ZHAThermostat"
+            },
+            {
+              "name": "ZigBee Battery Sensor",
+              "value": "ZHABattery"
+            },
+            {
+              "name": "Built-in Daylight Sensor",
+              "value": "Daylight"
+            },
+            {
+              "name": "CLIP Flag",
+              "value": "CLIPGenericFlag"
+            },
+            {
+              "name": "CLIP Status",
+              "value": "CLIPGenericStatus"
+            },
+            {
+              "name": "CLIP Presence Sensor",
+              "value": "CLIPPresence"
+            },
+            {
+              "name": "CLIP Light Level Sensor",
+              "value": "CLIPLightLevel"
+            },
+            {
+              "name": "CLIP Temperature Sensor",
+              "value": "CLIPTemperature"
+            },
+            {
+              "name": "CLIP Humidity Sensor",
+              "value": "CLIPHumidity"
+            },
+            {
+              "name": "CLIP Air Pressure Sensor",
+              "value": "CLIPPressure"
+            },
+            {
+              "name": "CLIP Air Quality Sensor",
+              "value": "CLIPAirQuality"
+            },
+            {
+              "name": "CLIP Door/Window Sensor",
+              "value": "CLIPOpenClose"
+            },
+            {
+              "name": "CLIP Alarm Sensor",
+              "value": "CLIPAlarm"
+            },
+            {
+              "name": "CLIP Carbon Monoxide Sensor",
+              "value": "CLIPCarbonMonoxide"
+            },
+            {
+              "name": "CLIP Fire Sensor",
+              "value": "CLIPFire"
+            },
+            {
+              "name": "CLIP Vibration Sensor",
+              "value": "CLIPVibration"
+            },
+            {
+              "name": "CLIP Leak Sensor",
+              "value": "CLIPWater"
+            },
+            {
+              "name": "CLIP Consumption Sensor",
+              "value": "CLIPConsumption"
+            },
+            {
+              "name": "CLIP Power Sensor",
+              "value": "CLIPPower"
+            },
+            {
+              "name": "CLIP Battery Sensor",
+              "value": "CLIPBattery"
+            },
+            {
+              "name": "Geofence",
+              "value": "Geofence"
+            },
+            {
+              "name": "Any CLIP sensor",
+              "value": "CLIP"
+            }
           ],
-          "condition": { "functionBody": "return model.sensors" }
+          "condition": {
+            "functionBody": "return model.sensors"
+          }
         },
         {
           "key": "nativeHomeKitSensors",
-          "condition": { "functionBody": "return model.sensors" }
+          "condition": {
+            "functionBody": "return model.sensors"
+          }
         },
         "lights",
         {
           "key": "effects",
-          "condition": { "functionBody": "return model.lights" }
+          "condition": {
+            "functionBody": "return model.lights"
+          }
         },
         {
           "key": "nativeHomeKitLights",
-          "condition": { "functionBody": "return model.lights" }
+          "condition": {
+            "functionBody": "return model.lights"
+          }
         },
         "groups",
         {
           "key": "group0",
-          "condition": { "functionBody": "return model.groups" }
+          "condition": {
+            "functionBody": "return model.groups"
+          }
         },
         {
           "key": "anyOn",
-          "condition": { "functionBody": "return model.groups" }
+          "condition": {
+            "functionBody": "return model.groups"
+          }
         },
         {
           "key": "rooms",
-          "condition": { "functionBody": "return model.groups" }
+          "condition": {
+            "functionBody": "return model.groups"
+          }
         },
         {
           "key": "scenes",
-          "condition": { "functionBody": "return model.groups" }
+          "condition": {
+            "functionBody": "return model.groups"
+          }
         },
         {
           "key": "scenesAsSwitch",
-          "condition": { "functionBody": "return model.groups && model.scenes" }
+          "condition": {
+            "functionBody": "return model.groups && model.scenes"
+          }
         },
         "linkButton",
         "schedules",
@@ -306,20 +442,28 @@
       "items": [
         {
           "key": "forceEveWeather",
-          "condition": { "functionBody": "return model.sensors" }
+          "condition": {
+            "functionBody": "return model.sensors"
+          }
         },
         {
           "key": "hueDimmerRepeat",
-          "condition": { "functionBody": "return model.sensors" }
+          "condition": {
+            "functionBody": "return model.sensors"
+          }
         },
         {
           "key": "hueMotionTemperatureHistory",
-          "condition": { "functionBody": "return model.sensors" }
+          "condition": {
+            "functionBody": "return model.sensors"
+          }
         },
         "resource",
         {
           "key": "wallSwitch",
-          "condition": { "functionBody": "return model.lights" }
+          "condition": {
+            "functionBody": "return model.lights"
+          }
         }
       ]
     },
@@ -331,14 +475,18 @@
       "items": [
         {
           "key": "brightnessAdjustment",
-          "condition": { "functionBody": "return model.lights" }
+          "condition": {
+            "functionBody": "return model.lights"
+          }
         },
         "configuredName",
         "forceHttp",
         "heartrate",
         {
           "key": "noResponse",
-          "condition": { "functionBody": "return model.lights" }
+          "condition": {
+            "functionBody": "return model.lights"
+          }
         },
         "ownResourcelinks",
         "parallelRequests",
@@ -347,7 +495,9 @@
         "waitTimePut",
         {
           "key": "waitTimePutGroup",
-          "condition": { "functionBody": "return model.groups" }
+          "condition": {
+            "functionBody": "return model.groups"
+          }
         },
         "waitTimeResend",
         "waitTimeUpdate"
