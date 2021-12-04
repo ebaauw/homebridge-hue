@@ -1,6 +1,7 @@
 {
   "name": "homebridge-hue",
   "description": "Homebridge plugin for Philips Hue and deCONZ",
+  "displayName": "Homebridge Hue",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
   "version": "0.13.30",
