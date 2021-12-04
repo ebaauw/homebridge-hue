@@ -1,9 +1,13 @@
 {
-  "plugins": ["plugins/markdown"],
+  "plugins": [
+    "plugins/markdown"
+  ],
   "rescurseDepth": 10,
   "source": {
     "include": [
-      "README.md", "index.js", "lib",
+      "README.md",
+      "index.js",
+      "lib",
       "node_modules/homebridge-lib/lib/HttpClient.js"
     ]
   },
