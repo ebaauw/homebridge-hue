@@ -26,7 +26,7 @@ const usage = {
   post: `${b('post')} [${b('-hv')}] ${u('resource')} [${u('body')}]`,
   delete: `${b('delete')} [${b('-hv')}] ${u('resource')} [${u('body')}]`,
 
-  discover: `${b('discover')} [${b('-hv')}] [${b('-t')} ${u('timeout')}]`,
+  discover: `${b('discover')} [${b('-hS')}]`,
   config: `${b('config')} [${b('-hs')}]`,
   description: `${b('description')} [${b('-hs')}]`,
   createuser: `${b('createuser')} [${b('-hv')}]`,
@@ -202,8 +202,7 @@ ${description.discover}
 
 Parameters:
   ${b('-h')}          Print this help and exit.
-  ${b('-t')} ${u('timeout')}  Timeout UPnP search after ${u('timeout')} seconds (default: 5).
-  ${b('-v')}          Verbose.`,
+  ${b('-S')}          Stealth mode, only use local discovery.`,
   config: `${description.ph}
 
 Usage: ${b('ph')} ${usage.config}
@@ -414,159 +413,163 @@ class Main extends homebridgeLib.CommandLineTool {
 
   async main () {
     try {
-      const clargs = this.parseArguments()
-      this.hueDiscovery = new HueDiscovery({
-        forceHttp: clargs.options.forceHttp,
-        timeout: clargs.options.timeout
-      })
-      this.hueDiscovery
-        .on('error', (error) => {
-          this.log(
-            '%s: request %d: %s %s', error.request.name,
-            error.request.id, error.request.method, error.request.resource
-          )
-          this.warn(
-            '%s: request %d: %s', error.request.name, error.request.id, error
-          )
-        })
-        .on('request', (request) => {
-          this.debug(
-            '%s: request %d: %s %s', request.name,
-            request.id, request.method, request.resource
-          )
-          this.vdebug(
-            '%s: request %d: %s %s', request.name,
-            request.id, request.method, request.url
-          )
-        })
-        .on('response', (response) => {
-          this.vdebug(
-            '%s: request %d: response: %j', response.request.name,
-            response.request.id, response.body
-          )
-          this.debug(
-            '%s: request %d: %d %s', response.request.name,
-            response.request.id, response.statusCode, response.statusMessage
-          )
-        })
-        .on('found', (name, id, address) => {
-          this.debug('%s: found %s at %s', name, id, address)
-        })
-        .on('searching', (host) => {
-          this.debug('upnp: listening on %s', host)
-        })
-        .on('searchDone', () => { this.debug('upnp: search done') })
-
-      if (clargs.command === 'discover') {
-        return this.discover(clargs.args)
-      }
-      try {
-        this.bridgeConfig = await this.hueDiscovery.config(clargs.options.host)
-      } catch (error) {
-        if (error.request == null) {
-          this.error(error)
-        }
-        this.error('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
-        return
-      }
-      if (clargs.command === 'config') {
-        return this.config(clargs.args)
-      }
-
-      clargs.options.config = this.bridgeConfig
-      this.bridgeid = this.bridgeConfig.bridgeid
-      if (clargs.options.username == null) {
-        if (
-          this.bridges[this.bridgeid] != null &&
-          this.bridges[this.bridgeid].username != null
-        ) {
-          clargs.options.username = this.bridges[this.bridgeid].username
-        } else if (process.env.PH_USERNAME != null) {
-          clargs.options.username = process.env.PH_USERNAME
-        }
-      }
-      if (
-        this.bridges[this.bridgeid] != null &&
-        this.bridges[this.bridgeid].fingerprint != null
-      ) {
-        clargs.options.fingerprint = this.bridges[this.bridgeid].fingerprint
-      }
-      if (clargs.options.username == null && clargs.command !== 'createuser') {
-        let args = ''
-        if (
-          clargs.options.host !== 'localhost' &&
-          clargs.options.host !== process.env.PH_HOST
-        ) {
-          args += ' -H ' + clargs.options.host
-        }
-        await this.fatal(
-          'missing username - %s and run "ph%s createuser"',
-          HueClient.isDeconzBridgeId(this.bridgeid)
-            ? 'unlock gateway'
-            : 'press link button',
-          args
-        )
-      }
-      this.hueClient = new HueClient(clargs.options)
-      this.hueClient
-        .on('error', (error) => {
-          if (error.request.id !== this.requestId) {
-            if (error.request.body == null) {
-              this.log(
-                'request %d: %s %s', error.request.id,
-                error.request.method, error.request.resource
-              )
-            } else {
-              this.log(
-                'request %d: %s %s %s', error.request.id,
-                error.request.method, error.request.resource, error.request.body
-              )
-            }
-            this.requestId = error.request.id
-          }
-          if (error.nonCritical) {
-            this.warn('request %d: %s', error.request.id, error)
-          } else {
-            this.error('request %d: %s', error.request.id, error)
-          }
-        })
-        .on('request', (request) => {
-          if (request.body == null) {
-            this.debug(
-              'request %d: %s %s', request.id, request.method, request.resource
-            )
-            this.vdebug(
-              'request %d: %s %s', request.id, request.method, request.url
-            )
-          } else {
-            this.debug(
-              'request %d: %s %s %s', request.id,
-              request.method, request.resource, request.body
-            )
-            this.vdebug(
-              'request %d: %s %s %s', request.id,
-              request.method, request.url, request.body
-            )
-          }
-        })
-        .on('response', (response) => {
-          this.vdebug(
-            'request %d: response: %j', response.request.id, response.body
-          )
-          this.debug(
-            'request %d: %d %s', response.request.id,
-            response.statusCode, response.statusMessage
-          )
-        })
-      this.options = clargs.options
-      this.name = 'ph ' + clargs.command
-      this.usage = `${b('ph')} ${usage[clargs.command]}`
-      await this[clargs.command](clargs.args)
+      await this._main()
     } catch (error) {
       if (error.request == null) {
         this.error(error)
       }
     }
+  }
+
+  async _main () {
+    const clargs = this.parseArguments()
+    this.hueDiscovery = new HueDiscovery({
+      forceHttp: clargs.options.forceHttp,
+      timeout: clargs.options.timeout
+    })
+    this.hueDiscovery
+      .on('error', (error) => {
+        this.log(
+          '%s: request %d: %s %s', error.request.name,
+          error.request.id, error.request.method, error.request.resource
+        )
+        this.warn(
+          '%s: request %d: %s', error.request.name, error.request.id, error
+        )
+      })
+      .on('request', (request) => {
+        this.debug(
+          '%s: request %d: %s %s', request.name,
+          request.id, request.method, request.resource
+        )
+        this.vdebug(
+          '%s: request %d: %s %s', request.name,
+          request.id, request.method, request.url
+        )
+      })
+      .on('response', (response) => {
+        this.vdebug(
+          '%s: request %d: response: %j', response.request.name,
+          response.request.id, response.body
+        )
+        this.debug(
+          '%s: request %d: %d %s', response.request.name,
+          response.request.id, response.statusCode, response.statusMessage
+        )
+      })
+      .on('found', (name, id, address) => {
+        this.debug('%s: found %s at %s', name, id, address)
+      })
+      .on('searching', (host) => {
+        this.debug('upnp: listening on %s', host)
+      })
+      .on('searchDone', () => { this.debug('upnp: search done') })
+
+    if (clargs.command === 'discover') {
+      return this.discover(clargs.args)
+    }
+    try {
+      this.bridgeConfig = await this.hueDiscovery.config(clargs.options.host)
+    } catch (error) {
+      if (error.request == null) {
+        this.error(error)
+      }
+      this.error('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
+      return
+    }
+    if (clargs.command === 'config') {
+      return this.config(clargs.args)
+    }
+
+    clargs.options.config = this.bridgeConfig
+    this.bridgeid = this.bridgeConfig.bridgeid
+    if (clargs.options.username == null) {
+      if (
+        this.bridges[this.bridgeid] != null &&
+        this.bridges[this.bridgeid].username != null
+      ) {
+        clargs.options.username = this.bridges[this.bridgeid].username
+      } else if (process.env.PH_USERNAME != null) {
+        clargs.options.username = process.env.PH_USERNAME
+      }
+    }
+    if (
+      this.bridges[this.bridgeid] != null &&
+      this.bridges[this.bridgeid].fingerprint != null
+    ) {
+      clargs.options.fingerprint = this.bridges[this.bridgeid].fingerprint
+    }
+    if (clargs.options.username == null && clargs.command !== 'createuser') {
+      let args = ''
+      if (
+        clargs.options.host !== 'localhost' &&
+        clargs.options.host !== process.env.PH_HOST
+      ) {
+        args += ' -H ' + clargs.options.host
+      }
+      await this.fatal(
+        'missing username - %s and run "ph%s createuser"',
+        HueClient.isDeconzBridgeId(this.bridgeid)
+          ? 'unlock gateway'
+          : 'press link button',
+        args
+      )
+    }
+    this.hueClient = new HueClient(clargs.options)
+    this.hueClient
+      .on('error', (error) => {
+        if (error.request.id !== this.requestId) {
+          if (error.request.body == null) {
+            this.log(
+              'request %d: %s %s', error.request.id,
+              error.request.method, error.request.resource
+            )
+          } else {
+            this.log(
+              'request %d: %s %s %s', error.request.id,
+              error.request.method, error.request.resource, error.request.body
+            )
+          }
+          this.requestId = error.request.id
+        }
+        if (error.nonCritical) {
+          this.warn('request %d: %s', error.request.id, error)
+        } else {
+          this.error('request %d: %s', error.request.id, error)
+        }
+      })
+      .on('request', (request) => {
+        if (request.body == null) {
+          this.debug(
+            'request %d: %s %s', request.id, request.method, request.resource
+          )
+          this.vdebug(
+            'request %d: %s %s', request.id, request.method, request.url
+          )
+        } else {
+          this.debug(
+            'request %d: %s %s %s', request.id,
+            request.method, request.resource, request.body
+          )
+          this.vdebug(
+            'request %d: %s %s %s', request.id,
+            request.method, request.url, request.body
+          )
+        }
+      })
+      .on('response', (response) => {
+        this.vdebug(
+          'request %d: response: %j', response.request.id, response.body
+        )
+        this.debug(
+          'request %d: %d %s', response.request.id,
+          response.statusCode, response.statusMessage
+        )
+      })
+    this.options = clargs.options
+    this.name = 'ph ' + clargs.command
+    this.usage = `${b('ph')} ${usage[clargs.command]}`
+    return this[clargs.command](clargs.args)
   }
 
   // ===== GET =================================================================
@@ -695,11 +698,13 @@ class Main extends homebridgeLib.CommandLineTool {
 
   async discover (...args) {
     const parser = new homebridgeLib.CommandLineParser(packageJson)
+    let stealth = false
     parser
       .help('h', 'help', help.discover)
+      .flag('S', 'stealth', () => { stealth = true })
       .parse(...args)
     const jsonFormatter = new homebridgeLib.JsonFormatter({ sortKeys: true })
-    const bridges = await this.hueDiscovery.discover()
+    const bridges = await this.hueDiscovery.discover(stealth)
     this.print(jsonFormatter.stringify(bridges))
   }
 
