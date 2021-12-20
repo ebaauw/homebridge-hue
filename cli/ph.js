@@ -771,9 +771,13 @@ class Main extends homebridgeLib.CommandLineTool {
           this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
         })
         .on('notification', (body) => {
-          this.log(this.jsonFormatter.stringify(body))
+          if (options.raw) {
+            this.log(this.jsonFormatter.stringify(body))
+          } else {
+            this.debug(this.jsonFormatter.stringify(body))
+          }
         })
-        .on('data', (s) => { this.debug('data: %s', s) })
+        .on('data', (s) => { this.vdebug('data: %s', s) })
       await this.eventStream.init()
       this.eventStream.listen()
     } else {
