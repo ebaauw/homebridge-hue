@@ -67,6 +67,7 @@ class Main extends homebridgeLib.CommandLineTool {
 
   main () {
     try {
+      this.warn('deprecated - please use "ph eventlog" instead')
       this.parseArguments()
       this.wsMonitor = new WsMonitor(this.ws)
       this.jsonFormatter = new homebridgeLib.JsonFormatter(
