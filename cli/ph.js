@@ -26,6 +26,8 @@ const usage = {
   post: `${b('post')} [${b('-hv')}] ${u('resource')} [${u('body')}]`,
   delete: `${b('delete')} [${b('-hv')}] ${u('resource')} [${u('body')}]`,
 
+  eventlog: `${b('eventlog')} [${b('-hnrs')}]`,
+
   discover: `${b('discover')} [${b('-hS')}]`,
   config: `${b('config')} [${b('-hs')}]`,
   description: `${b('description')} [${b('-hs')}]`,
@@ -47,6 +49,8 @@ const description = {
   put: `Update ${u('resource')} on bridge/gateway with ${u('body')}.`,
   post: `Create ${u('resource')} on bridge/gateway with ${u('body')}.`,
   delete: `Delete ${u('resource')} from bridge/gateway with ${u('body')}.`,
+
+  eventlog: 'Log events from deCONZ web socket or Hue API v2 event stream.',
 
   discover: 'Discover bridges/gateways.',
   config: 'Retrieve bridge/gateway configuration (unauthenticated).',
@@ -101,6 +105,9 @@ Commands:
 
   ${usage.delete}
   ${description.delete}
+
+  ${usage.eventlog}
+  ${description.eventlog}
 
   ${usage.discover}
   ${description.discover}
@@ -194,6 +201,18 @@ Parameters:
   ${b('-v')}          Verbose.
   ${u('resource')}    Resource to update.
   ${u('body')}        Body in JSON.`,
+  eventlog: `${description.ph}
+
+Usage: ${b('ph')} ${usage.eventlog}
+
+${description.eventlog}
+
+Parameters:
+  ${b('-h')}          Print this help and exit.
+  ${b('-v')}          Verbose.
+  ${b('-n')}          Do not retry when connection is closed.
+  ${b('-r')}          Do not parse events, output raw event data.
+  ${b('-s')}          Do not output timestamps (useful when running as service).`,
   discover: `${description.ph}
 
 Usage: ${b('ph')} ${usage.discover}
@@ -663,6 +682,103 @@ class Main extends homebridgeLib.CommandLineTool {
 
   async delete (...args) {
     return this.resourceCommand('delete', ...args)
+  }
+
+  // ===========================================================================
+
+  async destroy () {
+    if (this.wsMonitor != null) {
+      await this.wsMonitor.close()
+    }
+    if (this.eventStream != null) {
+      await this.eventStream.close()
+    }
+  }
+
+  async eventlog (...args) {
+    const parser = new homebridgeLib.CommandLineParser(packageJson)
+    let mode = 'daemon'
+    const options = {}
+    parser
+      .help('h', 'help', help.eventlog)
+      .flag('n', 'noretry', () => { options.retryTime = 0 })
+      .flag('r', 'raw', () => { options.raw = true })
+      .flag('s', 'service', () => { mode = 'service' })
+      .parse(...args)
+    this.jsonFormatter = new homebridgeLib.JsonFormatter(
+      mode === 'service' ? { noWhiteSpace: true } : {}
+    )
+    if (this.hueClient.isDeconz) {
+      const WsMonitor = require('../lib/WsMonitor')
+      const { websocketport } = await this.hueClient.get('/config')
+      options.host = this.hueClient.host + ':' + websocketport
+      this.wsMonitor = new WsMonitor(options)
+      this.setOptions({ mode: mode })
+      this.wsMonitor
+        .on('error', (error) => { this.error(error) })
+        .on('listening', (url) => { this.log('listening on %s', url) })
+        .on('closed', (url) => { this.log('connection to %s closed', url) })
+        .on('changed', (resource, body) => {
+          this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
+        })
+        .on('added', (resource, body) => {
+          this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
+        })
+        .on('sceneRecall', (resource) => {
+          this.log('%s: recall', resource)
+        })
+        .on('notification', (body) => {
+          this.log(this.jsonFormatter.stringify(body))
+        })
+        .listen()
+    } else if (this.hueClient.isHue2) {
+      const EventStreamClient = require('../lib/EventStreamClient')
+      this.eventStream = new EventStreamClient(this.hueClient, options)
+      this.setOptions({ mode: mode })
+      this.eventStream
+        .on('error', (error) => { this.error(error) })
+        .on('request', (request) => {
+          if (request.body == null) {
+            this.debug(
+              'request %d: %s %s', request.id, request.method, request.resource
+            )
+            this.vdebug(
+              'request %d: %s %s', request.id, request.method, request.url
+            )
+          } else {
+            this.debug(
+              'request %d: %s %s %s', request.id,
+              request.method, request.resource, request.body
+            )
+            this.vdebug(
+              'request %d: %s %s %s', request.id,
+              request.method, request.url, request.body
+            )
+          }
+        })
+        .on('response', (response) => {
+          this.vdebug(
+            'request %d: response: %j', response.request.id, response.body
+          )
+          this.debug(
+            'request %d: %d %s', response.request.id,
+            response.statusCode, response.statusMessage
+          )
+        })
+        .on('listening', (url) => { this.log('listening on %s', url) })
+        .on('closed', (url) => { this.log('connection to %s closed', url) })
+        .on('changed', (resource, body) => {
+          this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
+        })
+        .on('notification', (body) => {
+          this.log(this.jsonFormatter.stringify(body))
+        })
+        .on('data', (s) => { this.debug('data: %s', s) })
+      await this.eventStream.init()
+      this.eventStream.listen()
+    } else {
+      await this.fatal('eventlog: only supported for deCONZ gateway or Hue bridge with API v2')
+    }
   }
 
   // ===========================================================================
