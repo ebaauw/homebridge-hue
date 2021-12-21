@@ -736,7 +736,13 @@ class Main extends homebridgeLib.CommandLineTool {
       this.eventStream = new EventStreamClient(this.hueClient, options)
       this.setOptions({ mode: mode })
       this.eventStream
-        .on('error', (error) => { this.error(error) })
+        .on('error', (error) => {
+          this.log(
+            'request %d: %s %s', error.request.id,
+            error.request.method, error.request.resource
+          )
+          this.warn('request %d: %s', error.request.id, error)
+        })
         .on('request', (request) => {
           if (request.body == null) {
             this.debug(
@@ -757,9 +763,11 @@ class Main extends homebridgeLib.CommandLineTool {
           }
         })
         .on('response', (response) => {
-          this.vdebug(
-            'request %d: response: %j', response.request.id, response.body
-          )
+          if (response.body != null) {
+            this.vdebug(
+              'request %d: response: %j', response.request.id, response.body
+            )
+          }
           this.debug(
             'request %d: %d %s', response.request.id,
             response.statusCode, response.statusMessage
