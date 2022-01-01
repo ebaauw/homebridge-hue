@@ -16,7 +16,7 @@
 </span>
 
 ## Homebridge plugin for Philips Hue and/or deCONZ
-Copyright © 2016-2021 Erik Baauw. All rights reserved.
+Copyright © 2016-2022 Erik Baauw. All rights reserved.
 
 ### Introduction
 
