@@ -15,12 +15,20 @@
 
 </span>
 
-## Homebridge plugin for Philips Hue and/or deCONZ
+## Homebridge plugin for Hue and/or deCONZ
 Copyright © 2016-2022 Erik Baauw. All rights reserved.
 
-### Introduction
+### Planned Changes
+See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).
 
-This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) ZigBee devices (lights, plugs, sensors, switches, ...) connected to a Philips [Hue](http://www2.meethue.com/) bridge or a dresden elektronik [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway.
+### Introduction
+This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) ZigBee devices (lights, plugs, sensors, switches, ...) connected to a [Hue](http://www2.meethue.com/) bridge by Signify, or to a [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway by dresden elektronik.
+
+Note that Hue was originally developed by Philips, before they split off their Lighting division into Signify.
+Signify are still using the Philips Hue brand name.
+
+For a better understanding of deCONZ, see [deCONZ for Dummies](https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/deCONZ-for-Dummies).
+
 
 See the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Features) for a list of Homebridge Hue features and supported devices, including a comparison of the features of:
 - The native HomeKit function of the gen-2 (square) Hue bridge; of
