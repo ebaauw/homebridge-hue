@@ -1,6 +1,6 @@
 {
   "name": "homebridge-hue",
-  "description": "Homebridge plugin for Philips Hue and deCONZ",
+  "description": "Homebridge plugin for Hue and/or deCONZ",
   "displayName": "Homebridge Hue",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
@@ -9,12 +9,16 @@
     "homebridge-plugin",
     "homekit",
     "philips",
+    "signify",
     "hue",
     "philipshue",
     "philips-hue",
     "deconz",
+    "phoscon",
     "raspbee",
-    "conbee"
+    "conbee",
+    "dresden-elektronik",
+    "dresdenelektronik"
   ],
   "main": "index.js",
   "bin": {
