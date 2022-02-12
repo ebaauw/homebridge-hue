@@ -2,7 +2,7 @@
   "pluginAlias": "Hue",
   "pluginType": "platform",
   "singular": true,
-  "headerDisplay": "Homebridge plugin for Philips Hue and/or deCONZ",
+  "headerDisplay": "Homebridge plugin for Philips Hue and/or deCONZ<br><br>See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).",
   "footerDisplay": "For a detailed description, see the [wiki](https://github.com/ebaauw/homebridge-hue/wiki/Configuration)",
   "schema": {
     "type": "object",
@@ -78,6 +78,16 @@
       "hueMotionTemperatureHistory": {
         "description": "Expose the temperature sensor of the Hue motion sensor as a separate HomeKit accessory, to enable temperature history in Eve.",
         "type": "boolean"
+      },
+      "homebridgeDeconz": {
+        "title": "Homebridge deCONZ",
+        "description": "ID of the Homebridge deCONZ migration resource link.",
+        "type": "string"
+      },
+      "homebridgeHue2": {
+        "title": "Homebridge Hue2",
+        "description": "ID of the Homebridge Hue2 migration resource link.",
+        "type": "string"
       },
       "lights": {
         "description": "Expose lights.",
@@ -207,6 +217,16 @@
       }
     },
     "users",
+    {
+      "type": "fieldset",
+      "expandable": true,
+      "title": "Migration",
+      "description": "Migrate to Homebridge deCONZ and/or Homebridge Hue2.",
+      "items": [
+        "homebridgeDeconz",
+        "homebridgeHue2"
+      ]
+    },
     {
       "type": "fieldset",
       "expandable": true,
