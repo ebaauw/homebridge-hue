@@ -4,7 +4,7 @@
   "displayName": "Homebridge Hue",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
-  "version": "0.13.36",
+  "version": "0.13.37",
   "keywords": [
     "homebridge-plugin",
     "homekit",
