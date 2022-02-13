@@ -33,10 +33,10 @@
     "node": "^16.14.0"
   },
   "dependencies": {
-    "fakegato-history": "~0.6.2",
+    "fakegato-history": "~0.6.3",
     "homebridge-lib": "~5.2.3",
     "semver": "^7.3.5",
-    "ws": "^8.4.2",
+    "ws": "^8.5.0",
     "xml2js": "~0.4.23"
   },
   "scripts": {
