@@ -713,7 +713,7 @@ class Main extends homebridgeLib.CommandLineTool {
       const { websocketport } = await this.hueClient.get('/config')
       options.host = this.hueClient.host + ':' + websocketport
       this.wsMonitor = new WsMonitor(options)
-      this.setOptions({ mode: mode })
+      this.setOptions({ mode })
       this.wsMonitor
         .on('error', (error) => { this.error(error) })
         .on('listening', (url) => { this.log('listening on %s', url) })
@@ -734,7 +734,7 @@ class Main extends homebridgeLib.CommandLineTool {
     } else if (this.hueClient.isHue2) {
       const EventStreamClient = require('../lib/EventStreamClient')
       this.eventStream = new EventStreamClient(this.hueClient, options)
-      this.setOptions({ mode: mode })
+      this.setOptions({ mode })
       this.eventStream
         .on('error', (error) => {
           this.log(
@@ -871,7 +871,7 @@ class Main extends homebridgeLib.CommandLineTool {
       .parse(...args)
     const username = await this.hueClient.createuser('ph')
     this.print(jsonFormatter.stringify(username))
-    this.bridges[this.bridgeid] = { username: username }
+    this.bridges[this.bridgeid] = { username }
     if (this.hueClient.fingerprint != null) {
       this.bridges[this.bridgeid].fingerprint = this.hueClient.fingerprint
     }
