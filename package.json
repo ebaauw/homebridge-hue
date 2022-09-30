@@ -28,15 +28,14 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.52.0",
-    "deCONZ": "2.17.1",
+    "deCONZ": "2.18.2",
     "homebridge": "^1.5.0",
-    "node": "^16.17.0"
+    "node": "^16.17.1"
   },
   "dependencies": {
     "fakegato-history": "~0.6.3",
-    "homebridge-lib": "~5.6.5",
-    "semver": "^7.3.7",
-    "ws": "^8.8.1",
+    "homebridge-lib": "~5.6.8",
+    "ws": "^8.9.0",
     "xml2js": "~0.4.23"
   },
   "scripts": {
@@ -51,8 +50,13 @@
     "url": "https://github.com/ebaauw/homebridge-hue/issues"
   },
   "homepage": "https://github.com/ebaauw/homebridge-hue#readme",
-  "funding": {
-    "type": "paypal",
-    "url": "https://www.paypal.me/ebaauw/EUR"
-  }
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/ebaauw"
+    }, {
+      "type": "paypal",
+      "url": "https://www.paypal.me/ebaauw/EUR"
+    }
+  ]
 }
