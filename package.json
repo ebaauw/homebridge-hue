@@ -4,7 +4,7 @@
   "displayName": "Homebridge Hue",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
-  "version": "0.13.44",
+  "version": "0.13.45",
   "keywords": [
     "homebridge-plugin",
     "homekit",
@@ -54,7 +54,8 @@
     {
       "type": "github",
       "url": "https://github.com/sponsors/ebaauw"
-    }, {
+    },
+    {
       "type": "paypal",
       "url": "https://www.paypal.me/ebaauw/EUR"
     }
