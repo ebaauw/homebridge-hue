@@ -209,7 +209,6 @@ ${description.eventlog}
 
 Parameters:
   ${b('-h')}          Print this help and exit.
-  ${b('-v')}          Verbose.
   ${b('-n')}          Do not retry when connection is closed.
   ${b('-r')}          Do not parse events, output raw event data.
   ${b('-s')}          Do not output timestamps (useful when running as service).`,
