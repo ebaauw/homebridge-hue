@@ -16,7 +16,7 @@
 </span>
 
 ## Homebridge plugin for Hue and/or deCONZ
-Copyright © 2016-2022 Erik Baauw. All rights reserved.
+Copyright © 2016-2023 Erik Baauw. All rights reserved.
 
 ### Planned Changes
 See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).
@@ -60,15 +60,11 @@ To use the full features of Homebridge Hue, you might want to check out some oth
 As HomeKit uses Bonjour to discover Homebridge, the server running Homebridge must be on the same subnet as your iDevices running HomeKit.
 For remote access and for HomeKit automations (incl. support for wireless switches), you need to setup an Apple TV (4th generation or later), HomePod, or iPad as [home hub](https://support.apple.com/en-us/HT207057).
 
-### Command-Line Tools
-Homebridge Hue includes the following command-line tools:
+### Command-Line Utility
+Homebridge Hue includes the `ph` command-line utility to interact with the Hue and/or deCONZ API from the command line.
+See the [tutorial](https://github.com/ebaauw/homebridge-hue/wiki/ph-Tutorial) on the Wiki for an introduction to this utility.
 
-Command | Description
--------- | -----------
-`dc_eventlog` | Logger for deCONZ websocket notifications.
-`ph` | Command line interface to Philips Hue or deCONZ REST API.
-
-These tools takes a `-h` or `--help` argument to provide a brief overview of their functionality and command-line arguments.
+Issue `ph -h` or `ph --help` to provide a brief overview of its functionality and command-line arguments.
 
 ### Installation
 To install Homebridge Hue:

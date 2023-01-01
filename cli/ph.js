@@ -3,7 +3,7 @@
 // homebridge-hue/cli/ph.js
 //
 // Homebridge plug-in for Philips Hue and/or deCONZ.
-// Copyright © 2018-2022 Erik Baauw. All rights reserved.
+// Copyright © 2018-2023 Erik Baauw. All rights reserved.
 //
 // Command line interface to Philips Hue or deCONZ API.
 
