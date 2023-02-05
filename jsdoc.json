@@ -8,7 +8,7 @@
       "README.md",
       "index.js",
       "lib",
-      "node_modules/homebridge-lib/lib/HttpClient.js"
+      "node_modules/hb-lib-tools/lib/HttpClient.js"
     ]
   },
   "templates": {
