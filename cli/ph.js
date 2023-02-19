@@ -12,7 +12,9 @@
 const fs = require('fs')
 const HueClient = require('../lib/HueClient')
 const HueDiscovery = require('../lib/HueDiscovery')
-const { CommandLineParser, CommandLineTool, JsonFormatter, OptionParser } = require('homebridge-lib')
+const {
+  CommandLineParser, CommandLineTool, JsonFormatter, OptionParser
+} = require('hb-lib-tools')
 const packageJson = require('../package.json')
 
 const { b, u } = CommandLineTool
