@@ -28,13 +28,13 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.56.0",
-    "deCONZ": "2.19.1",
+    "deCONZ": "2.20.1",
     "homebridge": "^1.6.0",
     "node": "^18.14.2"
   },
   "dependencies": {
     "fakegato-history": "~0.6.3",
-    "homebridge-lib": "~6.3.11",
+    "homebridge-lib": "~6.3.12-0",
     "ws": "^8.12.1",
     "xml2js": "~0.4.23"
   },
