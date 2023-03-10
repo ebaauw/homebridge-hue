@@ -30,11 +30,11 @@
     "BSB002": "1.56.0",
     "deCONZ": "2.20.1",
     "homebridge": "^1.6.0",
-    "node": "^18.14.2"
+    "node": "^18.15.0"
   },
   "dependencies": {
     "fakegato-history": "~0.6.3",
-    "homebridge-lib": "~6.3.12-0",
+    "homebridge-lib": "~6.3.12",
     "ws": "^8.12.1",
     "xml2js": "~0.4.23"
   },
