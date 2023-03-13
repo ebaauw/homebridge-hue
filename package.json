@@ -22,7 +22,6 @@
   ],
   "main": "index.js",
   "bin": {
-    "dc_eventlog": "cli/dc_eventlog.js",
     "ph": "cli/ph.js"
   },
   "engines": {
