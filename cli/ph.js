@@ -480,10 +480,10 @@ class Main extends CommandLineTool {
       .on('found', (name, id, address) => {
         this.debug('%s: found %s at %s', name, id, address)
       })
-      .on('searching', (host) => {
-        this.debug('upnp: listening on %s', host)
+      .on('searching', (name, host) => {
+        this.debug('%s: listening on %s', name, host)
       })
-      .on('searchDone', () => { this.debug('upnp: search done') })
+      .on('searchDone', (name) => { this.debug('%s: search done', name) })
 
     if (clargs.command === 'discover') {
       return this.discover(clargs.args)
