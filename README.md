@@ -23,7 +23,7 @@ Support for deCONZ gateways has been deprecated, in favour of [Homebridge deCONZ
 See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).
 
 ### Introduction
-This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) ZigBee devices (lights, plugs, sensors, switches, ...) connected to a [Hue](http://www2.meethue.com/) bridge by Signify~~, or to a [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway by dresden elektronik~~.
+This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) ZigBee devices (lights, plugs, sensors, switches, ...) connected to a [Hue](http://www2.meethue.com/) bridge by Signify, ~~or to a [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway by dresden elektronik~~.
 
 Note that Hue was originally developed by Philips, before they split off their Lighting division into Signify.
 Signify are still using the Philips Hue brand name.
@@ -45,7 +45,7 @@ Please see the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki) for a detai
 
 ### Prerequisites
 You need a Philips Hue bridge ~~or deCONZ gateway~~ to connect Homebridge Hue to your ZigBee lights, switches, and sensors.
-I recommend using the latest Hue bridge firmware, with API v1.59.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher~~, and the latest deCONZ beta, v2.9.0 or higher~~.
+I recommend using the latest Hue bridge firmware, with API v1.59.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, ~~and the latest deCONZ beta, v2.9.0 or higher~~.
 
 You need a server to run Homebridge.
 This can be anything running [Node.js](https://nodejs.org): from a Raspberry Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.
