@@ -19,32 +19,33 @@
 Copyright © 2016-2023 Erik Baauw. All rights reserved.
 
 ### Planned Changes
+Support for deCONZ gateways has been deprecated, in favour of [Homebridge deCONZ](https://github.com/ebaauw/homebridge-deconz).
 See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).
 
 ### Introduction
-This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) ZigBee devices (lights, plugs, sensors, switches, ...) connected to a [Hue](http://www2.meethue.com/) bridge by Signify, or to a [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway by dresden elektronik.
+This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) ZigBee devices (lights, plugs, sensors, switches, ...) connected to a [Hue](http://www2.meethue.com/) bridge by Signify~~, or to a [deCONZ](https://github.com/dresden-elektronik/deconz-rest-plugin) gateway by dresden elektronik~~.
 
 Note that Hue was originally developed by Philips, before they split off their Lighting division into Signify.
 Signify are still using the Philips Hue brand name.
 
-For a better understanding of deCONZ, see [deCONZ for Dummies](https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/deCONZ-for-Dummies).
+~~For a better understanding of deCONZ, see [deCONZ for Dummies](https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/deCONZ-for-Dummies).~~
 
 
 See the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Features) for a list of Homebridge Hue features and supported devices, including a comparison of the features of:
 - The native HomeKit function of the gen-2 (square) Hue bridge; of
 - Homebridge Hue in combination with a Hue bridge; and of
-- Homebridge Hue in combination with deCONZ.
+- Homebridge deCONZ in combination with a deCONZ gateway.
 
-Homebridge Hue does automatic discovery of Hue bridges and deCONZ gateways.
-It supports multiple bridges / gateways from one installation.
+Homebridge Hue does automatic discovery of Hue bridges ~~and deCONZ gateways~~.
+It supports multiple bridges ~~/ gateways~~ from one installation.
 It supports both the v2 (square) and v1 (round) Hue bridge.
 It works in combination with the native HomeKit functionality of the v2 Hue bridge.
 
 Please see the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki) for a detailed description of Homebridge Hue.
 
 ### Prerequisites
-You need a Philips Hue bridge or deCONZ gateway to connect Homebridge Hue to your ZigBee lights, switches, and sensors.
-I recommend using the latest Hue bridge firmware, with API v1.41.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher, and the latest deCONZ beta, v2.9.0 or higher.
+You need a Philips Hue bridge ~~or deCONZ gateway~~ to connect Homebridge Hue to your ZigBee lights, switches, and sensors.
+I recommend using the latest Hue bridge firmware, with API v1.59.0 (v2 bridge) or v1.16.0 (v1 bridge) or higher~~, and the latest deCONZ beta, v2.9.0 or higher~~.
 
 You need a server to run Homebridge.
 This can be anything running [Node.js](https://nodejs.org): from a Raspberry Pi, a NAS system, or an always-on PC running Linux, macOS, or Windows.
@@ -75,7 +76,7 @@ To install Homebridge Hue:
   ```
 
 - Edit `config.json` and add the `Hue` platform provided by Homebridge Hue, see [**Configuration**](#configuration);
-- Run Homebridge Hue for the first time, press the link button on (each of) your bridge(s), or unlock the deCONZ gateway(s) through their web app.  Note the bridgeid/username (API key) pair for each bridge and/or gateway in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).  
+- Run Homebridge Hue for the first time, press the link button on (each of) your bridge(s)~~, or unlock the deCONZ gateway(s) through their web app~~.  Note the bridgeid/username (API key) pair for each bridge ~~and/or gateway~~ in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).  
 Note that you cannot add these through the Homebridge Hue *Settings* in Homebridge Config UI X, but you can use the *Homebridge Config Editor*.
 
 To update Homebridge Hue, simply issue another `sudo npm -g i homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating Homebridge Hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing Homebridge Hue, as in: `sudo npm -g i homebridge-hue@0.11.59`.
@@ -83,7 +84,7 @@ To update Homebridge Hue, simply issue another `sudo npm -g i homebridge-hue@lat
 ### Configuration
 In Homebridge's `config.json` you need to specify Homebridge Hue as a platform plugin.  Furthermore, you need to specify what you want to expose to HomeKit.  See the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by Homebridge Hue, and for some examples.
 
-For finer-grained control of what resources Homebridge Hue exposes to HomeKit, and how, create resource links on the bridge / gateway, see the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Resource-Links).
+For finer-grained control of what resources Homebridge Hue exposes to HomeKit, and how, create resource links on the bridge ~~/ gateway~~, see the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Resource-Links).
 
 ### Troubleshooting
 
@@ -102,7 +103,7 @@ Make sure to use a different Homebridge `name`, `username`, and (if running on t
 
 #### Debug Log File
 Homebridge Hue outputs an info message for each HomeKit characteristic value it sets and for each HomeKit characteristic value change notification it receives.
-When Homebridge is started with `-D`, Homebridge Hue outputs a debug message for each request it makes to the bridge / gateway, for each state change it detects while polling the bridge / gateway, and for each push notification it receives from the deCONZ gateway.  Additionally, it issues a debug message for each bridge / gateway resource it detects.
+When Homebridge is started with `-D`, Homebridge Hue outputs a debug message for each request it makes to the bridge ~~/ gateway~~, for each state change it detects while polling the bridge ~~/ gateway, and for each push notification it receives from the deCONZ gateway~~.  Additionally, it issues a debug message for each bridge ~~/ gateway~~ resource it detects.
 
 To capture these messages into a log file do the following:
 - If you're running Homebridge as a service, stop that service;
@@ -120,7 +121,7 @@ To capture these messages into a log file do the following:
 
 #### Debug Dump File
 To aid troubleshooting, on startup, Homebridge Hue dumps its environment, including its `config.json` settings and the full state of all bridges / gateways into a compresed json file, `homebridge-hue.json.gz`.
-IP addresses, and bridge / gateway usernames are masked.
+IP addresses, and bridge ~~/ gateway~~ usernames are masked.
 This file is created in the Homebridge user directory, `~/.homebridge` by default.
 It can be downloaded through the Homebridge Config UI X user interface, from the Homebridge Hue _SETTINGS_ popup window, on the _Plugins_ tab.
 
@@ -156,4 +157,4 @@ A service contains one or more _characteristics_.
 A characteristic is like a service attribute, which might be read or written by HomeKit apps.
 You might want to checkout Apple's [HomeKit Accessory Simulator](https://developer.apple.com/documentation/homekit/testing_your_app_with_the_homekit_accessory_simulator), which is distributed as an additional tool for `Xcode`.
 
-Internally, HomeKit identifies accessories by UUID.  For Zigbee devices (lights, sensors, switches), Homebridge Hue bases this UUID on the Zigbee mac address.  For non-Zigbee resources (groups, schedules, CLIP sensors), the UUID is based on the bridge / gateway ID and resource path (e.g. `/sensors/1`).  By not using the resource name (e.g. `Daylight`), Homebridge Hue can deal with duplicate names.  In addition, HomeKit will still recognise the accessory after the resource name has changed on the bridge / gateway, remembering which HomeKit room, groups, scenes, actions, and triggers it belongs to.  However, when a non-Zigbee bridge / gateway resource is deleted and then re-created, resulting in a different resource path, HomeKit will treat it as a new accessory, and you will need to re-configure HomeKit.
+Internally, HomeKit identifies accessories by UUID.  For Zigbee devices (lights, sensors, switches), Homebridge Hue bases this UUID on the Zigbee mac address.  For non-Zigbee resources (groups, schedules, CLIP sensors), the UUID is based on the bridge ~~/ gateway~~ ID and resource path (e.g. `/sensors/1`).  By not using the resource name (e.g. `Daylight`), Homebridge Hue can deal with duplicate names.  In addition, HomeKit will still recognise the accessory after the resource name has changed on the bridge ~~/ gateway~~, remembering which HomeKit room, groups, scenes, actions, and triggers it belongs to.  However, when a non-Zigbee bridge ~~/ gateway~~ resource is deleted and then re-created, resulting in a different resource path, HomeKit will treat it as a new accessory, and you will need to re-configure HomeKit.

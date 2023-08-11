@@ -2,7 +2,7 @@
   "pluginAlias": "Hue",
   "pluginType": "platform",
   "singular": true,
-  "headerDisplay": "Homebridge plugin for Philips Hue and/or deCONZ<br><br>See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).",
+  "headerDisplay": "Homebridge plugin for Philips Hue<br>See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).",
   "footerDisplay": "For a detailed description, see the [wiki](https://github.com/ebaauw/homebridge-hue/wiki/Configuration)",
   "schema": {
     "type": "object",
@@ -122,7 +122,7 @@
         "type": "boolean"
       },
       "parallelRequests": {
-        "description": "The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Default: 3 or 10 (depending on the bridge/gateway).",
+        "description": "The number of ansynchronous requests homebridge-hue sends in parallel to a Hue bridge.  Default: 3 or 10 (depending on the bridge).",
         "type": "integer",
         "minimum": 1,
         "maximum": 30
@@ -212,7 +212,7 @@
       "type": "array",
       "items": {
         "title": "Bridge/Gateway",
-        "description": "Hostname and port of the Hue bridge or deCONZ gateway.",
+        "description": "Hostname and port of the Hue bridge.",
         "type": "string"
       }
     },
