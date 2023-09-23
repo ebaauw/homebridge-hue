@@ -113,6 +113,10 @@
         "type": "boolean",
         "default": true
       },
+      "noDeconz": {
+        "description": "Do not discover deCONZ gateways",
+        "type": "boolean"
+      },
       "noResponse": {
         "description": "Report unreachable lights as <i>No Response</i> in HomeKit.",
         "type": "boolean"
@@ -223,6 +227,7 @@
       "title": "Migration",
       "description": "Migrate to Homebridge deCONZ and/or Homebridge Hue2.",
       "items": [
+        "noDeconz",
         "homebridgeDeconz",
         "homebridgeHue2"
       ]

@@ -222,6 +222,7 @@ ${description.discover}
 
 Parameters:
   ${b('-h')}          Print this help and exit.
+  ${b('-n')}          Do not discover deCONZ gateways.
   ${b('-S')}          Stealth mode, only use local discovery.`,
   config: `${description.ph}
 
@@ -827,13 +828,14 @@ class Main extends CommandLineTool {
 
   async discover (...args) {
     const parser = new CommandLineParser(packageJson)
-    let stealth = false
+    const params = {}
     parser
       .help('h', 'help', help.discover)
-      .flag('S', 'stealth', () => { stealth = true })
+      .flag('n', 'noDeconz', () => { params.noDeconz = true })
+      .flag('S', 'stealth', () => { params.stealth = true })
       .parse(...args)
     const jsonFormatter = new JsonFormatter({ sortKeys: true })
-    const bridges = await this.hueDiscovery.discover(stealth)
+    const bridges = await this.hueDiscovery.discover(params)
     this.print(jsonFormatter.stringify(bridges))
   }
 
