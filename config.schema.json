@@ -131,6 +131,12 @@
         "minimum": 1,
         "maximum": 30
       },
+      "resetTimeout": {
+        "description": "The time, in milliseconds, after which pulse-like controls (e.g. for recalling a scene) reset.  Default: 500.",
+        "type": "integer",
+        "minimum": 10,
+        "maximum": 2000
+      },
       "resource": {
         "description": "Expose a Resource characteristic.",
         "type": "boolean",
@@ -515,6 +521,7 @@
         },
         "ownResourcelinks",
         "parallelRequests",
+        "resetTimeout",
         "stealth",
         "timeout",
         "waitTimePut",
