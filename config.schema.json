@@ -2,7 +2,7 @@
   "pluginAlias": "Hue",
   "pluginType": "platform",
   "singular": true,
-  "headerDisplay": "Homebridge plugin for Philips Hue<br>See [Future Development of Homebridge Hue](https://github.com/ebaauw/homebridge-hue/issues/1070).",
+  "headerDisplay": "Homebridge plugin for Philips Hue.",
   "footerDisplay": "For a detailed description, see the [wiki](https://github.com/ebaauw/homebridge-hue/wiki/Configuration)",
   "schema": {
     "type": "object",
