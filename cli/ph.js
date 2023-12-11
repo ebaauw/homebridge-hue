@@ -473,7 +473,7 @@ class Main extends CommandLineTool {
       return
     }
     if (HueClient.isDeconzBridgeId(this.bridgeConfig.bridgeid)) {
-      this.error('%s: not a Hue bridge', clargs.options.host)
+      this.error('%s: deCONZ gateway no longer supported', clargs.options.host)
       return
     }
     if (clargs.command === 'config') {
