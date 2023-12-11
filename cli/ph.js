@@ -2,10 +2,10 @@
 
 // homebridge-hue/cli/ph.js
 //
-// Homebridge plug-in for Philips Hue and/or deCONZ.
+// Homebridge plug-in for Philips Hue.
 // Copyright © 2018-2023 Erik Baauw. All rights reserved.
 //
-// Command line interface to Philips Hue or deCONZ API.
+// Command line interface to Philips Hue API.
 
 'use strict'
 
@@ -21,7 +21,7 @@ const { b, u } = CommandLineTool
 const { UsageError } = CommandLineParser
 
 const usage = {
-  ph: `${b('ph')} [${b('-hVDp')}] [${b('-H')} ${u('hostname')}[${b(':')}${u('port')}]] [${b('-u')} ${u('username')}] [${b('-t')} ${u('timeout')}] ${u('command')} [${u('argument')} ...]`,
+  ph: `${b('ph')} [${b('-hVD')}] [${b('-H')} ${u('hostname')}] [${b('-u')} ${u('username')}] [${b('-t')} ${u('timeout')}] ${u('command')} [${u('argument')} ...]`,
 
   get: `${b('get')} [${b('-hsnjuatlkv')}] [${u('path')}]`,
   put: `${b('put')} [${b('-hv')}] ${u('resource')} [${u('body')}]`,
@@ -38,35 +38,33 @@ const usage = {
   touchlink: `${b('touchlink')} [${b('-hv')}]`,
   search: `${b('search')} [${b('-hv')}]`,
 
-  lightlist: `${b('lightlist')} [${b('-hv')}]`,
   outlet: `${b('outlet')} [${b('-hv')}]`,
   switch: `${b('switch')} [${b('-hv')}]`,
   probe: `${b('probe')} [${b('-hv')}] [${b('-t')} ${u('timeout')}] ${u('light')}`,
   restart: `${b('restart')} [${b('-hv')}]`
 }
 const description = {
-  ph: 'Command line interface to Philips Hue or deCONZ API.',
+  ph: 'Command line interface to Philips Hue API.',
 
   get: `Retrieve ${u('path')} from bridge/gateway.`,
   put: `Update ${u('resource')} on bridge/gateway with ${u('body')}.`,
   post: `Create ${u('resource')} on bridge/gateway with ${u('body')}.`,
   delete: `Delete ${u('resource')} from bridge/gateway with ${u('body')}.`,
 
-  eventlog: 'Log events from deCONZ web socket or Hue API v2 event stream.',
+  eventlog: 'Log events from the Hue API v2 event stream.',
 
-  discover: 'Discover bridges/gateways.',
-  config: 'Retrieve bridge/gateway configuration (unauthenticated).',
-  description: 'Retrieve bridge/gateway description.',
-  createuser: 'Create bridge/gateway API username.',
-  unlock: 'Unlock bridge/gateway so new API username can be created.',
+  discover: 'Discover Hue bridges.',
+  config: 'Retrieve Hue bridge configuration (unauthenticated).',
+  description: 'Retrieve Hue bridge description.',
+  createuser: 'Create Hue bridge API username.',
+  unlock: 'Unlock Hue bridge so a new API username can be created.',
   touchlink: 'Initiate a touchlink.',
   search: 'Initiate a seach for new devices.',
 
-  lightlist: 'Create/update lightlist resourcelink.',
   outlet: 'Create/update outlet resourcelink.',
   switch: 'Create/update switch resourcelink.',
   probe: `Probe ${u('light')} for supported colour (temperature) range.`,
-  restart: 'Restart Hue bridge or deCONZ gateway.'
+  restart: 'Restart Hue bridge.'
 }
 const help = {
   ph: `${description.ph}
@@ -81,13 +79,10 @@ Parameters:
   Print version and exit.
 
   ${b('-D')}, ${b('--debug')}
-  Print debug messages for communication with Hue bridge / deCONZ gateway.
+  Print debug messages for communication with the Hue bridge.
 
-  ${b('-p')}, ${b('--phoscon')}
-  Imitate the Phoscon app.  Only works for deCONZ.
-
-  ${b('-H')} ${u('hostname')}[${b(':')}${u('port')}], ${b('--host=')}${u('hostname')}[${b(':')}${u('port')}]
-  Connect to ${u('hostname')}${b(':80')} or ${u('hostname')}${b(':')}${u('port')} instead of the default ${b('localhost:80')}.
+  ${b('-H')} ${u('hostname')}, ${b('--host=')}${u('hostname')}
+  Connect to ${u('hostname')}.
 
   ${b('-u')} ${u('username')}, ${b('--username=')}${u('username')}
   Use ${u('username')} instead of the username saved in ${b('~/.ph')}.
@@ -132,9 +127,6 @@ Commands:
   ${usage.search}
   ${description.search}
 
-  ${usage.lightlist}
-  ${description.lightlist}
-
   ${usage.outlet}
   ${description.outlet}
 
@@ -169,7 +161,7 @@ Parameters:
   ${b('-l')}          Limit output to leaf (non-array, non-object) key/values.
   ${b('-k')}          Limit output to keys. With -u output JSON array of paths.
   ${b('-v')}          Limit output to values. With -u output JSON array of values.
-  ${u('path')}        Path to retrieve from the Hue bridge / deCONZ gateway.`,
+  ${u('path')}        Path to retrieve from the Hue bridge.`,
   put: `${description.ph}
 
 Usage: ${b('ph')} ${usage.put}
@@ -222,7 +214,6 @@ ${description.discover}
 
 Parameters:
   ${b('-h')}          Print this help and exit.
-  ${b('-n')}          Do not discover deCONZ gateways.
   ${b('-S')}          Stealth mode, only use local discovery.`,
   config: `${description.ph}
 
@@ -247,8 +238,7 @@ Parameters:
 Usage: ${b('ph')} ${usage.createuser}
 
 ${description.createuser}
-You need to press the linkbutton on the Hue bridge or unlock the deCONZ gateway
-through the web app prior to issuing this command.
+You need to press the linkbutton on the Hue bridge prior to issuing this command.
 The username is saved to ${b('~/.ph')}.
 
 Parameters:
@@ -259,8 +249,7 @@ Parameters:
 Usage: ${b('ph')} ${usage.unlock}
 
 ${description.unlock}
-This is the equivalent of pressing the linkbutton on the Hue bridge or unlocking
-the deCONZ gateway through the web app.
+This is the equivalent of pressing the linkbutton on the Hue bridge.
 
 Parameters:
   ${b('-h')}          Print this help and exit.
@@ -279,18 +268,6 @@ Parameters:
 Usage: ${b('ph')} ${usage.search}
 
 ${description.search}
-
-Parameters:
-  ${b('-h')}          Print this help and exit.
-  ${b('-v')}          Verbose.`,
-  lightlist: `${description.ph}
-
-Usage: ${b('ph')} ${usage.lightlist}
-
-${description.lightlist}
-To prevent HomeKit from losing lights that are not yet available on a deCONZ
-gateway, homebridge-hue will delay starting the homebridge server, until all
-resources in the lightlist resourcelink are available.
 
 Parameters:
   ${b('-h')}          Print this help and exit.
@@ -400,9 +377,6 @@ class Main extends CommandLineTool {
         OptionParser.toHost('host', value, false, true)
         clargs.options.host = value
       })
-      .flag('p', 'phoscon', () => {
-        clargs.options.phoscon = true
-      })
       .flag('D', 'debug', () => {
         if (this.debugEnabled) {
           this.setOptions({ vdebug: true })
@@ -493,9 +467,13 @@ class Main extends CommandLineTool {
       this.bridgeConfig = await this.hueDiscovery.config(clargs.options.host)
     } catch (error) {
       if (error.request == null) {
-        this.error(error)
+        // this.error(error)
       }
-      this.error('%s: not a Hue bridge nor deCONZ gateway', clargs.options.host)
+      this.error('%s: not a Hue bridge', clargs.options.host)
+      return
+    }
+    if (HueClient.isDeconzBridgeId(this.bridgeConfig.bridgeid)) {
+      this.error('%s: not a Hue bridge', clargs.options.host)
       return
     }
     if (clargs.command === 'config') {
@@ -529,11 +507,7 @@ class Main extends CommandLineTool {
         args += ' -H ' + clargs.options.host
       }
       await this.fatal(
-        'missing username - %s and run "ph%s createuser"',
-        HueClient.isDeconzBridgeId(this.bridgeid)
-          ? 'unlock gateway'
-          : 'press link button',
-        args
+        'missing username - press link button and run "ph%s createuser"', args
       )
     }
     this.hueClient = new HueClient(clargs.options)
@@ -640,7 +614,6 @@ class Main extends CommandLineTool {
       .parameter('resource', (resource) => {
         clargs.resource = OptionParser.toPath('resource', resource)
         if (clargs.resource === '/') {
-          // deCONZ will crash otherwise, see deconz-rest-plugin#2520.
           throw new UsageError(`/: invalid resource for ${command}`)
         }
       })
@@ -689,9 +662,6 @@ class Main extends CommandLineTool {
   // ===========================================================================
 
   async destroy () {
-    if (this.wsMonitor != null) {
-      await this.wsMonitor.close()
-    }
     if (this.eventStream != null) {
       await this.eventStream.close()
     }
@@ -710,30 +680,7 @@ class Main extends CommandLineTool {
     this.jsonFormatter = new JsonFormatter(
       mode === 'service' ? { noWhiteSpace: true } : {}
     )
-    if (this.hueClient.isDeconz) {
-      const WsMonitor = require('../lib/WsMonitor')
-      const { websocketport } = await this.hueClient.get('/config')
-      options.host = this.hueClient.host + ':' + websocketport
-      this.wsMonitor = new WsMonitor(options)
-      this.setOptions({ mode })
-      this.wsMonitor
-        .on('error', (error) => { this.error(error) })
-        .on('listening', (url) => { this.log('listening on %s', url) })
-        .on('closed', (url) => { this.log('connection to %s closed', url) })
-        .on('changed', (resource, body) => {
-          this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
-        })
-        .on('added', (resource, body) => {
-          this.log('%s: %s', resource, this.jsonFormatter.stringify(body))
-        })
-        .on('sceneRecall', (resource) => {
-          this.log('%s: recall', resource)
-        })
-        .on('notification', (body) => {
-          this.log(this.jsonFormatter.stringify(body))
-        })
-        .listen()
-    } else if (this.hueClient.isHue2) {
+    if (this.hueClient.isHue2) {
       const EventStreamClient = require('../lib/EventStreamClient')
       this.eventStream = new EventStreamClient(this.hueClient, options)
       this.setOptions({ mode })
@@ -791,7 +738,7 @@ class Main extends CommandLineTool {
       await this.eventStream.init()
       this.eventStream.listen()
     } else {
-      await this.fatal('eventlog: only supported for deCONZ gateway or Hue bridge with API v2')
+      await this.fatal('eventlog: only supported for Hue bridge with API v2')
     }
   }
 
@@ -828,10 +775,9 @@ class Main extends CommandLineTool {
 
   async discover (...args) {
     const parser = new CommandLineParser(packageJson)
-    const params = {}
+    const params = { noDeconz: true }
     parser
       .help('h', 'help', help.discover)
-      .flag('n', 'noDeconz', () => { params.noDeconz = true })
       .flag('S', 'stealth', () => { params.stealth = true })
       .parse(...args)
     const jsonFormatter = new JsonFormatter({ sortKeys: true })
@@ -894,47 +840,6 @@ class Main extends CommandLineTool {
   }
 
   // ===========================================================================
-
-  async lightlist (...args) {
-    const parser = new CommandLineParser(packageJson)
-    const clargs = {}
-    parser
-      .help('h', 'help', help.lightlist)
-      .flag('v', 'verbose', () => { clargs.verbose = true })
-      .parse(...args)
-    let lightlist
-    const lights = await this.hueClient.get('/lights')
-    const resourcelinks = await this.hueClient.get('/resourcelinks')
-    for (const id in resourcelinks) {
-      const link = resourcelinks[id]
-      if (link.name === 'homebridge-hue' && link.description === 'lightlist') {
-        lightlist = id
-      }
-    }
-    if (lightlist == null) {
-      const body = {
-        name: 'homebridge-hue',
-        classid: 1,
-        description: 'lightlist',
-        links: []
-      }
-      const response = await this.hueClient.post('/resourcelinks', body)
-      for (const error of response.errors) {
-        this.warn('api error %d: %s', error.type, error.description)
-      }
-      lightlist = response.success.id
-    }
-    const body = {
-      links: []
-    }
-    for (const id in lights) {
-      body.links.push(`/lights/${id}`)
-    }
-    await this.hueClient.put(`/resourcelinks/${lightlist}`, body)
-    clargs.verbose && this.log(
-      '/resourcelinks/%s: %d lights', lightlist, body.links.length
-    )
-  }
 
   async outlet (...args) {
     const parser = new CommandLineParser(packageJson)
@@ -1064,20 +969,13 @@ class Main extends CommandLineTool {
       })
     }
 
-    function round (f) {
-      return Math.round(f * 10000) / 10000
-    }
-
     async function probeXy (name, value) {
       clargs.verbose && this.log(`${clargs.light}: ${name} ...\\c`)
       await this.hueClient.put(clargs.light + '/state', { xy: value })
       let count = 0
       return new Promise((resolve, reject) => {
         const interval = setInterval(async () => {
-          let xy = await this.hueClient.get(clargs.light + '/state/xy')
-          if (this.hueClient.isDeconz) {
-            xy = [round(xy[0]), round(xy[1])]
-          }
+          const xy = await this.hueClient.get(clargs.light + '/state/xy')
           if (
             xy[0] !== value[0] || xy[1] !== value[1] ||
             ++count > clargs.maxCount
@@ -1137,13 +1035,8 @@ class Main extends CommandLineTool {
       if (!response.success.reboot) {
         return false
       }
-    } else if (this.hueClient.isDeconz) {
-      const response = await this.hueClient.post('/config/restartapp')
-      if (!response.success.restartapp) {
-        return false
-      }
     } else {
-      await this.fatal('restart: only supported for Hue bridge or deCONZ gateway')
+      await this.fatal('restart: only supported for Hue bridge')
     }
     clargs.verbose && this.log('restarting ...\\c')
     return new Promise((resolve, reject) => {
