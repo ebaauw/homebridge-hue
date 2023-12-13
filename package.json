@@ -1,6 +1,6 @@
 {
   "name": "homebridge-hue",
-  "description": "Homebridge plugin for Hue and/or deCONZ",
+  "description": "Homebridge plugin for Philips Hue",
   "displayName": "Homebridge Hue",
   "author": "Erik Baauw",
   "license": "Apache-2.0",
@@ -12,13 +12,7 @@
     "signify",
     "hue",
     "philipshue",
-    "philips-hue",
-    "deconz",
-    "phoscon",
-    "raspbee",
-    "conbee",
-    "dresden-elektronik",
-    "dresdenelektronik"
+    "philips-hue"
   ],
   "main": "index.js",
   "bin": {
@@ -26,15 +20,15 @@
   },
   "engines": {
     "BSB001": "1.16.0",
-    "BSB002": "1.60.0",
+    "BSB002": "1.61.0",
     "deCONZ": "2.23.1",
     "homebridge": "^1.7.0",
-    "node": "20.9.0||^20||^18"
+    "node": "20.10.0||^20||^18"
   },
   "dependencies": {
     "fakegato-history": "~0.6.4",
-    "homebridge-lib": "~6.7.0",
-    "ws": "^8.14.2",
+    "homebridge-lib": "~6.7.3",
+    "ws": "^8.15.1",
     "xml2js": "~0.6.2"
   },
   "scripts": {
