@@ -16,7 +16,7 @@
 </span>
 
 ## Homebridge plugin for Philips Hue
-Copyright © 2016-2023 Erik Baauw. All rights reserved.
+Copyright © 2016-2024 Erik Baauw. All rights reserved.
 
 ### Introduction
 This [Homebridge](https://github.com/homebridge/homebridge) plugin exposes to Apple's [HomeKit](http://www.apple.com/ios/home/) Hue-compatible devices (lights, plugs, sensors, switches, ...) connected to a [Hue](http://www2.meethue.com/) bridge by Signify.
