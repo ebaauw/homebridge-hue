@@ -28,7 +28,7 @@
   "dependencies": {
     "fakegato-history": "~0.6.4",
     "homebridge-lib": "~6.7.3",
-    "ws": "^8.16.0",
+    "ws": "^8.17.1",
     "xml2js": "~0.6.2"
   },
   "scripts": {
