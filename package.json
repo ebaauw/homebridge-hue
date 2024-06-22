@@ -3,6 +3,9 @@
   "description": "Homebridge plugin for Philips Hue",
   "displayName": "Homebridge Hue",
   "author": "Erik Baauw",
+  "maintainers": [
+    "ebaauw"
+  ],
   "license": "Apache-2.0",
   "version": "0.13.70",
   "keywords": [
@@ -22,8 +25,8 @@
     "BSB001": "1.16.0",
     "BSB002": "1.62.0",
     "deCONZ": "2.23.1",
-    "homebridge": "^1.7.0",
-    "node": "20.10.0||^20||^18"
+    "homebridge": "^1.8.3",
+    "node": "20.15.0||^20||^18"
   },
   "dependencies": {
     "fakegato-history": "~0.6.4",
