@@ -17,22 +17,21 @@
     "philipshue",
     "philips-hue"
   ],
+  "type": "module",
   "main": "index.js",
   "bin": {
     "ph": "cli/ph.js"
   },
   "engines": {
     "BSB001": "1.16.0",
-    "BSB002": "1.62.0",
-    "deCONZ": "2.23.1",
-    "homebridge": "^1.8.3",
-    "node": "20.15.0||^20||^18"
+    "BSB002": "1.67.0",
+    "homebridge": "^1.8.4||^2.0.0-beta",
+    "node": "20.18.0||^20||^18"
   },
   "dependencies": {
-    "fakegato-history": "~0.6.4",
-    "homebridge-lib": "~6.7.3",
-    "ws": "^8.17.1",
-    "xml2js": "~0.6.2"
+    "fakegato-history": "~0.6.5",
+    "homebridge-lib": "~7.0.9",
+    "hb-hue-tools": "~1.0.1"
   },
   "scripts": {
     "prepare": "standard && rm -rf out && jsdoc -c jsdoc.json",
