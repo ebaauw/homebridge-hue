@@ -3,10 +3,10 @@
 //
 // Homebridge plug-in for Philips Hue.
 
-'use strict'
+import { HuePlatform } from './lib/HuePlatform.js'
 
-const HuePlatform = require('./lib/HuePlatform')
-
-module.exports = function (homebridge) {
+function main (homebridge) {
   homebridge.registerPlatform('homebridge-hue', 'Hue', HuePlatform)
 }
+
+export { main as default }

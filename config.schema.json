@@ -29,21 +29,12 @@
         "description": "Expose Configured Name characteritic.  Default: false.",
         "type": "boolean"
       },
-      "effects": {
-        "description": "Expose special effects (on supported lights) as separate services.  Default: true.",
-        "type": "boolean",
-        "default": true
-      },
       "excludeSensorTypes": {
         "description": "Sensor types to exclude.",
         "type": "array",
         "items": {
           "type": "string"
         }
-      },
-      "forceEveWeather": {
-        "description": "Create dummy pressure sensor for temperature/humidity sensors, so the Eve app treats them like an Eve Weather.",
-        "type": "boolean"
       },
       "forceHttp": {
         "description": "Use plain http instead of https.",
@@ -65,7 +56,7 @@
         "maximum": 30
       },
       "hosts": {
-        "title": "Bridges/Gateways",
+        "title": "Bridges",
         "type": "array",
         "items": {
           "type": "string"
@@ -78,11 +69,6 @@
       "hueMotionTemperatureHistory": {
         "description": "Expose the temperature sensor of the Hue motion sensor as a separate HomeKit accessory, to enable temperature history in Eve.",
         "type": "boolean"
-      },
-      "homebridgeDeconz": {
-        "title": "Homebridge deCONZ",
-        "description": "ID of the Homebridge deCONZ migration resource link.",
-        "type": "string"
       },
       "homebridgeHue2": {
         "title": "Homebridge Hue2",
@@ -112,10 +98,6 @@
         "description": "Don't expose sensors already exposed by the v2 (square) Hue bridge.",
         "type": "boolean",
         "default": true
-      },
-      "noDeconz": {
-        "description": "Do not discover deCONZ gateways",
-        "type": "boolean"
       },
       "noResponse": {
         "description": "Report unreachable lights as <i>No Response</i> in HomeKit.",
@@ -221,8 +203,8 @@
       "key": "hosts",
       "type": "array",
       "items": {
-        "title": "Bridge/Gateway",
-        "description": "Hostname and port of the Hue bridge.",
+        "title": "Bridge",
+        "description": "Hostname of the Hue bridge.",
         "type": "string"
       }
     },
@@ -231,10 +213,8 @@
       "type": "fieldset",
       "expandable": true,
       "title": "Migration",
-      "description": "Migrate to Homebridge deCONZ and/or Homebridge Hue2.",
+      "description": "Migrate Homebridge Hue2.",
       "items": [
-        "noDeconz",
-        "homebridgeDeconz",
         "homebridgeHue2"
       ]
     },
@@ -274,58 +254,6 @@
               "value": "ZLLTemperature"
             },
             {
-              "name": "ZigBee Humidity Sensor",
-              "value": "ZHAHumidity"
-            },
-            {
-              "name": "ZigBee Air Pressure Sensor",
-              "value": "ZHAPressure"
-            },
-            {
-              "name": "ZigBee Air Quality Sensor",
-              "value": "ZHAAirQuality"
-            },
-            {
-              "name": "ZigBee Door/Window Sensor",
-              "value": "ZHAOpenClose"
-            },
-            {
-              "name": "ZigBee Alarm Sensor",
-              "value": "ZHAAlarm"
-            },
-            {
-              "name": "ZigBee Carbon Monoxide Sensor",
-              "value": "ZHACarbonMonoxide"
-            },
-            {
-              "name": "ZigBee Fire Sensor",
-              "value": "ZHAFire"
-            },
-            {
-              "name": "ZigBee Vibration Sensor",
-              "value": "ZHAVibration"
-            },
-            {
-              "name": "ZigBee Leak Sensor",
-              "value": "ZHAWater"
-            },
-            {
-              "name": "ZigBee Consumption Sensor",
-              "value": "ZHAConsumption"
-            },
-            {
-              "name": "ZigBee Power Sensor",
-              "value": "ZHAPower"
-            },
-            {
-              "name": "ZigBee Thermostat",
-              "value": "ZHAThermostat"
-            },
-            {
-              "name": "ZigBee Battery Sensor",
-              "value": "ZHABattery"
-            },
-            {
               "name": "Built-in Daylight Sensor",
               "value": "Daylight"
             },
@@ -350,52 +278,8 @@
               "value": "CLIPTemperature"
             },
             {
-              "name": "CLIP Humidity Sensor",
-              "value": "CLIPHumidity"
-            },
-            {
-              "name": "CLIP Air Pressure Sensor",
-              "value": "CLIPPressure"
-            },
-            {
-              "name": "CLIP Air Quality Sensor",
-              "value": "CLIPAirQuality"
-            },
-            {
               "name": "CLIP Door/Window Sensor",
               "value": "CLIPOpenClose"
-            },
-            {
-              "name": "CLIP Alarm Sensor",
-              "value": "CLIPAlarm"
-            },
-            {
-              "name": "CLIP Carbon Monoxide Sensor",
-              "value": "CLIPCarbonMonoxide"
-            },
-            {
-              "name": "CLIP Fire Sensor",
-              "value": "CLIPFire"
-            },
-            {
-              "name": "CLIP Vibration Sensor",
-              "value": "CLIPVibration"
-            },
-            {
-              "name": "CLIP Leak Sensor",
-              "value": "CLIPWater"
-            },
-            {
-              "name": "CLIP Consumption Sensor",
-              "value": "CLIPConsumption"
-            },
-            {
-              "name": "CLIP Power Sensor",
-              "value": "CLIPPower"
-            },
-            {
-              "name": "CLIP Battery Sensor",
-              "value": "CLIPBattery"
             },
             {
               "name": "Geofence",
@@ -417,12 +301,6 @@
           }
         },
         "lights",
-        {
-          "key": "effects",
-          "condition": {
-            "functionBody": "return model.lights"
-          }
-        },
         {
           "key": "nativeHomeKitLights",
           "condition": {
@@ -471,12 +349,6 @@
       "title": "How",
       "description": "Select how to expose the resources.",
       "items": [
-        {
-          "key": "forceEveWeather",
-          "condition": {
-            "functionBody": "return model.sensors"
-          }
-        },
         {
           "key": "hueDimmerRepeat",
           "condition": {

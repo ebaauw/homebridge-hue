@@ -8,6 +8,8 @@
       "README.md",
       "index.js",
       "lib",
+      "node_modules/hb-hue-tools/index.js",
+      "node_modules/hb-hue-tools/lib",
       "node_modules/hb-lib-tools/lib/HttpClient.js"
     ]
   },

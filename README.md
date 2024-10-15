@@ -72,7 +72,7 @@ To install Homebridge Hue:
 - Run Homebridge Hue for the first time, press the link button on (each of) your bridge(s).  Note the bridgeid/username (API key) pair for each bridge in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).  
 Note that you cannot add these through the Homebridge Hue *Settings* in Homebridge Config UI X, but you can use the *Homebridge Config Editor*.
 
-To update Homebridge Hue, simply issue another `sudo npm -g i homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating Homebridge Hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing Homebridge Hue, as in: `sudo npm -g i homebridge-hue@0.11.59`.
+To update Homebridge Hue, simply issue another `sudo npm -g i homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating Homebridge Hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing Homebridge Hue, as in: `sudo npm -g i homebridge-hue@0.13.70`.
 
 ### Configuration
 In Homebridge's `config.json` you need to specify Homebridge Hue as a platform plugin.  Furthermore, you need to specify what you want to expose to HomeKit.  See the [Wiki](https://github.com/ebaauw/homebridge-hue/wiki/Configuration) for a complete reference of the `config.json` settings used by Homebridge Hue, and for some examples.
@@ -113,7 +113,7 @@ To capture these messages into a log file do the following:
   ```
 
 #### Debug Dump File
-To aid troubleshooting, on startup, Homebridge Hue dumps its environment, including its `config.json` settings and the full state of all bridges / gateways into a compresed json file, `homebridge-hue.json.gz`.
+To aid troubleshooting, on startup, Homebridge Hue dumps its environment, including its `config.json` settings and the full state of all bridges into a compresed json file, `homebridge-hue.json.gz`.
 IP addresses, and bridge usernames are masked.
 This file is created in the Homebridge user directory, `~/.homebridge` by default.
 It can be downloaded through the Homebridge Config UI X user interface, from the Homebridge Hue _SETTINGS_ popup window, on the _Plugins_ tab.
@@ -131,7 +131,7 @@ Sometimes I get the question how people can support my work on Homebridge Hue.
 I created Homebridge Hue as a hobby project, for my own use.
 I share it on GitHub so others might benefit, and to give back to the open source community, without whom Homebridge Hue wouldn't have been possible.
 
-Having said that, adding support for new devices, in Homebridge Hue, and in the deCONZ REST API plugin, is very hard without having physical access to the device.
+Having said that, adding support for new devices, in Homebridge Hue, is very hard without having physical access to the device.
 Since this is a hobby project, I cannot afford to spend money on devices I won't be using myself, just to integrate them for the benefit of others.
 I am happy to receive small donations in the form of new devices to integrate, or the money to buy these devices myself.
 I am also happy to return the devices afterwards, if you provide the shipping costs.
