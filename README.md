@@ -69,7 +69,7 @@ To install Homebridge Hue:
   ```
 
 - Edit `config.json` and add the `Hue` platform provided by Homebridge Hue, see [**Configuration**](#configuration);
-- Run Homebridge Hue for the first time, press the link button on (each of) your bridge(s).  Note the bridgeid/username (API key) pair for each bridge in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).  
+- Run Homebridge Hue for the first time, press the link button on (each of) your bridge(s).  Note the bridge ID/API key pair for each bridge in the log output.  Edit `config.json` to include these, see [**Configuration**](#configuration).  
 Note that you cannot add these through the Homebridge Hue *Settings* in Homebridge Config UI X, but you can use the *Homebridge Config Editor*.
 
 To update Homebridge Hue, simply issue another `sudo npm -g i homebridge-hue@latest`.  Please check the [release notes](https://github.com/ebaauw/homebridge-hue/releases) before updating Homebridge Hue.  Note that a change to the minor version typically indicates that you need to review/redo your HomeKit configuration.  Due to changes in the mapping how Hue bridge resources are exposed, HomeKit might treat them as new accessories, services, and/or characteristics, losing any assignment to HomeKit rooms, scenes, actions, and triggers.  To revert to a previous version, specify the version when installing Homebridge Hue, as in: `sudo npm -g i homebridge-hue@0.13.70`.
@@ -114,7 +114,7 @@ To capture these messages into a log file do the following:
 
 #### Debug Dump File
 To aid troubleshooting, on startup, Homebridge Hue dumps its environment, including its `config.json` settings and the full state of all bridges into a compresed json file, `homebridge-hue.json.gz`.
-IP addresses, and bridge usernames are masked.
+IP addresses, and bridge API keys are masked.
 This file is created in the Homebridge user directory, `~/.homebridge` by default.
 It can be downloaded through the Homebridge Config UI X user interface, from the Homebridge Hue _SETTINGS_ popup window, on the _Plugins_ tab.
 
