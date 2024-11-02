@@ -25,13 +25,13 @@
   "engines": {
     "BSB001": "1.16.0",
     "BSB002": "1.67.0",
-    "homebridge": "^1.8.4||^2.0.0-beta",
-    "node": "20.18.0||^20||^18"
+    "homebridge": "^1.8.5||^2.0.0-beta",
+    "node": "22.11.0||22||^20||^18"
   },
   "dependencies": {
     "fakegato-history": "~0.6.5",
-    "homebridge-lib": "~7.0.9",
-    "hb-hue-tools": "~1.0.1"
+    "hb-hue-tools": "~1.0.2",
+    "homebridge-lib": "~7.1.0"
   },
   "scripts": {
     "prepare": "standard && rm -rf out && jsdoc -c jsdoc.json",
