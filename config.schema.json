@@ -37,7 +37,7 @@
         }
       },
       "forceHttp": {
-        "description": "Use plain http instead of https.",
+        "description": "Use plain HTTP instead of HTTPS.  Default: false.<br>Note that this will also disable the use of the Hue bridge event stream.",
         "type": "boolean"
       },
       "groups": {
