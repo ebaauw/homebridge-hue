@@ -204,7 +204,7 @@
       "type": "array",
       "items": {
         "title": "Bridge",
-        "description": "Hostname of the Hue bridge.",
+        "description": "Hostname or IPv4 address of the Hue bridge.",
         "type": "string"
       }
     },
