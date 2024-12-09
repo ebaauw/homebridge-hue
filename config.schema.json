@@ -75,6 +75,32 @@
         "description": "ID of the Homebridge Hue2 migration resource link.",
         "type": "string"
       },
+      "lightSettings": {
+        "type": "array",
+        "title": "Light Settings",
+        "description": "Define limits for brightness using the light's serial number.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "serialNumber": {
+              "type": "string",
+              "title": "Serial Number",
+              "description": "The serial number of the light."
+            },
+            "limit": {
+              "type": "integer",
+              "title": "Brightness Limit (%)",
+              "description": "The maximum brightness allowed (1-100%).",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          "required": [
+            "serialNumber",
+            "limit"
+          ]
+        }
+      },
       "lights": {
         "description": "Expose lights.",
         "type": "boolean"
@@ -299,6 +325,15 @@
           "condition": {
             "functionBody": "return model.sensors"
           }
+        },
+        {
+          "type": "fieldset",
+          "expandable": true,
+          "title": "Light Brightness Limits",
+          "description": "Set brightness limits for specific lights by their serial number.",
+          "items": [
+            "lightSettings"
+          ]
         },
         "lights",
         {
