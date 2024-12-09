@@ -326,15 +326,6 @@
             "functionBody": "return model.sensors"
           }
         },
-        {
-          "type": "fieldset",
-          "expandable": true,
-          "title": "Light Brightness Limits",
-          "description": "Set brightness limits for specific lights by their serial number.",
-          "items": [
-            "lightSettings"
-          ]
-        },
         "lights",
         {
           "key": "nativeHomeKitLights",
@@ -411,6 +402,15 @@
       "title": "Advanced Settings",
       "description": "Don't change these, unless you understand what you're doing.",
       "items": [
+        {
+          "type": "fieldset",
+          "expandable": true,
+          "title": "Light Brightness Limits",
+          "description": "Set brightness limits for specific lights by their serial number.",
+          "items": [
+            "lightSettings"
+          ]
+        },
         {
           "key": "brightnessAdjustment",
           "condition": {
