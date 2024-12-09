@@ -399,47 +399,26 @@
     {
       "type": "fieldset",
       "expandable": true,
-      "title": "Advanced Settings",
-      "description": "Don't change these, unless you understand what you're doing.",
+      "title": "Light Brightness Limits",
+      "description": "Define brightness limits for specific lights using their serial numbers.",
       "items": [
         {
-          "type": "fieldset",
-          "expandable": true,
-          "title": "Light Brightness Limits",
-          "description": "Set brightness limits for specific lights by their serial number.",
+          "key": "lightSettings",
+          "type": "array",
+          "addButtonTitle": "Add Light Limit",
           "items": [
-            "lightSettings"
+            {
+              "key": "lightSettings[].serialNumber",
+              "title": "Serial Number",
+              "description": "Enter the unique serial number of the light."
+            },
+            {
+              "key": "lightSettings[].limit",
+              "title": "Brightness Limit (%)",
+              "description": "Enter the maximum brightness percentage (1-100)."
+            }
           ]
-        },
-        {
-          "key": "brightnessAdjustment",
-          "condition": {
-            "functionBody": "return model.lights"
-          }
-        },
-        "configuredName",
-        "forceHttp",
-        "heartrate",
-        {
-          "key": "noResponse",
-          "condition": {
-            "functionBody": "return model.lights"
-          }
-        },
-        "ownResourcelinks",
-        "parallelRequests",
-        "resetTimeout",
-        "stealth",
-        "timeout",
-        "waitTimePut",
-        {
-          "key": "waitTimePutGroup",
-          "condition": {
-            "functionBody": "return model.groups"
-          }
-        },
-        "waitTimeResend",
-        "waitTimeUpdate"
+        }
       ]
     }
   ]
