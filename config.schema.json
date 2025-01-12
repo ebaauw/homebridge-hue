@@ -75,6 +75,32 @@
         "description": "ID of the Homebridge Hue2 migration resource link.",
         "type": "string"
       },
+      "lightSettings": {
+        "type": "array",
+        "title": "Light Settings",
+        "description": "Define limits for brightness using the light's serial number.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "serialNumber": {
+              "type": "string",
+              "title": "Serial Number",
+              "description": "The serial number of the light."
+            },
+            "limit": {
+              "type": "integer",
+              "title": "Brightness Limit (%)",
+              "description": "The maximum brightness allowed (1-100%).",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          "required": [
+            "serialNumber",
+            "limit"
+          ]
+        }
+      },
       "lights": {
         "description": "Expose lights.",
         "type": "boolean"
@@ -376,6 +402,31 @@
       "title": "Advanced Settings",
       "description": "Don't change these, unless you understand what you're doing.",
       "items": [
+        {
+          "type": "fieldset",
+          "expandable": true,
+          "title": "Light Brightness Limits",
+          "description": "Define brightness limits for specific lights using their serial numbers.",
+          "items": [
+            {
+              "key": "lightSettings",
+              "type": "array",
+              "addButtonTitle": "Add Light Limit",
+              "items": [
+                {
+                  "key": "lightSettings[].serialNumber",
+                  "title": "Serial Number",
+                  "description": "Enter the unique serial number of the light."
+                },
+                {
+                  "key": "lightSettings[].limit",
+                  "title": "Brightness Limit (%)",
+                  "description": "Enter the maximum brightness percentage (1-100)."
+                }
+              ]
+            }
+          ]
+        },
         {
           "key": "brightnessAdjustment",
           "condition": {
