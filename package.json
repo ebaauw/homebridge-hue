@@ -29,7 +29,7 @@
     "node": "22.14.0||22||^20||^18"
   },
   "dependencies": {
-    "fakegato-history": "~0.6.6",
+    "fakegato-history": "~0.6.7",
     "hb-hue-tools": "~1.1.7",
     "homebridge-lib": "~7.1.4"
   },
