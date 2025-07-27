@@ -6,6 +6,11 @@
   "maintainers": [
     "ebaauw"
   ],
+  "overrides": {
+    "fakegato-history": {
+      "googleapis": "npm:dry-uninstall@0.3.0"
+    }
+  },
   "license": "Apache-2.0",
   "version": "0.14.14",
   "keywords": [
@@ -34,7 +39,7 @@
     "homebridge-lib": "~7.1.4"
   },
   "scripts": {
-    "prepare": "standard && rm -rf out && jsdoc -c jsdoc.json",
+    "prepublishOnly": "standard && rm -rf out && jsdoc -c jsdoc.json",
     "test": "standard && echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
