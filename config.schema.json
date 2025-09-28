@@ -76,7 +76,7 @@
         "type": "string"
       },
       "lights": {
-        "description": "Expose lights.",
+        "description": "Expose /lights resources, used for lights, plugs, and wired switches.",
         "type": "boolean"
       },
       "linkButton": {
@@ -90,12 +90,12 @@
         "maximum": 100
       },
       "nativeHomeKitLights": {
-        "description": "Don't expose lights already exposed by the v2 (square) Hue bridge.",
+        "description": "Don't expose /lights resources already exposed by the v2 (square) Hue bridge.",
         "type": "boolean",
         "default": true
       },
       "nativeHomeKitSensors": {
-        "description": "Don't expose sensors already exposed by the v2 (square) Hue bridge.",
+        "description": "Don't expose /sensors resources already exposed by the v2 (square) Hue bridge.",
         "type": "boolean",
         "default": true
       },
@@ -145,7 +145,7 @@
         "type": "boolean"
       },
       "sensors": {
-        "description": "Expose sensors.",
+        "description": "Expose /sensors resources, used for sensors and wireless switches.",
         "type": "boolean"
       },
       "stealth": {
