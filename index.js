@@ -1,7 +1,7 @@
 // homebridge-hue/index.js
-// Copyright © 2016-2025 Erik Baauw. All rights reserved.
+// Copyright © 2016-2026 Erik Baauw. All rights reserved.
 //
-// Homebridge plug-in for Philips Hue.
+// Homebridge plugin for Philips Hue.
 
 import { HuePlatform } from './lib/HuePlatform.js'
 

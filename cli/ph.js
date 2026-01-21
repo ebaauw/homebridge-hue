@@ -2,8 +2,8 @@
 
 // homebridge-hue/cli/ph.js
 //
-// Homebridge plug-in for Philips Hue.
-// Copyright © 2018-2025 Erik Baauw. All rights reserved.
+// Homebridge plugin for Philips Hue.
+// Copyright © 2018-2026 Erik Baauw. All rights reserved.
 //
 // Command line interface to Philips Hue API.
 
