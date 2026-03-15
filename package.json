@@ -27,12 +27,12 @@
     "BSB002": "1.75.0",
     "BSB003": "1.75.0",
     "homebridge": "^1.11.1||^2.0.0-beta",
-    "node": "24.13.0||^24||^22||^20"
+    "node": "24.14.0||^24||^22||^20"
   },
   "dependencies": {
     "fakegato-history": "~0.6.7",
-    "hb-hue-tools": "~1.2.4",
-    "homebridge-lib": "~7.3.0"
+    "hb-hue-tools": "~1.2.6",
+    "homebridge-lib": "~7.3.2"
   },
   "scripts": {
     "prepare": "standard && rm -rf out && jsdoc -c jsdoc.json",
